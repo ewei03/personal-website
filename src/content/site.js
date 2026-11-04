@@ -14,9 +14,10 @@ export const profile = {
   headline: "Hey! I'm",
   headlineAccent: "Enoch Wei.",
   bio: [
-    "I was always a **competitive** kid. Piano competitions, math contests, badminton tournaments, even Rubik's cube competitions.",
+    "I was always a **competitive** kid. Piano competitions, math contests, badminton tournaments, even Rubik's cube competitions. I always wanted to be the best.",
     "I don't compete as much anymore, but my competitive spirit lives on. Now, I'm a **hobbyist** who loves picking up new things and **grinding** until I'm good at them.",
     "I'm now a Software Engineer who brings that same grind to my job.",
+    "***Soli Deo Gloria.***"
   ],
   portraits: [
     { src: "/images/portrait/child.jpg", label: "Child", caption: "2006 · Age 3" },
@@ -42,7 +43,7 @@ export const experience = [
     points: [
       "Shipped a content migration project for BMO. Now building an IVR system.",
     ],
-    tags: ["Fintech", "Consulting", "Full stack"],
+    tags: ["Fintech", "Consulting", "Full-stack"],
   },
   {
     role: "Forward Deployed Engineer Intern",
@@ -52,7 +53,7 @@ export const experience = [
     points: [
       "Built internal tools and data workflows that improved quality across Federato's insurtech platform.",
     ],
-    tags: ["Insurtech", "Startup", "Full stack"],
+    tags: ["Insurtech", "Startup", "Full-stack"],
   },
   {
     role: "Software Engineer Intern",
@@ -62,7 +63,7 @@ export const experience = [
     points: [
       "Shipped Quick Buy, a one-click checkout (think Amazon's \"Buy Now\") worth ~$748K in annual revenue.",
     ],
-    tags: ["E-commerce", "Backend", "QA & testing"],
+    tags: ["E-commerce", "Backend", "QA & Testing"],
   },
   {
     role: "Mobile Software Engineer Intern",
@@ -82,7 +83,7 @@ export const experience = [
     points: [
       "Led development of our flagship patient portal website.",
     ],
-    tags: ["Healthtech", "Full stack"],
+    tags: ["Healthtech", "Full-stack"],
   },
   {
     role: "Data Quality Associate Intern",

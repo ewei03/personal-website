@@ -35,7 +35,7 @@ function Hero() {
             </div>
           )}
           <div className="hero-cta fade-up" style={{ animationDelay: "1000ms" }}>
-            <Link className="btn btn-primary" to={{ pathname: "/", hash: "#projects" }}>Explore me <ArrowRight /></Link>
+            <Link className="btn btn-primary" to={{ pathname: "/", hash: "#experience" }}>Explore me! <ArrowRight /></Link>
             <Link className="btn btn-ghost" to="/contact">Get in touch</Link>
           </div>
         </div>
@@ -87,7 +87,10 @@ function Experience() {
               <article className="card reveal">
                 <div className="job-top">
                   <h3>{job.role} <span className="company">@ {job.company}</span></h3>
-                  <span className="dates">{job.dates}{job.location && <> · {job.location}</>}</span>
+                  <span className="job-when">
+                    {job.location && <span className="job-loc">{job.location}</span>}
+                    <span className="job-dates">{job.dates}</span>
+                  </span>
                 </div>
                 <ul>{job.points.map((pt, j) => <li key={j}>{pt}</li>)}</ul>
                 <Chips items={job.tags} label="Focus areas" />
@@ -102,7 +105,10 @@ function Experience() {
             <article className="card edu reveal" key={ed.school}>
               <div className="job-top">
                 <h3>{ed.degree} <span className="company">@ {ed.school}</span></h3>
-                <span className="dates">{ed.dates}{ed.location && <> · {ed.location}</>}</span>
+                <span className="job-when">
+                  {ed.location && <span className="job-loc">{ed.location}</span>}
+                  <span className="job-dates">{ed.dates}</span>
+                </span>
               </div>
               {ed.points?.length > 0 && <ul>{ed.points.map((pt, j) => <li key={j}>{pt}</li>)}</ul>}
             </article>
@@ -155,7 +161,7 @@ function Hobbies() {
   // Open the popup when the card itself is clicked, but let links/buttons inside work normally.
   const onCardClick = (h) => (e) => {
     if (e.target.closest("a, button")) return;
-    if (h.details?.length || h.gallery?.length) setOpen(h);
+    if (h.details?.length || h.gallery?.length || h.links?.length) setOpen(h);
   };
 
   return (
@@ -166,7 +172,7 @@ function Hobbies() {
         <div className="hobby-grid">
           {hobbies.map((h, i) => (
             <article
-              className={`card hobby reveal${h.gallery ? " wide" : ""}${h.details?.length || h.gallery?.length ? " has-details" : ""}`}
+              className={`card hobby reveal${h.gallery ? " wide" : ""}${h.details?.length || h.gallery?.length || h.links?.length ? " has-details" : ""}`}
               style={{ "--i": i % 2 }}
               key={h.title}
               onClick={onCardClick(h)}
@@ -175,16 +181,13 @@ function Hobbies() {
               {h.gallery && (
                 <div className="art-gallery">
                   {h.gallery.map((a) => (
-                    <a
+                    <div
                       key={a.src}
                       className={`art-piece${a.fit === "contain" ? " contain" : ""}`}
-                      href={a.full || a.src}
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <img src={a.src} alt={`${a.title}, digital drawing by ${profile.name}`} loading="lazy" />
                       <span>{a.title}</span>
-                    </a>
+                    </div>
                   ))}
                 </div>
               )}
@@ -199,16 +202,11 @@ function Hobbies() {
                   </div>
                 )}
                 <Chips items={h.tags} label={`${h.title} details`} />
-                {(h.links?.length > 0 || h.details?.length > 0 || h.gallery?.length > 0) && (
+                {(h.details?.length > 0 || h.gallery?.length > 0 || h.links?.length > 0) && (
                   <div className="project-links">
-                    {(h.details?.length > 0 || h.gallery?.length > 0) && (
-                      <button type="button" className="hobby-more" onClick={() => setOpen(h)}>
-                        Details <ArrowRight />
-                      </button>
-                    )}
-                    {h.links?.map((l) => (
-                      <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer">{l.label} <ArrowUpRight /></a>
-                    ))}
+                    <button type="button" className="hobby-more" onClick={() => setOpen(h)}>
+                      Details <ArrowRight />
+                    </button>
                   </div>
                 )}
               </div>

@@ -40,7 +40,18 @@ export function Chips({ items, label }) {
   );
 }
 
-/** Turns **word** into <strong>word</strong>. */
+/** Light markup: **bold**, *italic*, ***bold italic***. */
 export function emphasize(text) {
-  return text.split(/\*\*(.+?)\*\*/g).map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part));
+  const out = [];
+  const re = /\*\*\*(.+?)\*\*\*|\*\*(.+?)\*\*|\*(.+?)\*/g;
+  let last = 0, m, k = 0;
+  while ((m = re.exec(text))) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    if (m[1] !== undefined) out.push(<strong key={k++}><em>{m[1]}</em></strong>);
+    else if (m[2] !== undefined) out.push(<strong key={k++}>{m[2]}</strong>);
+    else out.push(<em key={k++}>{m[3]}</em>);
+    last = re.lastIndex;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
 }

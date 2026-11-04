@@ -1,17 +1,18 @@
 /* =========================================================
    Enoch Wei — personal site
-   Palette: dark, cool-hued (adjustable via --hue), warmed with
-   cream text and a soft amber–clay accent.
+   Palette: dark, cool-hued (adjustable via --hue), with cream text
+   and analogous accents 30° either side of the hue.
    ========================================================= */
 
 :root {
   /* One dark palette, tinted by --hue (cool spectrum: ~150 green → ~250 indigo).
-     The header slider changes --hue; 176 is the default teal. Warm accents stay fixed. */
+     The header slider changes --hue; 176 is the default teal. Accents are analogous (±30°). */
   --hue: 176;
 
   --bg: hsl(calc(var(--hue) - 2) 25% 6%);
   --bg-alt: hsl(var(--hue) 27% 8%);
   --surface: hsl(var(--hue) 25% 12%);
+  --surface-2: hsl(var(--hue) 23% 15%); /* alternate card shade */
   --ink: #efe7d9;           /* warm cream text */
   --ink-soft: #cfc6b6;
   --muted: hsl(calc(var(--hue) - 15) 8% 61%);
@@ -20,8 +21,9 @@
   --teal: hsl(calc(var(--hue) - 4) 36% 54%);
   --sea: hsl(calc(var(--hue) + 11) 48% 61%);
   --sage: hsl(calc(var(--hue) - 23) 28% 70%);
-  --amber: #e6a465;
-  --clay: #db8a6c;
+  /* Analogous accents: neighbours 30° either side of the slider hue */
+  --amber: hsl(calc(var(--hue) + 30) 70% 66%);
+  --clay: hsl(calc(var(--hue) - 30) 58% 64%);
 
   --accent: var(--teal);
   --accent-2: var(--amber);
@@ -29,13 +31,13 @@
   --blob-1: hsl(calc(var(--hue) + 11) 45% 50% / 0.08);
   --blob-2: var(--blob-1);
   --blob-3: var(--blob-1);
-  --glow: rgba(230, 164, 101, 0.06);
+  --glow: hsl(calc(var(--hue) + 30) 70% 66% / 0.06);
 
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
   --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.3), 0 18px 40px -16px rgba(0, 0, 0, 0.7);
 
-  --radius: 18px;
-  --radius-sm: 10px;
+  --radius: 10px;
+  --radius-sm: 6px;
   --maxw: 960px;
 
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -217,7 +219,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   color: var(--ink);
   width: 38px;
   height: 38px;
-  border-radius: 10px;
+  border-radius: 6px;
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -306,7 +308,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   gap: 8px;
   font-family: inherit;
   padding: 10px 18px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   font-weight: 500;
   font-size: 0.92rem;
   border: 1px solid transparent;
@@ -316,14 +318,31 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .btn svg { width: 16px; height: 16px; transition: transform 0.3s var(--ease); }
 .btn:hover svg { transform: translateX(3px); }
 .btn-primary {
-  background: var(--teal);
-  color: #fbf7f0;
+  /* same gradient as the signature logo; slides on hover */
+  background: linear-gradient(120deg,
+    color-mix(in srgb, var(--sea) 82%, var(--bg)),
+    color-mix(in srgb, var(--teal) 82%, var(--bg)) 45%,
+    color-mix(in srgb, var(--amber) 82%, var(--bg)) 100%);
+  background-size: 180% 100%;
+  background-position: 0% 50%;
+  color: #fff;
+  font-weight: 600;
   box-shadow: 0 8px 20px -10px var(--teal);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background-position 0.6s var(--ease);
 }
-.btn-primary { color: var(--bg); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -12px var(--teal); }
-.btn-ghost { border-color: var(--line); color: var(--ink); background: transparent; }
-.btn-ghost:hover { border-color: var(--amber); color: var(--clay); transform: translateY(-2px); }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background-position: 100% 50%;
+  box-shadow: 0 14px 28px -12px color-mix(in srgb, var(--amber) 60%, var(--teal));
+}
+.btn-ghost {
+  border-color: var(--line);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.btn-ghost:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-2px); }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -473,12 +492,12 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 
 .portrait {
   aspect-ratio: 4 / 5;
-  border-radius: 28px 28px 28px 120px;
+  border-radius: 14px 14px 14px 64px;
   box-shadow: var(--shadow-lift);
   transform: rotate(1.5deg);
   transition: transform 0.8s var(--ease), border-radius 0.8s var(--ease);
 }
-.portrait:hover { transform: rotate(0deg); border-radius: 120px 28px 28px 28px; }
+.portrait:hover { transform: rotate(0deg); border-radius: 64px 14px 14px 14px; }
 .portrait-wrap { position: relative; max-width: 320px; justify-self: end; width: 100%; }
 .portrait-frame { position: relative; isolation: isolate; }
 .portrait-frame::before {
@@ -486,7 +505,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   position: absolute;
   inset: 18px -18px -18px 18px;
   border: 1.5px solid var(--amber);
-  border-radius: 28px 28px 28px 120px;
+  border-radius: 14px 14px 14px 64px;
   opacity: 0.55;
   z-index: -1;
 }
@@ -605,14 +624,14 @@ main { overflow-x: clip; }
   height: 36px;
   display: grid;
   place-items: center;
-  border-radius: 10px;
+  border-radius: 6px;
   border: 1px solid var(--line);
   background: transparent;
   color: var(--ink);
   cursor: pointer;
   transition: border-color 0.25s, color 0.25s, transform 0.25s var(--ease);
 }
-.resume-icon-btn:hover { border-color: var(--amber); color: var(--clay); transform: translateY(-1px); }
+.resume-icon-btn:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-1px); }
 .resume-icon-btn svg { width: 17px; height: 17px; }
 .resume-dialog iframe { flex: 1; width: 100%; border: 0; background: #fff; }
 .kicker {
@@ -702,6 +721,34 @@ main { overflow-x: clip; }
   box-shadow: var(--shadow);
   transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.45s;
 }
+
+/* Spotlight: hovering a card dims every other card on the page/slide (mouse only).
+   Done with an overlay so it doesn't interfere with the cards' own transitions. */
+.card { position: relative; }
+.card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: var(--bg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity 0.35s var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  main:has(.card:hover) .card:not(:hover)::after { opacity: 0.45; }
+}
+
+/* Very subtly alternate card shades within each section */
+.timeline .job:nth-child(even) > .card,
+.project-grid > .card:nth-child(even),
+.hobby-grid > .card:nth-child(4n + 2),
+.hobby-grid > .card:nth-child(4n + 3),
+.link-cards > .card:nth-child(4n + 2),
+.link-cards > .card:nth-child(4n + 3) {
+  background: var(--surface-2);
+}
 .card:hover, .card.reveal.in-view:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); border-color: color-mix(in srgb, var(--sage) 60%, var(--line)); }
 
 .job-top {
@@ -719,6 +766,24 @@ main { overflow-x: clip; }
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+.job-when {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.job-loc { font-size: 0.85rem; color: var(--muted); }
+.job-dates {
+  font-size: 0.68rem;
+  color: var(--muted);
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 600px) {
+  .job-when { align-items: flex-start; text-align: left; }
 }
 .job ul, .edu ul { margin: 8px 0 0; padding-left: 1.1em; color: var(--ink-soft); }
 .job li, .edu li { margin-bottom: 2px; font-size: 0.95rem; }
@@ -815,7 +880,7 @@ main { overflow-x: clip; }
   position: relative;
   display: block;
   aspect-ratio: 4 / 5;
-  border-radius: 12px;
+  border-radius: 7px;
   overflow: hidden;
   background: #fff;
   box-shadow: var(--shadow);
@@ -842,14 +907,21 @@ main { overflow-x: clip; }
   gap: 16px;
   margin-bottom: 18px;
   padding: 16px 20px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--amber) 12%, var(--surface)), var(--surface) 70%);
+  border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
   border-left: 3px solid var(--amber);
+  box-shadow: var(--shadow), 0 10px 32px -18px color-mix(in srgb, var(--amber) 55%, transparent);
 }
-.fun-fact.card:hover, .fun-fact.card.reveal.in-view:hover { transform: none; }
+.fun-fact.card:hover, .fun-fact.card.reveal.in-view:hover {
+  transform: none;
+  border-color: color-mix(in srgb, var(--amber) 30%, var(--line));
+  border-left-color: var(--amber);
+}
 .fun-fact-icon {
   flex: none;
   width: 40px;
   height: 40px;
-  border-radius: 12px;
+  border-radius: 7px;
   display: grid;
   place-items: center;
   background: color-mix(in srgb, var(--amber) 16%, transparent);
@@ -870,7 +942,7 @@ main { overflow-x: clip; }
 .fun-fact-count { font-weight: 500; letter-spacing: 0.04em; color: var(--muted); }
 .fun-fact-body p {
   margin: 2px 0 0;
-  font-size: 0.97rem;
+  font-size: 1.02rem;
   color: var(--ink);
   animation: word-up 0.5s var(--ease) both;
 }
@@ -903,7 +975,7 @@ main { overflow-x: clip; }
   transition: border-color 0.25s, color 0.25s;
 }
 .fun-fact-next svg { width: 14px; height: 14px; transition: transform 0.3s var(--ease); }
-.fun-fact-next:hover { border-color: var(--amber); color: var(--clay); }
+.fun-fact-next:hover { border-color: var(--amber); color: var(--amber); }
 .fun-fact-next:hover svg { transform: translateX(3px); }
 @media (max-width: 600px) {
   .fun-fact { flex-wrap: wrap; }
@@ -924,7 +996,7 @@ main { overflow-x: clip; }
   position: relative;
   display: block;
   aspect-ratio: 1 / 1;
-  border-radius: 14px;
+  border-radius: 8px;
   overflow: hidden;
   background: #fff;
   box-shadow: var(--shadow);
@@ -1044,7 +1116,7 @@ main { overflow-x: clip; }
   flex: none;
   width: 52px;
   height: 52px;
-  border-radius: 14px;
+  border-radius: 8px;
   display: grid;
   place-items: center;
   background: color-mix(in srgb, var(--sea) 14%, transparent);
@@ -1084,7 +1156,7 @@ main { overflow-x: clip; }
 .cta-band {
   position: relative;
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: 14px;
   padding: clamp(28px, 5vw, 44px);
   background:
     radial-gradient(80% 120% at 100% 0%, color-mix(in srgb, var(--amber) 45%, transparent), transparent 60%),
@@ -1156,7 +1228,7 @@ main { overflow-x: clip; }
 .deck-arrow svg { width: 22px; height: 22px; }
 .deck-arrow.prev { left: 20px; }
 .deck-arrow.next { right: 20px; }
-.deck-arrow:hover { border-color: var(--amber); color: var(--clay); box-shadow: var(--shadow-lift); }
+.deck-arrow:hover { border-color: var(--amber); color: var(--amber); box-shadow: var(--shadow-lift); }
 .deck-arrow.prev:hover { transform: translateX(-3px); }
 .deck-arrow.next:hover { transform: translateX(3px); }
 
