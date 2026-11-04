@@ -1,18 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  profile, experience, education, projects, hobbies,
+  profile, experience, education, projects, hobbies, funFacts,
 } from "../content/site.js";
-import { Blobs, Chips, Photo, SplitText } from "../components/ui.jsx";
+import { Blobs, Chips, Photo, SplitText, emphasize } from "../components/ui.jsx";
+import FunFacts from "../components/FunFacts.jsx";
 import { ArrowRight, ArrowUpRight, GitHub } from "../components/Icons.jsx";
 import ResumeViewer from "../components/ResumeViewer.jsx";
 import PortraitCycle from "../components/PortraitCycle.jsx";
+import HobbyModal from "../components/HobbyModal.jsx";
 
-function SectionHead({ kicker, title, intro, children }) {
+function SectionHead({ title, intro, children }) {
   return (
     <div className="section-head">
       <div className="reveal">
-        <span className="kicker">{kicker}</span>
         <h2>{title}</h2>
       </div>
       {intro && <p className="reveal" style={{ "--i": 1 }}>{intro}</p>}
@@ -28,10 +29,10 @@ function Hero() {
       <div className="container hero-grid">
         <div>
           <SplitText text={profile.headline} accent={profile.headlineAccent} />
-          {profile.bio && (
-            <p className="bio fade-up" style={{ animationDelay: "800ms" }}>
-              {profile.bio} {profile.bioTagline && <strong>{profile.bioTagline}</strong>}
-            </p>
+          {profile.bio?.length > 0 && (
+            <div className="bio fade-up" style={{ animationDelay: "800ms" }}>
+              {profile.bio.map((para, i) => <p key={i}>{emphasize(para)}</p>)}
+            </div>
           )}
           <div className="hero-cta fade-up" style={{ animationDelay: "1000ms" }}>
             <Link className="btn btn-primary" to={{ pathname: "/", hash: "#projects" }}>Explore me <ArrowRight /></Link>
@@ -74,7 +75,7 @@ function Experience() {
   return (
     <section className="section" id="experience">
       <div className="container">
-        <SectionHead kicker="Experience" title="Where I've worked">
+        <SectionHead title="Where I've worked" intro="I've worked across fintech, insurtech, e-commerce, and healthtech, primarily full-stack.">
           <div className="reveal" style={{ "--i": 2 }}><ResumeViewer /></div>
         </SectionHead>
         <ol className="timeline" ref={timeline}>
@@ -93,7 +94,7 @@ function Experience() {
         </ol>
 
         <div className="subsection">
-          <span className="kicker reveal">Education</span>
+          <h3 className="subsection-title reveal">Education</h3>
           {education.map((ed) => (
             <article className="card edu reveal" key={ed.school}>
               <div className="job-top">
@@ -114,7 +115,7 @@ function Projects() {
   return (
     <section className="section section-alt" id="projects">
       <div className="container">
-        <SectionHead kicker="Projects" title="Things I've built" />
+        <SectionHead title="Things I've built" intro="Check out some of my personal projects!" />
         <div className="project-grid">
           {projects.map((p, i) => (
             <article className={`card project reveal${p.featured ? " featured" : ""}`} style={{ "--i": i % 2 }} key={p.title}>
@@ -147,13 +148,26 @@ function Projects() {
 }
 
 function Hobbies() {
+  const [open, setOpen] = useState(null);
+  // Open the popup when the card itself is clicked, but let links/buttons inside work normally.
+  const onCardClick = (h) => (e) => {
+    if (e.target.closest("a, button")) return;
+    if (h.details?.length || h.gallery?.length) setOpen(h);
+  };
+
   return (
     <section className="section" id="hobbies">
       <div className="container">
-        <SectionHead kicker="Off the clock" title="Things I love doing" />
+        <SectionHead title="Things I love doing" intro="Jack of all trades, master of… to be honest, I don't even know." />
+        <FunFacts facts={funFacts} />
         <div className="hobby-grid">
           {hobbies.map((h, i) => (
-            <article className={`card hobby reveal${h.gallery ? " wide" : ""}`} style={{ "--i": i % 2 }} key={h.title}>
+            <article
+              className={`card hobby reveal${h.gallery ? " wide" : ""}${h.details?.length || h.gallery?.length ? " has-details" : ""}`}
+              style={{ "--i": i % 2 }}
+              key={h.title}
+              onClick={onCardClick(h)}
+            >
               {h.image && <Photo src={h.image} label={`${h.title} photo`} />}
               {h.gallery && (
                 <div className="art-gallery">
@@ -182,9 +196,14 @@ function Hobbies() {
                   </div>
                 )}
                 <Chips items={h.tags} label={`${h.title} details`} />
-                {h.links?.length > 0 && (
+                {(h.links?.length > 0 || h.details?.length > 0 || h.gallery?.length > 0) && (
                   <div className="project-links">
-                    {h.links.map((l) => (
+                    {(h.details?.length > 0 || h.gallery?.length > 0) && (
+                      <button type="button" className="hobby-more" onClick={() => setOpen(h)}>
+                        Details <ArrowRight />
+                      </button>
+                    )}
+                    {h.links?.map((l) => (
                       <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer">{l.label} <ArrowUpRight /></a>
                     ))}
                   </div>
@@ -194,6 +213,7 @@ function Hobbies() {
           ))}
         </div>
       </div>
+      <HobbyModal hobby={open} onClose={() => setOpen(null)} artist={profile.name} />
     </section>
   );
 }

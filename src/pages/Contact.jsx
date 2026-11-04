@@ -28,7 +28,6 @@ export default function Contact() {
       <section className="page-hero">
         <Blobs />
         <div className="container">
-          <span className="kicker fade-up">Contact</span>
           <SplitText text="Let's" accent="talk!" />
           <p className="fade-up" style={{ animationDelay: "400ms" }}>
             Wanna work on something together? Wanna grab a coffee? Wanna just say hi? Shoot me a message!

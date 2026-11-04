@@ -48,3 +48,8 @@ export function Chips({ items, label }) {
     </ul>
   );
 }
+
+/** Turns **word** into <strong>word</strong>. */
+export function emphasize(text) {
+  return text.split(/\*\*(.+?)\*\*/g).map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part));
+}

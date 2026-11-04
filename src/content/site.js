@@ -5,15 +5,19 @@
 //  Missing photos fall back to a soft gradient placeholder.
 // =============================================================
 
+// Used by the Hobbies card and the fun facts.
+const MONKEYTYPE_URL = "https://monkeytype.com/profile/eggnonk";
+
 export const profile = {
   name: "Enoch Wei",
   firstName: "Enoch",
   headline: "Hi, I'm",
   headlineAccent: "Enoch Wei.",
-  bio: "I grew up competing in everything: piano competitions, math contests, badminton tournaments, Rubik's cube competitions. That never really stopped. I'm a hobbyist at heart who loves picking up new things and grinding until I'm good at them.",
-  bioTagline: "Curious, competitive, and committed.",
-  // Hero photos, youngest first. Shows the last one; clicking steps through from the first.
-  // `label` is only read by screen readers.
+  bio: [
+    "I was always a **competitive** kid. Piano competitions, math contests, badminton tournaments, even Rubik's cube competitions.",
+    "I don't compete as much anymore, but my competitive spirit lives on. Now, I'm a **hobbyist** who loves picking up new things and **grinding** until I'm good at them.",
+    "I'm now a Software Engineer who brings that same grind to my job.",
+  ],
   portraits: [
     { src: "/images/portrait/child.jpg", label: "Child" },
     { src: "/images/portrait/preteen.jpg", label: "Preteen" },
@@ -26,10 +30,9 @@ export const links = {
   linkedin: { url: "https://www.linkedin.com/in/enoch-wei", label: "linkedin.com/in/enoch-wei" },
   github: { url: "https://github.com/ewei03", label: "github.com/ewei03" },
   email: "enoch.wei03@gmail.com",
-  resume: "/resume.pdf", // public/resume.pdf
+  resume: "/resume.pdf",
 };
 
-// Newest first. Kept to short, impact-first one-liners; full detail lives in the résumé.
 export const experience = [
   {
     role: "Software Engineering Consultant",
@@ -42,7 +45,7 @@ export const experience = [
     tech: ["Contentful", "React", "TypeScript", "Node.js", "AWS Lambda"],
   },
   {
-    role: "Forward Deployed Engineer",
+    role: "Forward Deployed Engineer Intern",
     company: "Federato Technologies",
     dates: "Sep 2025 - Dec 2025",
     location: "Menlo Park, CA",
@@ -77,7 +80,7 @@ export const experience = [
     dates: "May 2023 - Aug 2023",
     location: "North York, ON",
     points: [
-      "Led development of the patient portal website.",
+      "Led development of our flagship patient portal website.",
     ],
     tech: ["Angular", "TypeScript", "Spring", "Java", "SQL Server"],
   },
@@ -99,12 +102,10 @@ export const education = [
     school: "University of Waterloo",
     dates: "Sep 2021 - Apr 2026",
     location: "Waterloo, ON",
-    points: ["Chair of the University of Waterloo Chinese Christian Fellowship."],
+    points: ["Studied artificial intelligence, machine learning, user interfaces, and statistics."],
   },
 ];
 
-// The first project with `featured: true` gets the large, full-width card.
-// `image`, `code`, `demo` and `links` (extra [{ label, url }]) are all optional.
 export const projects = [
   {
     title: "PlanAway",
@@ -142,44 +143,92 @@ export const projects = [
   },
 ];
 
-// Each hobby card: optional image, stats (big numbers), tags, and links.
-// TODO: replace the profile URLs with your own.
+// Fun facts card (top of Hobbies). Rotates through these; add as many as you like.
+// Keep this list (even empty): the card stays hidden while it's empty.
+// Each fact is a string, or { text, link: { label, url } } to add a link.
+// Supports **double asterisks** for emphasis.
+export const funFacts = [
+  "I can recite pi to **101 decimal places** from memory!",
+  { text: "I can type **200+ WPM**, putting me in the **top 0.07%** on Monkeytype's 15-second leaderboard.", link: { label: "Monkeytype", url: MONKEYTYPE_URL } },
+  { text: "I can name **every country in the world** on Sporcle, and at one point I knew all of their flags too.", link: { label: "Sporcle", url: "https://www.sporcle.com/user/asdfgasm/" } },
+  { text: "At 12, I played **first violin** in the OCMS Youth Symphony Orchestra.", link: { label: "OCMS", url: "https://ocms-ca.com/program/symphony-orchestra/" } },
+  { text: "I love shooter games, especially **VALORANT**. I even flew to Paris to watch Champions 2025 live.", link: { label: "Tracker", url: "https://tracker.gg/valorant/profile/riot/stupud%23man/overview?platform=pc&playlist=competitive&season=d816f426-48ea-f052-117f-9697a155b319" } },
+  "I enjoy running! I recently finished the Under Armour 10K in **55 minutes**.",
+  { text: "I once won a **chess medal** at a tournament (I'm not very good though.)", link: { label: "Chess.com", url: "https://www.chess.com/member/eggnonk" } },
+  "One of my more expensive hobbies is building **mechanical keyboards**!",
+];
+
 export const hobbies = [
   {
     title: "Music",
-    image: "/images/hobby-music.jpg",
-    text: "Piano first. I've also learned violin and taught myself guitar.",
-    tags: ["Piano", "Violin", "Guitar (self-taught)"],
+    // image: "/images/hobby-music.jpg", // uncomment once you add the photo
+    text: "I learned piano when I was five and violin when I was seven. I'm also self taught in guitar and played trumpet in my high school band!",
+    stats: [
+      { value: "ARCT", label: "Diploma in Piano" },
+      { value: "Level 9", label: "RCM Violin" },
+    ],
+    details: [
+      { title: "ARCT Diploma in Piano", text: "Associate diploma from the Royal Conservatory of Music." },
+      { title: "RCM Level 9, Violin" },
+      { title: "First violin, OCMS Youth Symphony Orchestra", text: "At age 12.", link: { label: "OCMS", url: "https://ocms-ca.com/program/symphony-orchestra/" } },
+      { title: "Piano competitions", text: "Competed throughout my childhood." },
+      { title: "Trumpet, high school band" },
+      { title: "Self-taught guitar" },
+    ],
   },
   {
     title: "Rhythm games",
-    image: "/images/hobby-osu.jpg",
-    text: "Where practice turns into milliseconds.",
+    // image: "/images/hobby-osu.jpg", // uncomment once you add the photo
+    text: "I'm a huge rhythm game enjoyer - click to see some of my osu! plays.",
     stats: [
-      { value: "Top 1K", label: "global, osu!mania" },
-      { value: "Top 10K", label: "global, osu!" },
+      { value: "\#844", label: "global, osu!mania" },
+      { value: "\#7349", label: "global, osu!" },
+      { value: "1st", label: "Tournamint #4 Winning Team" },
     ],
-    links: [{ label: "osu! profile", url: "https://osu.ppy.sh/users/your-id" }],
+    details: [
+      { title: "#844 global, osu!mania" },
+      { title: "#7349 global, osu!" },
+      { title: "1st place, Tournamint #4", text: "Part of the winning team, with a profile badge to show for it." },
+    ],
+    links: [
+      { label: "osu! profile", url: "https://osu.ppy.sh/users/9261099" },
+      { label: "Watch my plays", url: "https://www.youtube.com/playlist?list=PLN3eQJaijAk5c_3KhQyYELxzn7W7lFHCP" },
+    ],
   },
   {
     title: "Against the clock",
-    image: "/images/hobby-speed.jpg",
-    text: "If there's a timer, I want to beat it.",
-    stats: [{ value: "~200", label: "WPM on Monkeytype" }],
+    // image: "/images/hobby-speed.jpg", // uncomment once you add the photo
+    text: "I was bored one day back in 2014, and that's when I decided to pick up a Rubik's Cube. The rest is history! I've also gotten into speedstacking lately.",
+    stats: [
+      { value: "200+", label: "WPM on Monkeytype" },
+      { value: "Bronze", label: "2x2 cube, WCA 2015" },
+      { value: "9.96s", label: "Cycle, speed stacking" },
+    ],
+    details: [
+      { title: "Bronze medal, 2x2 cube", text: "WCA competition, 2015.", link: { label: "WCA", url: "https://www.worldcubeassociation.org/persons/2014WEIE01" } },
+      { title: "200+ WPM, top 0.07%", text: "Monkeytype's 15-second leaderboard.", link: { label: "Monkeytype", url: MONKEYTYPE_URL } },
+      { title: "9.96s cycle", text: "Personal best in speed stacking." },
+      { title: "Cubing since 2014" },
+    ],
     tags: ["Speedcubing", "Speed stacking"],
     links: [
-      { label: "WCA profile", url: "https://www.worldcubeassociation.org/persons/YOUR-WCA-ID" },
-      { label: "Monkeytype", url: "https://monkeytype.com/profile/your-username" },
+      { label: "WCA profile", url: "https://www.worldcubeassociation.org/persons/2014WEIE01" },
+      { label: "Monkeytype", url: MONKEYTYPE_URL },
     ],
   },
   {
     title: "Away from screens",
-    image: "/images/hobby-life.jpg",
-    text: "Cooking, lifting, and anything with a racket.",
+    // image: "/images/hobby-life.jpg", // uncomment once you add the photo
+    text: "I love to cook! Some of my favourite things to make are sourdough bread and handmade pasta. I also weightlift and I dabble in all racket sports.",
     tags: ["Cooking", "Weightlifting", "Racket sports"],
+    details: [
+      { title: "Under Armour 10K in 55 minutes" },
+      { title: "Badminton tournaments", text: "Competed growing up." },
+      { title: "Chess tournament medal", text: "(Still not very good.)", link: { label: "Chess.com", url: "https://www.chess.com/member/eggnonk" } },
+      { title: "Sourdough and handmade pasta", text: "My favourite things to cook." },
+    ],
   },
   {
-    // `gallery` makes this a full-width card. `full` (optional) is opened on click.
     title: "Digital art",
     text: "Putting my drawing tablet to use sometimes. More to come, hopefully.",
     gallery: [
