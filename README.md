@@ -1,6 +1,6 @@
 # Enoch Wei — personal site
 
-React + Vite. Teal / sea-blue palette warmed with sand and amber, light & dark mode, subtle scroll animations.
+Source for [enochwei.com](https://enochwei.com). React + Vite.
 
 ```bash
 npm install
@@ -36,9 +36,10 @@ src/components/       Layout (nav/footer/animation hooks), UI bits, icons
 3. **Projects**: add/remove entries in `projects`. `featured: true` gives one project the large card;
    `image`, `code` and `demo` are optional.
 
-## Deploying
+## Hosting
 
-Any static host works: Vercel, Netlify, Cloudflare Pages (build command `npm run build`, output `dist`).
-The site uses client-side routing; `public/_redirects` (Netlify/Cloudflare) and `vercel.json`
-are included so that links like `/contact` work on refresh.
-For GitHub Pages, switch `BrowserRouter` to `HashRouter` in `src/main.jsx`.
+Live at **[enochwei.com](https://enochwei.com)**. To publish changes, run `npm run build` and upload
+the contents of `dist/` to the enochwei.com host.
+
+The site uses client-side routing, so the server must fall back to `index.html` for unknown paths
+(otherwise refreshing `/contact` gives a 404).
