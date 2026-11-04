@@ -306,6 +306,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  font-family: inherit;
   padding: 10px 18px;
   border-radius: 999px;
   font-weight: 500;
@@ -401,11 +402,13 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   animation: word-up 0.9s var(--ease) forwards, shimmer 8s ease-in-out 1s infinite alternate;
 }
 
-.hero .lede {
-  font-size: clamp(1rem, 1.5vw, 1.1rem);
-  max-width: 34ch;
+.hero .bio {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  max-width: 46ch;
   margin-bottom: 24px;
 }
+.hero .bio strong { color: var(--teal); font-weight: 600; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* split-word entrance */
@@ -515,6 +518,17 @@ button.portrait::after { display: none; }
 /* ---------- Sections ---------- */
 section { position: relative; }
 .hero, .page-hero { isolation: isolate; }
+
+/* Sub-page header (Contact, 404) */
+.page-hero {
+  position: relative;
+  padding: clamp(48px, 8vw, 96px) 0 clamp(32px, 5vw, 48px);
+  overflow: hidden;
+}
+.page-hero p { font-size: 1.05rem; max-width: 52ch; }
+
+/* Never let decorative elements cause sideways scrolling */
+main { overflow-x: clip; }
 .section { padding: clamp(48px, 7vw, 80px) 0; }
 .section-alt { background: var(--bg-alt); }
 
@@ -584,17 +598,22 @@ section { position: relative; }
 }
 
 /* Tag chips */
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; padding: 0; list-style: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; padding: 0; list-style: none; }
 .chip {
-  font-size: 0.78rem;
-  padding: 3px 10px;
+  font-size: 0.625rem;
+  line-height: 1.5;
+  padding: 1px 8px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--sage) 22%, transparent);
-  color: var(--ink-soft);
-  border: 1px solid color-mix(in srgb, var(--sage) 45%, transparent);
-  transition: transform 0.25s var(--ease), background-color 0.25s;
+  background: color-mix(in srgb, var(--sage) 12%, transparent);
+  color: var(--muted);
+  border: 1px solid color-mix(in srgb, var(--sage) 28%, transparent);
+  transition: color 0.25s, background-color 0.25s, border-color 0.25s;
 }
-.chip:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--amber) 22%, transparent); }
+.chip:hover {
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--sage) 22%, transparent);
+  border-color: color-mix(in srgb, var(--sage) 45%, transparent);
+}
 
 /* Education (below the work timeline) */
 .subsection { margin-top: 36px; }

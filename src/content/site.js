@@ -1,17 +1,17 @@
 // =============================================================
 //  All of your editable site content lives here.
 //  Keep it skimmable: one idea per line.
-//  Photos go in /public/images and are referenced as "/images/â€¦".
+//  Photos go in /public/images and are referenced as "/images/…".
 //  Missing photos fall back to a soft gradient placeholder.
 // =============================================================
 
 export const profile = {
   name: "Enoch Wei",
   firstName: "Enoch",
-  status: "Open to new opportunities",
   headline: "Hi, I'm",
   headlineAccent: "Enoch Wei.",
-  lede: "Constantly learning, passionately building, always hungry for more.",
+  bio: "I grew up competing in everything: piano competitions, math contests, badminton tournaments, Rubik's cube competitions. That never really stopped. I'm a hobbyist at heart who loves picking up new things and grinding until I'm good at them.",
+  bioTagline: "Curious, competitive, and committed.",
   // Hero photos, youngest first. Shows the last one; clicking steps through from the first.
   // `label` is only read by screen readers.
   portraits: [
@@ -29,22 +29,22 @@ export const links = {
   resume: "/resume.pdf", // public/resume.pdf
 };
 
-// Newest first. Kept to short, impact-first one-liners; full detail lives in the rÃ©sumÃ©.
+// Newest first. Kept to short, impact-first one-liners; full detail lives in the résumé.
 export const experience = [
   {
     role: "Software Engineering Consultant",
     company: "BrainRidge Consulting",
-    dates: "Aug 2026 â€” Present",
+    dates: "Aug 2026 - Present",
     location: "Toronto, ON",
     points: [
-      "Migrated BMO's web content from a legacy WEM to Contentful. Now building an IVR system.",
+      "Shipped a content migration project for BMO. Now building an IVR system.",
     ],
     tech: ["Contentful", "React", "TypeScript", "Node.js", "AWS Lambda"],
   },
   {
     role: "Forward Deployed Engineer",
     company: "Federato Technologies",
-    dates: "Sep â€” Dec 2025",
+    dates: "Sep 2025 - Dec 2025",
     location: "Menlo Park, CA",
     points: [
       "Built internal tools and data workflows that improved quality across Federato's insurtech platform.",
@@ -54,22 +54,42 @@ export const experience = [
   {
     role: "Software Engineer Intern",
     company: "Rakuten Kobo",
-    dates: "Sep 2024 â€” Apr 2025",
+    dates: "Sep 2024 - Apr 2025",
     location: "Toronto, ON",
     points: [
       "Shipped Quick Buy, a one-click checkout (think Amazon's \"Buy Now\") worth ~$748K in projected annual revenue.",
     ],
-    tech: ["C#", ".NET", "SQL", "Playwright"],
+    tech: ["C#", ".NET", "SQL", "Playwright", "Selenium", "Jenkins"],
   },
   {
     role: "Mobile Software Engineer Intern",
     company: "Insurance & Mobility Solutions",
-    dates: "Jan â€” Apr 2024",
+    dates: "Jan 2024 - Apr 2024",
     location: "Waterloo, ON",
     points: [
       "Built iOS and Android sample apps that showcased the core product to clients.",
     ],
-    tech: ["SwiftUI", "Kotlin", "Firebase"],
+    tech: ["SwiftUI", "Kotlin", "Firebase", "Azure DevOps"],
+  },
+  {
+    role: "Software Engineer Intern",
+    company: "Alpha Labs",
+    dates: "May 2023 - Aug 2023",
+    location: "North York, ON",
+    points: [
+      "Led development of the patient portal website.",
+    ],
+    tech: ["Angular", "TypeScript", "Spring", "Java", "SQL Server"],
+  },
+  {
+    role: "Data Quality Associate Intern",
+    company: "Citylitics",
+    dates: "May 2022 - Aug 2022",
+    location: "Toronto, ON",
+    points: [
+      "Maintained data for 30,000+ North American infrastructure companies.",
+    ],
+    tech: ["SQL", "Python", "Django"],
   },
 ];
 
@@ -77,7 +97,7 @@ export const education = [
   {
     degree: "Bachelor of Computer Science",
     school: "University of Waterloo",
-    dates: "Sep 2021 â€” Apr 2026",
+    dates: "Sep 2021 - Apr 2026",
     location: "Waterloo, ON",
     points: ["Chair of the University of Waterloo Chinese Christian Fellowship."],
   },
@@ -88,7 +108,7 @@ export const education = [
 export const projects = [
   {
     title: "PlanAway",
-    kind: "Featured Â· AI agent",
+    kind: "Featured · AI agent",
     featured: true,
     image: "/images/project-planaway.png",
     text: "Describe a trip in plain English; a Claude-powered agent researches it and builds a day-by-day itinerary with maps that friends can plan on together.",

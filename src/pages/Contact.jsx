@@ -29,9 +29,9 @@ export default function Contact() {
         <Blobs />
         <div className="container">
           <span className="kicker fade-up">Contact</span>
-          <SplitText text="Let's" accent="talk." />
+          <SplitText text="Let's" accent="talk!" />
           <p className="fade-up" style={{ animationDelay: "400ms" }}>
-            A role, a project, or just a hello. My inbox is open.
+            Wanna work on something together? Wanna grab a coffee? Wanna just say hi? Shoot me a message!
           </p>
         </div>
       </section>
@@ -74,7 +74,6 @@ export default function Contact() {
             <button className="btn btn-primary" type="submit" style={{ justifySelf: "start" }}>
               Send message <ArrowRight />
             </button>
-            <p className="form-note">This opens your email app with the message pre-filled.</p>
           </form>
         </div>
       </section>

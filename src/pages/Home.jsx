@@ -27,12 +27,13 @@ function Hero() {
       <Blobs />
       <div className="container hero-grid">
         <div>
-          <span className="eyebrow fade-up" style={{ animationDelay: "40ms" }}>
-            <span className="dot" />{profile.status}
-          </span>
           <SplitText text={profile.headline} accent={profile.headlineAccent} />
-          <p className="lede fade-up" style={{ animationDelay: "800ms" }}>{profile.lede}</p>
-          <div className="hero-cta fade-up" style={{ animationDelay: "950ms" }}>
+          {profile.bio && (
+            <p className="bio fade-up" style={{ animationDelay: "800ms" }}>
+              {profile.bio} {profile.bioTagline && <strong>{profile.bioTagline}</strong>}
+            </p>
+          )}
+          <div className="hero-cta fade-up" style={{ animationDelay: "1000ms" }}>
             <Link className="btn btn-primary" to={{ pathname: "/", hash: "#projects" }}>Explore me <ArrowRight /></Link>
             <Link className="btn btn-ghost" to="/contact">Get in touch</Link>
           </div>
@@ -203,8 +204,8 @@ function CallToAction() {
       <div className="container">
         <div className="cta-band reveal">
           <div>
-            <h2>Got a hard problem?</h2>
-            <p>Looking for a full-time SWE role on a team that goes deep.</p>
+            <h2>Got a problem to solve?</h2>
+            <p>Always open to opportunities - I'd love to dive deep.</p>
           </div>
           <Link className="btn" to="/contact">Say hello <ArrowRight /></Link>
         </div>
