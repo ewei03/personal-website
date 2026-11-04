@@ -31,15 +31,6 @@ export function SplitText({ as: Tag = "h1", text, accent, style }) {
   );
 }
 
-/** Animated background blobs used behind hero sections. */
-export function Blobs({ which = [1, 2, 3] }) {
-  return (
-    <div className="hero-bg" aria-hidden="true">
-      {which.map((n) => <div key={n} className={`blob blob-${n}`} />)}
-    </div>
-  );
-}
-
 export function Chips({ items, label }) {
   if (!items?.length) return null;
   return (

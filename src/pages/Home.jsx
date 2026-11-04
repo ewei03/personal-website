@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import {
   profile, experience, education, projects, hobbies, funFacts,
 } from "../content/site.js";
-import { Blobs, Chips, Photo, SplitText, emphasize } from "../components/ui.jsx";
+import { Chips, Photo, SplitText, emphasize } from "../components/ui.jsx";
 import FunFacts from "../components/FunFacts.jsx";
 import { ArrowRight, ArrowUpRight, GitHub } from "../components/Icons.jsx";
 import ResumeViewer from "../components/ResumeViewer.jsx";
 import PortraitCycle from "../components/PortraitCycle.jsx";
 import HobbyModal from "../components/HobbyModal.jsx";
+import SlideDeck from "../components/SlideDeck.jsx";
 
 function SectionHead({ title, intro, children }) {
   return (
@@ -25,7 +26,6 @@ function SectionHead({ title, intro, children }) {
 function Hero() {
   return (
     <section className="hero">
-      <Blobs />
       <div className="container hero-grid">
         <div>
           <SplitText text={profile.headline} accent={profile.headlineAccent} />
@@ -63,19 +63,22 @@ function Experience() {
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
     update();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    // capture: also catches scrolling inside a slide; transitionend: fires after a slide change
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
     window.addEventListener("resize", onScroll);
+    document.addEventListener("transitionend", onScroll, true);
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", onScroll, { capture: true });
       window.removeEventListener("resize", onScroll);
+      document.removeEventListener("transitionend", onScroll, true);
     };
   }, []);
 
   return (
     <section className="section" id="experience">
       <div className="container">
-        <SectionHead title="Where I've worked" intro="I've worked across fintech, insurtech, e-commerce, and healthtech, primarily full-stack.">
+        <SectionHead title="Experience" intro="Feel free to download my résumé.">
           <div className="reveal" style={{ "--i": 2 }}><ResumeViewer /></div>
         </SectionHead>
         <ol className="timeline" ref={timeline}>
@@ -87,7 +90,7 @@ function Experience() {
                   <span className="dates">{job.dates}{job.location && <> · {job.location}</>}</span>
                 </div>
                 <ul>{job.points.map((pt, j) => <li key={j}>{pt}</li>)}</ul>
-                <Chips items={job.tech} label="Technologies" />
+                <Chips items={job.tags} label="Focus areas" />
               </article>
             </li>
           ))}
@@ -115,7 +118,7 @@ function Projects() {
   return (
     <section className="section section-alt" id="projects">
       <div className="container">
-        <SectionHead title="Things I've built" intro="Check out some of my personal projects!" />
+        <SectionHead title="Projects" intro="Check out some of my personal projects!" />
         <div className="project-grid">
           {projects.map((p, i) => (
             <article className={`card project reveal${p.featured ? " featured" : ""}`} style={{ "--i": i % 2 }} key={p.title}>
@@ -158,7 +161,7 @@ function Hobbies() {
   return (
     <section className="section" id="hobbies">
       <div className="container">
-        <SectionHead title="Things I love doing" intro="Jack of all trades, master of… to be honest, I don't even know." />
+        <SectionHead title="Hobbies" intro="Jack of all trades, master of… to be honest, I don't even know." />
         <FunFacts facts={funFacts} />
         <div className="hobby-grid">
           {hobbies.map((h, i) => (
@@ -218,31 +221,17 @@ function Hobbies() {
   );
 }
 
-function CallToAction() {
-  return (
-    <section className="section">
-      <div className="container">
-        <div className="cta-band reveal">
-          <div>
-            <h2>Got a problem to solve?</h2>
-            <p>Always open to opportunities - I'd love to dive deep.</p>
-          </div>
-          <Link className="btn" to="/contact">Say hello <ArrowRight /></Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function Home() {
   useEffect(() => { document.title = `${profile.name} — Software Engineer`; }, []);
   return (
-    <>
-      <Hero />
-      <Experience />
-      <Projects />
-      <Hobbies />
-      <CallToAction />
-    </>
+    <SlideDeck
+      slides={[
+        { id: "intro", label: "Intro", content: <Hero /> },
+        { id: "experience", label: "Experience", content: <Experience /> },
+        { id: "projects", label: "Projects", content: <Projects /> },
+        { id: "hobbies", label: "Hobbies", content: <Hobbies /> },
+      ]}
+      end={{ label: "Contact", to: "/contact" }}
+    />
   );
 }

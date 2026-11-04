@@ -1,26 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const INTERVAL = 4000;
 
 /**
- * Hero portrait that "grows up". Starts on the most recent photo; clicking the photo steps
- * through youngest → oldest, and the dots below jump to any photo.
+ * Hero portrait that "grows up". Starts on the most recent photo and auto-advances
+ * youngest → oldest (pauses on hover/focus, off for reduced-motion users, holds a little
+ * longer on the current photo). Clicking the photo steps forward; the dots jump to any photo.
  */
 export default function PortraitCycle({ photos, name }) {
   const last = photos.length - 1;
   const [index, setIndex] = useState(last);
+  const [paused, setPaused] = useState(false);
   const next = () => setIndex((i) => (i + 1) % photos.length);
 
+  useEffect(() => {
+    if (photos.length < 2 || paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setTimeout(next, index === last ? INTERVAL * 1.5 : INTERVAL);
+    return () => clearTimeout(id);
+  }, [index, paused, photos.length, last]);
+
   return (
-    <div className="portrait-cycle">
+    <div
+      className="portrait-cycle"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       <div className="portrait-frame">
         <button
           type="button"
           className="photo portrait"
           onClick={next}
-          aria-label={`${name} as ${photos[index].label.toLowerCase()}. Show next photo.`}
+          aria-label={`${name} as ${photos[index].label.toLowerCase()}${photos[index].caption ? ` (${photos[index].caption})` : ""}. Show next photo.`}
         >
           {photos.map((p, i) => (
             <img key={p.src} src={p.src} alt="" className={i === index ? "active" : ""} loading={i === last ? "eager" : "lazy"} />
           ))}
+          {photos[index].caption && (
+            <span className="portrait-caption" key={index}>{photos[index].caption}</span>
+          )}
         </button>
       </div>
 

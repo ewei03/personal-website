@@ -11,7 +11,7 @@ const MONKEYTYPE_URL = "https://monkeytype.com/profile/eggnonk";
 export const profile = {
   name: "Enoch Wei",
   firstName: "Enoch",
-  headline: "Hi, I'm",
+  headline: "Hey! I'm",
   headlineAccent: "Enoch Wei.",
   bio: [
     "I was always a **competitive** kid. Piano competitions, math contests, badminton tournaments, even Rubik's cube competitions.",
@@ -19,10 +19,10 @@ export const profile = {
     "I'm now a Software Engineer who brings that same grind to my job.",
   ],
   portraits: [
-    { src: "/images/portrait/child.jpg", label: "Child" },
-    { src: "/images/portrait/preteen.jpg", label: "Preteen" },
-    { src: "/images/portrait/teen.jpg", label: "Teen" },
-    { src: "/images/portrait/adult.jpg", label: "Adult" },
+    { src: "/images/portrait/child.jpg", label: "Child", caption: "2006 · Age 3" },
+    { src: "/images/portrait/preteen.jpg", label: "Preteen", caption: "2014 · Age 11" },
+    { src: "/images/portrait/teen.jpg", label: "Teen", caption: "2016 · Age 13" },
+    { src: "/images/portrait/adult.jpg", label: "Adult", caption: "2026 · Age 23" },
   ],
 };
 
@@ -42,7 +42,7 @@ export const experience = [
     points: [
       "Shipped a content migration project for BMO. Now building an IVR system.",
     ],
-    tech: ["Contentful", "React", "TypeScript", "Node.js", "AWS Lambda"],
+    tags: ["Fintech", "Consulting", "Full stack"],
   },
   {
     role: "Forward Deployed Engineer Intern",
@@ -52,7 +52,7 @@ export const experience = [
     points: [
       "Built internal tools and data workflows that improved quality across Federato's insurtech platform.",
     ],
-    tech: ["Node.js", "GraphQL", "Python", "PostgreSQL"],
+    tags: ["Insurtech", "Startup", "Full stack"],
   },
   {
     role: "Software Engineer Intern",
@@ -60,9 +60,9 @@ export const experience = [
     dates: "Sep 2024 - Apr 2025",
     location: "Toronto, ON",
     points: [
-      "Shipped Quick Buy, a one-click checkout (think Amazon's \"Buy Now\") worth ~$748K in projected annual revenue.",
+      "Shipped Quick Buy, a one-click checkout (think Amazon's \"Buy Now\") worth ~$748K in annual revenue.",
     ],
-    tech: ["C#", ".NET", "SQL", "Playwright", "Selenium", "Jenkins"],
+    tags: ["E-commerce", "Backend", "QA & testing"],
   },
   {
     role: "Mobile Software Engineer Intern",
@@ -72,7 +72,7 @@ export const experience = [
     points: [
       "Built iOS and Android sample apps that showcased the core product to clients.",
     ],
-    tech: ["SwiftUI", "Kotlin", "Firebase", "Azure DevOps"],
+    tags: ["Insurtech", "Telematics", "Mobile"],
   },
   {
     role: "Software Engineer Intern",
@@ -82,7 +82,7 @@ export const experience = [
     points: [
       "Led development of our flagship patient portal website.",
     ],
-    tech: ["Angular", "TypeScript", "Spring", "Java", "SQL Server"],
+    tags: ["Healthtech", "Full stack"],
   },
   {
     role: "Data Quality Associate Intern",
@@ -92,7 +92,7 @@ export const experience = [
     points: [
       "Maintained data for 30,000+ North American infrastructure companies.",
     ],
-    tech: ["SQL", "Python", "Django"],
+    tags: ["Infrastructure", "Data"],
   },
 ];
 
