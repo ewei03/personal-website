@@ -22,8 +22,8 @@ src/components/       Layout (nav/footer/animation hooks), UI bits, icons
 
 ## Filling in content
 
-1. **Text & links**: edit `src/content/site.js`. Search for `TODO`, `Lorem`, `Company Name`,
-   `your-handle`, `your-username`, `you@example.com`.
+1. **Text & links**: edit `src/content/site.js`. Remaining placeholders: search for `TODO`, `Lorem`,
+   `your-id`, `YOUR-WCA-ID`, `your-username`.
 2. **Photos**: drop into `public/images/` using these names (or change the paths in `site.js`).
    Until a file exists, a soft gradient placeholder is shown.
 
@@ -31,7 +31,7 @@ src/components/       Layout (nav/footer/animation hooks), UI bits, icons
    | --- | --- |
    | `portrait.jpg` | Home hero (portrait, ~4:5) |
    | `hobby-music.jpg`, `hobby-osu.jpg`, `hobby-speed.jpg`, `hobby-life.jpg` | Hobby cards (~16:9) |
-   | `project-1.jpg` … `project-3.jpg` | Project cards (~16:9 screenshots) |
+   | `project-planaway.png`, `project-2.jpg`, `project-3.jpg` | Project cards (~16:9 screenshots) |
 
 3. **Projects**: add/remove entries in `projects`. `featured: true` gives one project the large card;
    `image`, `code` and `demo` are optional.

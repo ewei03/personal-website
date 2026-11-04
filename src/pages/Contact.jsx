@@ -7,7 +7,7 @@ const cards = [
   { title: "LinkedIn", sub: links.linkedin.label, href: links.linkedin.url, Icon: LinkedIn, external: true },
   { title: "GitHub", sub: links.github.label, href: links.github.url, Icon: GitHub, external: true },
   { title: "Email", sub: links.email, href: `mailto:${links.email}`, Icon: Mail },
-  { title: "Résumé", sub: "Download PDF", href: links.resume, Icon: FileText, external: true },
+  { title: "Résumé", sub: "View PDF", href: links.resume, Icon: FileText },
 ];
 
 export default function Contact() {

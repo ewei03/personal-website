@@ -1,7 +1,7 @@
 // =============================================================
 //  All of your editable site content lives here.
 //  Keep it skimmable: one idea per line.
-//  Photos go in /public/images and are referenced as "/images/…".
+//  Photos go in /public/images and are referenced as "/images/â€¦".
 //  Missing photos fall back to a soft gradient placeholder.
 // =============================================================
 
@@ -9,88 +9,118 @@ export const profile = {
   name: "Enoch Wei",
   firstName: "Enoch",
   status: "Open to new opportunities",
-  headline: "I take things apart to see how they",
-  headlineAccent: "work.",
-  lede: "Software engineer and UWaterloo CS grad. Curious, competitive, and happiest deep in a hard problem.",
-  portrait: "/images/portrait.jpg",
+  headline: "Hi, I'm",
+  headlineAccent: "Enoch Wei.",
+  lede: "Constantly learning, passionately building, always hungry for more.",
+  // Hero photos, youngest first. Shows the last one; clicking steps through from the first.
+  // `label` is only read by screen readers.
+  portraits: [
+    { src: "/images/portrait/child.jpg", label: "Child" },
+    { src: "/images/portrait/preteen.jpg", label: "Preteen" },
+    { src: "/images/portrait/teen.jpg", label: "Teen" },
+    { src: "/images/portrait/adult.jpg", label: "Adult" },
+  ],
 };
 
-// TODO: replace with your real handles
 export const links = {
-  linkedin: { url: "https://www.linkedin.com/in/your-handle", label: "linkedin.com/in/your-handle" },
-  github: { url: "https://github.com/your-username", label: "github.com/your-username" },
-  email: "you@example.com",
-  resume: "/resume.pdf", // drop your résumé at public/resume.pdf
+  linkedin: { url: "https://www.linkedin.com/in/enoch-wei", label: "linkedin.com/in/enoch-wei" },
+  github: { url: "https://github.com/ewei03", label: "github.com/ewei03" },
+  email: "enoch.wei03@gmail.com",
+  resume: "/resume.pdf", // public/resume.pdf
 };
 
-export const experienceIntro = "New stack, new domain, every term.";
-
-// Newest first. Aim for one or two short, impact-first bullets each.
+// Newest first. Kept to short, impact-first one-liners; full detail lives in the rÃ©sumÃ©.
 export const experience = [
   {
-    role: "Software Engineer",
-    company: "Company Name",
-    dates: "2026 — Present",
-    points: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit."],
-    tech: ["TypeScript", "React", "GraphQL"],
+    role: "Software Engineering Consultant",
+    company: "BrainRidge Consulting",
+    dates: "Aug 2026 â€” Present",
+    location: "Toronto, ON",
+    points: [
+      "Migrated BMO's web content from a legacy WEM to Contentful. Now building an IVR system.",
+    ],
+    tech: ["Contentful", "React", "TypeScript", "Node.js", "AWS Lambda"],
   },
   {
-    role: "Software Engineering Intern",
-    company: "Company Name",
-    dates: "Winter 2025",
-    points: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit."],
-    tech: ["Go", "Kubernetes", "PostgreSQL"],
+    role: "Forward Deployed Engineer",
+    company: "Federato Technologies",
+    dates: "Sep â€” Dec 2025",
+    location: "Menlo Park, CA",
+    points: [
+      "Built internal tools and data workflows that improved quality across Federato's insurtech platform.",
+    ],
+    tech: ["Node.js", "GraphQL", "Python", "PostgreSQL"],
   },
   {
-    role: "Backend Developer Intern",
-    company: "Company Name",
-    dates: "Spring 2024",
-    points: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit."],
-    tech: ["Python", "Django", "AWS"],
+    role: "Software Engineer Intern",
+    company: "Rakuten Kobo",
+    dates: "Sep 2024 â€” Apr 2025",
+    location: "Toronto, ON",
+    points: [
+      "Shipped Quick Buy, a one-click checkout (think Amazon's \"Buy Now\") worth ~$748K in projected annual revenue.",
+    ],
+    tech: ["C#", ".NET", "SQL", "Playwright"],
   },
   {
-    role: "Bachelor of Computer Science",
-    company: "University of Waterloo",
-    dates: "20XX — 2026",
-    points: ["Lorem ipsum: an honour, club, or capstone."],
-    tech: [],
+    role: "Mobile Software Engineer Intern",
+    company: "Insurance & Mobility Solutions",
+    dates: "Jan â€” Apr 2024",
+    location: "Waterloo, ON",
+    points: [
+      "Built iOS and Android sample apps that showcased the core product to clients.",
+    ],
+    tech: ["SwiftUI", "Kotlin", "Firebase"],
   },
 ];
 
-export const projectsIntro = "Built to find out if I could.";
+export const education = [
+  {
+    degree: "Bachelor of Computer Science",
+    school: "University of Waterloo",
+    dates: "Sep 2021 â€” Apr 2026",
+    location: "Waterloo, ON",
+    points: ["Chair of the University of Waterloo Chinese Christian Fellowship."],
+  },
+];
 
 // The first project with `featured: true` gets the large, full-width card.
-// `image`, `code` and `demo` are all optional.
+// `image`, `code`, `demo` and `links` (extra [{ label, url }]) are all optional.
 export const projects = [
   {
-    title: "Project One",
-    kind: "Featured project",
+    title: "PlanAway",
+    kind: "Featured Â· AI agent",
     featured: true,
-    image: "/images/project-1.jpg",
-    text: "Lorem ipsum dolor sit amet: what it does and the clever part, in one line.",
-    tech: ["Rust", "WebAssembly", "React"],
-    code: "https://github.com/your-username/project-one",
-    demo: "https://example.com",
+    image: "/images/project-planaway.png",
+    text: "Describe a trip in plain English; a Claude-powered agent researches it and builds a day-by-day itinerary with maps that friends can plan on together.",
+    tech: ["Next.js", "TypeScript", "Claude API", "Postgres", "MapLibre"],
+    code: "https://github.com/ewei03/planaway",
   },
   {
-    title: "Project Two",
+    title: "Typing Duel",
+    kind: "Work in progress",
+    wip: true, // shows a pulsing dot
+    image: "/images/project-typing-duel.png",
+    text: "Real-time 1v1 typing battles: clean words charge attacks that bury your opponent. Think tetr.io meets TypeRacer.",
+    tech: ["Vite", "Docker", "GitHub Actions"], // TODO: add language / realtime lib
+    code: "https://github.com/ewei03/typing-duel-game",
+  },
+  {
+    title: "Harold",
+    kind: "Discord bot",
+    image: "/images/project-harold.png",
+    text: "An anti-procrastination bot that nags you, gently or annoyingly, until your assignments are done.",
+    tech: ["Node.js", "discord.js", "MongoDB", "node-cron"],
+    code: "https://github.com/ewei03/harold-discord-bot",
+  },
+  {
+    title: "Need 2 Go",
     kind: "Hackathon",
-    image: "/images/project-2.jpg",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    tech: ["Python", "FastAPI", "OpenCV"],
-    code: "https://github.com/your-username/project-two",
-  },
-  {
-    title: "Project Three",
-    kind: "Deep dive",
-    image: "/images/project-3.jpg",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    tech: ["C++", "Systems"],
-    code: "https://github.com/your-username/project-three",
+    image: "/images/project-need-2-go.png",
+    text: "An iOS app for finding, rating and getting directions to the nearest washroom, with filters for what you need.",
+    tech: ["Swift", "Django", "Django REST", "Google Places API"],
+    links: [{ label: "Devpost", url: "https://devpost.com/software/need-2-go" }],
   },
 ];
-
-export const hobbiesIntro = "Practice, precision, and usually a timer.";
 
 // Each hobby card: optional image, stats (big numbers), tags, and links.
 // TODO: replace the profile URLs with your own.
@@ -127,5 +157,15 @@ export const hobbies = [
     image: "/images/hobby-life.jpg",
     text: "Cooking, lifting, and anything with a racket.",
     tags: ["Cooking", "Weightlifting", "Racket sports"],
+  },
+  {
+    // `gallery` makes this a full-width card. `full` (optional) is opened on click.
+    title: "Digital art",
+    text: "Putting my drawing tablet to use sometimes. More to come, hopefully.",
+    gallery: [
+      { src: "/images/art/totoro.jpg", full: "/images/art/totoro-full.png", title: "Totoro" },
+      { src: "/images/art/furret.png", title: "Furret" },
+      { src: "/images/art/dwebble.png", title: "Dwebble", fit: "contain" },
+    ],
   },
 ];

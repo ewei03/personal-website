@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
-  profile, experience, experienceIntro,
-  projects, projectsIntro, hobbies, hobbiesIntro,
+  profile, experience, education, projects, hobbies,
 } from "../content/site.js";
 import { Blobs, Chips, Photo, SplitText } from "../components/ui.jsx";
 import { ArrowRight, ArrowUpRight, GitHub } from "../components/Icons.jsx";
+import ResumeViewer from "../components/ResumeViewer.jsx";
+import PortraitCycle from "../components/PortraitCycle.jsx";
 
 function SectionHead({ kicker, title, intro, children }) {
   return (
@@ -29,15 +30,15 @@ function Hero() {
           <span className="eyebrow fade-up" style={{ animationDelay: "40ms" }}>
             <span className="dot" />{profile.status}
           </span>
-          <SplitText text={`Hi, I'm ${profile.firstName}. ${profile.headline}`} accent={profile.headlineAccent} />
+          <SplitText text={profile.headline} accent={profile.headlineAccent} />
           <p className="lede fade-up" style={{ animationDelay: "800ms" }}>{profile.lede}</p>
           <div className="hero-cta fade-up" style={{ animationDelay: "950ms" }}>
-            <Link className="btn btn-primary" to={{ pathname: "/", hash: "#projects" }}>See what I've built <ArrowRight /></Link>
+            <Link className="btn btn-primary" to={{ pathname: "/", hash: "#projects" }}>Explore me <ArrowRight /></Link>
             <Link className="btn btn-ghost" to="/contact">Get in touch</Link>
           </div>
         </div>
         <div className="portrait-wrap fade-up" style={{ animationDelay: "300ms" }}>
-          <Photo src={profile.portrait} alt={`Portrait of ${profile.name}`} label="Your portrait" className="portrait" />
+          <PortraitCycle photos={profile.portraits} name={profile.name} />
         </div>
       </div>
     </section>
@@ -72,14 +73,16 @@ function Experience() {
   return (
     <section className="section" id="experience">
       <div className="container">
-        <SectionHead kicker="Experience" title="Where I've worked" intro={experienceIntro} />
+        <SectionHead kicker="Experience" title="Where I've worked">
+          <div className="reveal" style={{ "--i": 2 }}><ResumeViewer /></div>
+        </SectionHead>
         <ol className="timeline" ref={timeline}>
           {experience.map((job, i) => (
             <li className="job" key={i}>
               <article className="card reveal">
                 <div className="job-top">
                   <h3>{job.role} <span className="company">@ {job.company}</span></h3>
-                  <span className="dates">{job.dates}</span>
+                  <span className="dates">{job.dates}{job.location && <> · {job.location}</>}</span>
                 </div>
                 <ul>{job.points.map((pt, j) => <li key={j}>{pt}</li>)}</ul>
                 <Chips items={job.tech} label="Technologies" />
@@ -87,6 +90,19 @@ function Experience() {
             </li>
           ))}
         </ol>
+
+        <div className="subsection">
+          <span className="kicker reveal">Education</span>
+          {education.map((ed) => (
+            <article className="card edu reveal" key={ed.school}>
+              <div className="job-top">
+                <h3>{ed.degree} <span className="company">@ {ed.school}</span></h3>
+                <span className="dates">{ed.dates}{ed.location && <> · {ed.location}</>}</span>
+              </div>
+              {ed.points?.length > 0 && <ul>{ed.points.map((pt, j) => <li key={j}>{pt}</li>)}</ul>}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -97,17 +113,17 @@ function Projects() {
   return (
     <section className="section section-alt" id="projects">
       <div className="container">
-        <SectionHead kicker="Projects" title="Things I've built" intro={projectsIntro} />
+        <SectionHead kicker="Projects" title="Things I've built" />
         <div className="project-grid">
           {projects.map((p, i) => (
             <article className={`card project reveal${p.featured ? " featured" : ""}`} style={{ "--i": i % 2 }} key={p.title}>
               {p.image !== undefined && <Photo src={p.image} alt={`Screenshot of ${p.title}`} label={`${p.title} image`} />}
               <div className="project-body">
-                {p.kind && <span className="project-meta">{p.kind}</span>}
+                {p.kind && <span className={`project-meta${p.wip ? " wip" : ""}`}>{p.kind}</span>}
                 <h3>{p.title}</h3>
                 <p>{p.text}</p>
                 <Chips items={p.tech} label="Built with" />
-                {(p.code || p.demo) && (
+                {(p.code || p.demo || p.links?.length > 0) && (
                   <div className="project-links">
                     {p.code && (
                       <a href={p.code} target="_blank" rel="noopener noreferrer"><GitHub /> Code</a>
@@ -115,6 +131,9 @@ function Projects() {
                     {p.demo && (
                       <a href={p.demo} target="_blank" rel="noopener noreferrer">Live demo <ArrowUpRight /></a>
                     )}
+                    {p.links?.map((l) => (
+                      <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer">{l.label} <ArrowUpRight /></a>
+                    ))}
                   </div>
                 )}
               </div>
@@ -130,11 +149,27 @@ function Hobbies() {
   return (
     <section className="section" id="hobbies">
       <div className="container">
-        <SectionHead kicker="Off the clock" title="Things I love doing" intro={hobbiesIntro} />
+        <SectionHead kicker="Off the clock" title="Things I love doing" />
         <div className="hobby-grid">
           {hobbies.map((h, i) => (
-            <article className="card hobby reveal" style={{ "--i": i % 2 }} key={h.title}>
+            <article className={`card hobby reveal${h.gallery ? " wide" : ""}`} style={{ "--i": i % 2 }} key={h.title}>
               {h.image && <Photo src={h.image} label={`${h.title} photo`} />}
+              {h.gallery && (
+                <div className="art-gallery">
+                  {h.gallery.map((a) => (
+                    <a
+                      key={a.src}
+                      className={`art-piece${a.fit === "contain" ? " contain" : ""}`}
+                      href={a.full || a.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src={a.src} alt={`${a.title}, digital drawing by ${profile.name}`} loading="lazy" />
+                      <span>{a.title}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
               <div className="hobby-body">
                 <h3>{h.title}</h3>
                 <p>{h.text}</p>

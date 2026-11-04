@@ -71,7 +71,7 @@ function Footer() {
         <figcaption>1 Peter 5:7</figcaption>
       </figure>
       <div className="container footer-inner">
-        <span>© {new Date().getFullYear()} {profile.name}</span>
+        <span>© {new Date().getFullYear()} {profile.name} · Last updated November 4, 2026</span>
         <div className="footer-links">
           <a href={links.github.url} target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href={links.linkedin.url} target="_blank" rel="noopener noreferrer">LinkedIn</a>
