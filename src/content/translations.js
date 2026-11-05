@@ -153,8 +153,8 @@ export const translations = {
       "Je peux nommer **tous les pays du monde** sur Sporcle, et à une époque, je connaissais aussi tous leurs drapeaux.",
     "At 12, I played **first violin** in the OCMS Youth Symphony Orchestra.":
       "À 12 ans, je jouais **premier violon** dans l'orchestre symphonique des jeunes de l'OCMS.",
-    "I love shooter games, especially **VALORANT**. I even flew to Paris to watch Champions 2025 live!":
-      "J'adore les jeux de tir, surtout **VALORANT**. J'ai même pris l'avion jusqu'à Paris pour voir Champions 2025 en personne!",
+    "I love shooter games, especially **VALORANT**. I even flew to Paris to watch a professional tournament live!":
+      "J'adore les jeux de tir, surtout **VALORANT**. J'ai même pris l'avion jusqu'à Paris pour voir un tournoi professionnel en personne!",
     "I enjoy running! I recently finished the Under Armour 10K in **55 minutes**.":
       "J'aime courir! J'ai récemment terminé le 10 km Under Armour en **55 minutes**.",
     "I once won a **chess medal** at a tournament. I'm not very good though.":
@@ -416,8 +416,8 @@ export const translations = {
       "我能在 Sporcle 上说出**世界上所有国家**，曾经还认得出它们所有的国旗。",
     "At 12, I played **first violin** in the OCMS Youth Symphony Orchestra.":
       "12 岁时，我在 OCMS 青少年交响乐团担任**第一小提琴**。",
-    "I love shooter games, especially **VALORANT**. I even flew to Paris to watch Champions 2025 live!":
-      "我超爱射击游戏，尤其是 **VALORANT**。我甚至飞到巴黎现场观看了 Champions 2025！",
+    "I love shooter games, especially **VALORANT**. I even flew to Paris to watch a professional tournament live!":
+      "我超爱射击游戏，尤其是 **VALORANT**。我甚至飞到巴黎现场观看了一场职业比赛！",
     "I enjoy running! I recently finished the Under Armour 10K in **55 minutes**.":
       "我喜欢跑步！最近以 **55 分钟**跑完了 Under Armour 10K。",
     "I once won a **chess medal** at a tournament. I'm not very good though.":

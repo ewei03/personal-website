@@ -156,8 +156,8 @@ export const funFacts = [
   "I can recite pi to **101 decimal places** from memory!",
   { text: "I can name **every country in the world** on Sporcle, and at one point I knew all of their flags too.", link: { label: "Sporcle", url: "https://www.sporcle.com/user/asdfgasm/" } },
   { text: "At 12, I played **first violin** in the OCMS Youth Symphony Orchestra.", link: { label: "OCMS", url: "https://ocms-ca.com/program/symphony-orchestra/" } },
-  { text: "I love shooter games, especially **VALORANT**. I even flew to Paris to watch Champions 2025 live!", link: { label: "Tracker", url: "https://tracker.gg/valorant/profile/riot/stupud%23man/overview?platform=pc&playlist=competitive&season=d816f426-48ea-f052-117f-9697a155b319" } },
-  "I enjoy running! I recently finished the Under Armour 10K in **55 minutes**.",
+  { text: "I love shooter games, especially **VALORANT**. I even flew to Paris to watch a professional tournament live!", link: { label: "Tracker", url: "https://tracker.gg/valorant/profile/riot/stupud%23man/overview?platform=pc&playlist=competitive&season=d816f426-48ea-f052-117f-9697a155b319" } },
+  { text: "I enjoy running! I recently finished the Under Armour 10K in **55 minutes**.", link: { label: "Strava", url: "https://www.strava.com/activities/11657582317" } },
   { text: "I once won a **chess medal** at a tournament. I'm not very good though.", link: { label: "Chess.com", url: "https://www.chess.com/member/eggnonk" } },
   "One of my more expensive hobbies is building **mechanical keyboards**!",
 ];
