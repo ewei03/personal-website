@@ -1292,6 +1292,123 @@ main { overflow-x: clip; }
   .deck-arrow.next { right: 8px; }
 }
 
+/* ---------- Pong easter egg ---------- */
+.pong-racket {
+  position: fixed;
+  top: 76px;
+  right: 24px;
+  z-index: 40;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--amber);
+  cursor: pointer;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--amber) 75%, transparent))
+          drop-shadow(0 0 14px color-mix(in srgb, var(--amber) 40%, transparent));
+  animation: racket-float 4.5s ease-in-out infinite, racket-glow 3.2s ease-in-out infinite;
+}
+.pong-racket svg { width: 100%; height: 100%; display: block; overflow: visible; }
+@keyframes racket-float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-3px, -6px) rotate(-6deg); }
+  50% { transform: translate(0, -9px) rotate(2deg); }
+  75% { transform: translate(3px, -4px) rotate(6deg); }
+}
+@keyframes racket-glow { 50% { opacity: 0.72; } }
+
+/* Exit: the racket spins toward the screen centre, shrinking into the game's ball */
+.pong-racket.leaving {
+  pointer-events: none;
+  animation: racket-to-ball 0.95s cubic-bezier(0.55, 0, 0.25, 1) forwards;
+}
+@keyframes racket-to-ball {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  15%  { transform: translate(6px, -8px) rotate(-25deg) scale(1.12); }
+  100% { transform: translate(var(--tx), var(--ty)) rotate(600deg) scale(0.34); }
+}
+.pong-racket-art {
+  transition: opacity 0.3s ease;
+  /* fades into view shortly after the page loads */
+  animation: racket-in 1s var(--ease) 0.3s backwards;
+}
+@keyframes racket-in { from { opacity: 0; } to { opacity: 1; } }
+.pong-racket.leaving .pong-racket-art { animation: morph-out 0.95s ease forwards; }
+@keyframes morph-out { 0%, 50% { opacity: 1; } 85%, 100% { opacity: 0; } }
+.pong-morph-ball {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 18px var(--amber);
+  opacity: 0;
+  pointer-events: none;
+}
+.pong-racket.leaving .pong-morph-ball { animation: morph-in 0.95s ease forwards; }
+@keyframes morph-in { 0%, 50% { opacity: 0; } 90%, 100% { opacity: 0.65; } } /* matches the in-game ball */
+.pong-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s var(--ease);
+}
+.pong-canvas.on { opacity: 1; }
+.pong-canvas.stopping { opacity: 0; }
+
+/* While Pong is running, cards turn translucent so the ball is visible passing behind them */
+.card { transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.45s, background-color 0.9s var(--ease); }
+.pong-on .card { background-color: color-mix(in srgb, var(--surface) 70%, transparent); }
+.pong-on .timeline .job:nth-child(even) > .card,
+.pong-on .project-grid > .card:nth-child(even),
+.pong-on .hobby-grid > .card:nth-child(4n + 2),
+.pong-on .hobby-grid > .card:nth-child(4n + 3),
+.pong-on .link-cards > .card:nth-child(4n + 2),
+.pong-on .link-cards > .card:nth-child(4n + 3) {
+  background-color: color-mix(in srgb, var(--surface-2) 70%, transparent);
+}
+.pong-on .fun-fact.card {
+  background: linear-gradient(90deg,
+    color-mix(in srgb, color-mix(in srgb, var(--amber) 12%, var(--surface)) 70%, transparent),
+    color-mix(in srgb, var(--surface) 70%, transparent) 70%);
+}
+
+/* In-game control (stop): glowing, stationary */
+.pong-controls {
+  position: fixed;
+  top: 76px;
+  right: 24px;
+  z-index: 40;
+  display: flex;
+  gap: 12px;
+  animation: ctl-in 0.6s var(--ease) both;
+  transition: opacity 0.5s var(--ease);
+}
+.pong-controls.leaving { animation: ctl-out 0.9s var(--ease) forwards; pointer-events: none; }
+@keyframes ctl-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes ctl-in { from { opacity: 0; scale: 0.6; } to { opacity: 1; scale: 1; } }
+.pong-ctl {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--amber);
+  cursor: pointer;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--amber) 75%, transparent))
+          drop-shadow(0 0 12px color-mix(in srgb, var(--amber) 40%, transparent));
+  animation: racket-glow 3.2s ease-in-out infinite;
+  transition: transform 0.25s var(--ease);
+}
+.pong-ctl svg { width: 100%; height: 100%; display: block; }
+.pong-ctl:hover { transform: scale(1.1); }
+.pong-ctl:hover, .pong-ctl:focus-visible { animation-play-state: paused; opacity: 1; }
+
+
 /* ---------- Footer ---------- */
 .site-footer {
   position: relative;
