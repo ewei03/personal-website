@@ -179,7 +179,7 @@ export const hobbies = [
     // Grouped details: each { group, items } gets its own small heading in the popup
     details: [
       { group: "Piano", items: [
-        { title: "ARCT Diploma", text: "Associate diploma from the Royal Conservatory of Music." },
+        { title: "ARCT Diploma", text: "Associate diploma from the Royal Conservatory of Music - the highest level." },
         { title: "Competitions", text: "Competed throughout my childhood, including OMFA Provincials. Took home various medals and awards.", link: { label: "OMFA", url: "https://omfa.ca" } },
       ] },
       { group: "Violin", items: [

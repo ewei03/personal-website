@@ -174,7 +174,7 @@ export const translations = {
     "Piano": "Piano",
     "Violin": "Violon",
     "ARCT Diploma": "Diplôme ARCT",
-    "Associate diploma from the Royal Conservatory of Music.": "Diplôme d'associé du Conservatoire royal de musique.",
+    "Associate diploma from the Royal Conservatory of Music - the highest level.": "Diplôme d'associé du Conservatoire royal de musique, le plus haut niveau.",
     "Competitions": "Compétitions",
     "Competed throughout my childhood, including OMFA Provincials. Took home various medals and awards.":
       "J'ai participé à des compétitions tout au long de mon enfance, y compris aux finales provinciales de l'OMFA. J'ai remporté plusieurs médailles et prix.",
@@ -437,7 +437,7 @@ export const translations = {
     "Piano": "钢琴",
     "Violin": "小提琴",
     "ARCT Diploma": "ARCT 文凭",
-    "Associate diploma from the Royal Conservatory of Music.": "皇家音乐学院（RCM）副院士文凭。",
+    "Associate diploma from the Royal Conservatory of Music - the highest level.": "皇家音乐学院（RCM）副院士文凭，最高级别。",
     "Competitions": "比赛",
     "Competed throughout my childhood, including OMFA Provincials. Took home various medals and awards.":
       "从小到大参加了许多比赛，包括 OMFA 省级赛，获得过多枚奖牌和奖项。",
