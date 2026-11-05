@@ -207,7 +207,7 @@ export const hobbies = [
     text: "I'm a huge rhythm game enjoyer, most notably **osu!**. Click to see some of my best plays!",
     stats: [
       { value: "\#844", label: "global, osu!mania" },
-      { value: "\#7349", label: "global, osu!" },
+      { value: "\#7,349", label: "global, osu!" },
     ],
     details: [
       {

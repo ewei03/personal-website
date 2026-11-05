@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useI18n } from "../i18n.jsx";
 
@@ -76,6 +76,28 @@ export function PageArrows({ prev, next }) {
   );
 }
 
+/** Restart a slide's CSS entrance animations and scroll reveals, as if it had just been loaded. */
+function replayEntrance(el) {
+  el.getAnimations?.({ subtree: true }).forEach((a) => {
+    if (a.effect?.getComputedTiming().iterations === Infinity) return; // leave looping effects alone
+    a.cancel();
+    a.play();
+  });
+  const revealed = el.querySelectorAll(".reveal.in-view, .job.in-view");
+  revealed.forEach((r) => {
+    r.style.transition = "none";
+    r.style.transitionDelay = "";
+    r.classList.remove("in-view");
+  });
+  void el.offsetHeight; // commit the hidden state before revealing again
+  revealed.forEach((r) => {
+    r.style.transition = "";
+    r.classList.add("in-view");
+    const i = parseFloat(getComputedStyle(r).getPropertyValue("--i")) || 0;
+    setTimeout(() => { r.style.transitionDelay = "0s"; }, 1000 + i * 90);
+  });
+}
+
 /**
  * Horizontal, full-height slides with side arrows, keyboard (← →) and swipe.
  * The active slide is kept in the URL hash (#experience etc.), so the nav links work.
@@ -89,11 +111,16 @@ export default function SlideDeck({ slides, end }) {
   const index = found === -1 ? 0 : found;
   const last = slides.length - 1;
   const slideRefs = useRef([]);
+  // Slide index requested by the arrows / keys / swipes. Only those slide the track;
+  // any other change of slide (header links) jumps there and replays its entrance instead.
+  const [arrowTarget, setArrowTarget] = useState(null);
+  const instant = arrowTarget !== index;
 
   const go = useCallback(
     (i) => {
       if (i > last && end) { navigate(end.to); return; }
       const next = Math.max(0, Math.min(last, i));
+      setArrowTarget(next);
       navigate({ pathname: "/", hash: next === 0 ? "" : `#${slides[next].id}` }, { replace: true });
     },
     [last, navigate, slides, end]
@@ -101,15 +128,22 @@ export default function SlideDeck({ slides, end }) {
 
   const { onTouchStart, onTouchEnd } = useArrowNav(() => go(index - 1), () => go(index + 1));
 
-  // Start each newly shown slide at its top
-  useEffect(() => {
+  // Start each newly shown slide at its top; after a jump, replay its entrance like a fresh page
+  const mounted = useRef(false);
+  useLayoutEffect(() => {
     const el = slideRefs.current[index];
-    if (el) el.scrollTop = 0;
-  }, [index]);
+    if (!el) return;
+    el.scrollTop = 0;
+    if (!mounted.current) { mounted.current = true; return; }
+    if (!instant) return;
+    setArrowTarget(null); // a stale arrow target must not make a later header jump slide
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    replayEntrance(el);
+  }, [index]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="deck" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-      <div className="deck-track" style={{ transform: `translateX(-${index * 100}%)` }}>
+      <div className="deck-track" style={{ transform: `translateX(-${index * 100}%)`, transition: instant ? "none" : undefined }}>
         {slides.map((s, i) => (
           <div
             key={s.id}
