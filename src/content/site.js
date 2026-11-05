@@ -286,6 +286,7 @@ export const hobbies = [
     title: "Away from the screen",
     icon: "question", // corner clip art: piano | violin | rhythm | cube | question
     // image: "/images/hobby-life.jpg", // uncomment once you add the photo
+    bio: ["Here's just a few more of the many things I partake in:"], // shown in the popup instead of `text`
     text: "Some miscellaneous hobbies of mine that didn't fit in the other categories, from **cooking** to **weightlifting** - click to find out more!",
     tags: ["click", "me", "to", "find", "out!"],
     details: [

@@ -240,6 +240,7 @@ export const translations = {
 
     // ---------- Hobbies: Away from the screen ----------
     "Away from the screen": "Loin de l'écran",
+    "Here's just a few more of the many things I partake in:": "Voici quelques-unes des nombreuses autres activités auxquelles je m'adonne :",
     "Some miscellaneous hobbies of mine that didn't fit in the other categories, from **cooking** to **weightlifting** - click to find out more!":
       "Quelques passe-temps divers qui ne cadraient pas dans les autres catégories, de la **cuisine** à la **musculation**; cliquez pour en savoir plus!",
     "click": "clique",
@@ -502,6 +503,7 @@ export const translations = {
 
     // ---------- Hobbies: Away from the screen ----------
     "Away from the screen": "屏幕之外",
+    "Here's just a few more of the many things I partake in:": "以下是我参与的众多活动中的一小部分：",
     "Some miscellaneous hobbies of mine that didn't fit in the other categories, from **cooking** to **weightlifting** - click to find out more!":
       "一些不属于其他类别的爱好，从**烹饪**到**举铁**，点击了解更多！",
     "click": "点",
