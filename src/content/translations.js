@@ -128,8 +128,8 @@ export const translations = {
     "Data": "Données",
     "Bachelor of Computer Science": "Baccalauréat en informatique",
     "University of Waterloo": "Université de Waterloo",
-    "Studied artificial intelligence, machine learning, user interfaces, and statistics.":
-      "Études en intelligence artificielle, apprentissage automatique, interfaces utilisateur et statistique.",
+    "Studied artificial intelligence, machine learning, user interfaces, databases, and statistics.":
+      "Études en intelligence artificielle, apprentissage automatique, interfaces utilisateur, bases de données, et statistique.",
 
     // ---------- Projects ----------
     "TypeOff (WIP)": "TypeOff (en cours)",
@@ -391,8 +391,8 @@ export const translations = {
     "Data": "数据",
     "Bachelor of Computer Science": "计算机科学学士",
     "University of Waterloo": "滑铁卢大学",
-    "Studied artificial intelligence, machine learning, user interfaces, and statistics.":
-      "主修人工智能、机器学习、用户界面和统计学。",
+    "Studied artificial intelligence, machine learning, user interfaces, databases, and statistics.":
+      "读了人工智能、机器学习、用户界面、数据库和统计学。",
 
     // ---------- Projects ----------
     "TypeOff (WIP)": "TypeOff（开发中）",

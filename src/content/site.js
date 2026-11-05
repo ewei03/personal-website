@@ -103,7 +103,7 @@ export const education = [
     school: "University of Waterloo",
     dates: "Sep 2021 - Apr 2026",
     location: "Waterloo, ON",
-    points: ["Studied artificial intelligence, machine learning, user interfaces, and statistics."],
+    points: ["Studied artificial intelligence, machine learning, user interfaces, databases, and statistics."],
   },
 ];
 
