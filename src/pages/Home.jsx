@@ -9,6 +9,7 @@ import { ArrowRight, ArrowUpRight, GitHub } from "../components/Icons.jsx";
 import ResumeViewer from "../components/ResumeViewer.jsx";
 import PortraitCycle from "../components/PortraitCycle.jsx";
 import HobbyModal from "../components/HobbyModal.jsx";
+import { hobbyIcons } from "../components/HobbyIcons.jsx";
 import SlideDeck from "../components/SlideDeck.jsx";
 
 function SectionHead({ title, intro, children }) {
@@ -190,6 +191,9 @@ function Hobbies() {
                     </div>
                   ))}
                 </div>
+              )}
+              {h.icon && hobbyIcons[h.icon] && (
+                <span className="hobby-icon">{(() => { const Icon = hobbyIcons[h.icon]; return <Icon />; })()}</span>
               )}
               <div className="hobby-body">
                 <h3>{h.title}</h3>

@@ -50,6 +50,25 @@ export default function HobbyModal({ hobby, onClose, artist }) {
               </ul>
             )}
 
+            {hobby.records?.rows?.length > 0 && (
+              <div className="hobby-records">
+                {hobby.records.title && <h3>{hobby.records.title}</h3>}
+                <table>
+                  <thead>
+                    <tr>{hobby.records.columns.map((c) => <th key={c} scope="col">{c}</th>)}</tr>
+                  </thead>
+                  <tbody>
+                    {hobby.records.rows.map(([first, ...rest]) => (
+                      <tr key={first}>
+                        <th scope="row">{first}</th>
+                        {rest.map((v, i) => <td key={i}>{v || "—"}</td>)}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
             {hobby.gallery?.length > 0 && (
               <div className="hobby-dialog-gallery">
                 {hobby.gallery.map((a) => (
