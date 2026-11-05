@@ -19,7 +19,7 @@ export default function Contact() {
 
   return (
     <>
-      <PageArrows prev={{ label: t("Hobbies"), to: "/#hobbies" }} />
+      <PageArrows prev={{ label: t("Hobbies"), to: "/hobbies" }} />
       <section className="page-hero">
         <div className="container">
           <SplitText text={t("Let's")} accent={t("talk!")} />

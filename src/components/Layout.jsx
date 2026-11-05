@@ -4,6 +4,7 @@ import { profile, links } from "../content/site.js";
 import PongEasterEgg from "./PongEasterEgg.jsx";
 import { useI18n, LANGS } from "../i18n.jsx";
 import DashEasterEgg from "./DashEasterEgg.jsx";
+import { isDeckPath } from "./SlideDeck.jsx";
 
 const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -72,9 +73,8 @@ function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const onHome = location.pathname === "/";
-  const section = (id) => ({ pathname: "/", hash: `#${id}` });
-  const isSection = (id) => onHome && location.hash === `#${id}`;
+  const section = (id) => `/${id}`;
+  const isSection = (id) => location.pathname === `/${id}`;
 
   return (
     <header className={`site-header${scrolled ? " scrolled" : ""}${open ? " nav-open" : ""}`}>
@@ -128,7 +128,7 @@ function Footer() {
 function useScrollManager() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
-    if (pathname === "/") return; // home page is a slide deck; it handles #hash itself
+    if (isDeckPath(pathname)) return; // home page is a slide deck; it handles its own slides
     if (hash) {
       const el = document.getElementById(hash.slice(1));
       if (el) { el.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" }); return; }
@@ -225,7 +225,7 @@ export default function Layout() {
   useScrollManager();
   useReveal();
   const { pathname } = useLocation();
-  const deck = pathname === "/";
+  const deck = isDeckPath(pathname);
 
   return (
     <div className={`app${deck ? " deck-mode" : ""}`}>

@@ -98,16 +98,20 @@ function replayEntrance(el) {
   });
 }
 
+/** Slide ids (after the intro) that get their own path, e.g. /experience. */
+export const DECK_SECTIONS = ["experience", "projects", "hobbies"];
+export const isDeckPath = (pathname) => pathname === "/" || DECK_SECTIONS.includes(pathname.slice(1));
+
 /**
  * Horizontal, full-height slides with side arrows, keyboard (← →) and swipe.
- * The active slide is kept in the URL hash (#experience etc.), so the nav links work.
+ * The active slide is kept in the URL path (/experience etc.), so the nav links work.
  * `end` (optional) is a { label, to } link shown as the "next" arrow on the last slide.
  */
 export default function SlideDeck({ slides, end }) {
   const { t } = useI18n();
-  const { hash } = useLocation();
+  const { pathname, hash } = useLocation();
   const navigate = useNavigate();
-  const found = slides.findIndex((s) => `#${s.id}` === hash);
+  const found = slides.findIndex((s) => `/${s.id}` === pathname);
   const index = found === -1 ? 0 : found;
   const last = slides.length - 1;
   const slideRefs = useRef([]);
@@ -121,10 +125,16 @@ export default function SlideDeck({ slides, end }) {
       if (i > last && end) { navigate(end.to); return; }
       const next = Math.max(0, Math.min(last, i));
       setArrowTarget(next);
-      navigate({ pathname: "/", hash: next === 0 ? "" : `#${slides[next].id}` }, { replace: true });
+      navigate(next === 0 ? "/" : `/${slides[next].id}`, { replace: true });
     },
     [last, navigate, slides, end]
   );
+
+  // Old-style links (/#experience) still land on the right slide
+  useEffect(() => {
+    const old = slides.find((s) => `#${s.id}` === hash);
+    if (old) navigate(`/${old.id}`, { replace: true });
+  }, [hash]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { onTouchStart, onTouchEnd } = useArrowNav(() => go(index - 1), () => go(index + 1));
 

@@ -38,7 +38,7 @@ function Hero() {
             </div>
           )}
           <div className="hero-cta fade-up" style={{ animationDelay: "1000ms" }}>
-            <Link className="btn btn-primary" to={{ pathname: "/", hash: "#experience" }}>{t("Explore me!")} <ArrowRight /></Link>
+            <Link className="btn btn-primary" to="/experience">{t("Explore me!")} <ArrowRight /></Link>
             <Link className="btn btn-ghost" to="/contact">{t("Get in touch")}</Link>
           </div>
         </div>
