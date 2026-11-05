@@ -1118,6 +1118,8 @@ main { overflow-x: clip; }
 /* Full-width hobby card with an art gallery (text left, pieces right) */
 .hobby.wide { grid-column: 1 / -1; flex-direction: row-reverse; align-items: stretch; }
 .hobby.wide .hobby-body { flex: 1; justify-content: center; padding: 18px 20px; }
+/* Gallery fills the right side, so the corner icon sits at the bottom-right of the text column (40%) */
+.hobby.wide .hobby-icon { right: auto; left: calc(40% - 86px); } /* pencil's right edge lines up with the text */
 .art-gallery {
   flex: 1.5;
   display: grid;
@@ -1624,6 +1626,7 @@ main { overflow-x: clip; }
   .project-grid { grid-template-columns: repeat(2, 1fr); }
   .project.featured { flex-direction: column; }
   .hobby.wide { flex-direction: column; }
+  .hobby.wide .hobby-icon { left: auto; right: 12px; }
   .hobby.wide .hobby-body { padding: 16px 20px 20px; }
   .art-gallery { padding: 18px 18px 0; }
   .project.featured .photo { flex: none; aspect-ratio: 16 / 9; min-height: 0; }
@@ -1661,6 +1664,3 @@ main { overflow-x: clip; }
 /* Chinese: no faux-italic on CJK text */
 :lang(zh-CN) .accent, :lang(zh-CN) .hero h1 .accent, :lang(zh-CN) .split .accent,
 :lang(zh-CN) .verse blockquote, :lang(zh-CN) .verse figcaption { font-style: normal; }
-/* Longer translated verses wrap instead of running into the footer links */
-.verse { max-width: 560px; }
-.verse blockquote { white-space: normal; text-wrap: balance; }

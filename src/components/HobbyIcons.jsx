@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 // Line-art "clip art" for the hobby cards. Drawn with currentColor so they follow the palette.
 const svg = { viewBox: "0 0 64 64", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true };
 
@@ -22,24 +24,31 @@ const Violin = () => (
   </svg>
 );
 
-// Small piano keyboard: seven white keys with the black-key pattern (2 + 3)
-const PianoKeys = () => (
-  <svg {...svg}>
-    <rect x="6" y="18" width="52" height="28" rx="3" />
-    <path d="M13.43 18V46M20.86 18V46M28.29 18V46M35.71 18V46M43.14 18V46M50.57 18V46" strokeWidth="1.5" />
-    <rect x="11.03" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
-    <rect x="18.46" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
-    <rect x="33.31" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
-    <rect x="40.74" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
-    <rect x="48.17" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
-  </svg>
-);
+// Small piano keyboard, filled like the cube: solid white keys with small gaps, and the black keys
+// (2 + 3 pattern) cut out of them and shaded lighter.
+const KEY_W = 52 / 7;
+const WHITE_KEYS = Array.from({ length: 7 }, (_, i) => 6 + i * KEY_W);
+const BLACK_KEYS = [1, 2, 4, 5, 6].map((b) => 6 + b * KEY_W - 2.1);
+const PianoKeys = () => {
+  const id = useId();
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <mask id={`${id}-keys`}>
+        {WHITE_KEYS.map((x) => <rect key={x} x={x + 0.6} y="18" width={KEY_W - 1.2} height="28" rx="1.4" fill="#fff" />)}
+        {BLACK_KEYS.map((x) => <rect key={x} x={x - 1.1} y="16" width="6.4" height="19.1" rx="1.5" fill="#000" />)}
+      </mask>
+      <rect x="0" y="0" width="64" height="64" fill="currentColor" mask={`url(#${id}-keys)`} />
+      {BLACK_KEYS.map((x) => <rect key={x} x={x} y="18" width="4.2" height="16" rx="1" fill="currentColor" fillOpacity="0.45" />)}
+    </svg>
+  );
+};
 
-// osu!mania mode icon: a ring with three vertical bars, the middle one longer
+// Rounded square with an eighth note inside
 const RhythmNote = () => (
   <svg {...svg}>
-    <circle cx="32" cy="32" r="22" />
-    <path d="M24 25v14M32 20v24M40 25v14" strokeWidth="3.5" />
+    <rect x="11" y="11" width="42" height="42" rx="7" />
+    <ellipse cx="28.5" cy="40.5" rx="4.6" ry="3.4" transform="rotate(-20 28.5 40.5)" fill="currentColor" />
+    <path d="M32.6 39.5V21c1.8 3.6 7.4 4.8 7.9 10.5" strokeWidth="2.4" />
   </svg>
 );
 
@@ -71,6 +80,19 @@ const RubiksCube = () => (
   </svg>
 );
 
+// Pencil tilted 45°: eraser top-right, point bottom-left
+const Pencil = () => (
+  <svg {...svg}>
+    <g transform="rotate(45 32 32)">
+      <path d="M26 14a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v31H26z" />
+      <path d="M26 17h12M26 20h12" strokeWidth="1.5" />
+      <path d="M32 21v24" strokeWidth="1.2" />
+      <path d="M26 45l6 12 6-12" />
+      <path d="M30 53l2 4 2-4z" fill="currentColor" />
+    </g>
+  </svg>
+);
+
 const QuestionMark = () => (
   <svg {...svg} strokeWidth="3">
     <path d="M23 22a9 9 0 1 1 13 8c-3 2-4 4-4 8v2" />
@@ -84,4 +106,5 @@ export const hobbyIcons = {
   rhythm: RhythmNote,
   cube: RubiksCube,
   question: QuestionMark,
+  pencil: Pencil,
 };

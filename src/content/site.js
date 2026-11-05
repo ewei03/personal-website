@@ -165,6 +165,8 @@ export const funFacts = [
 export const hobbies = [
   {
     title: "Music",
+    // YouTube video embedded in the popup below the bio (thumb: false keeps it off the card)
+    video: { id: "LQSybd6CuUs", thumb: false },
     icon: "piano", // corner clip art: piano | violin | rhythm | cube | question
     // image: "/images/hobby-music.jpg", // uncomment once you add the photo
     // shown in the popup instead of `text`
@@ -178,7 +180,7 @@ export const hobbies = [
     details: [
       { group: "Piano", items: [
         { title: "ARCT Diploma", text: "Associate diploma from the Royal Conservatory of Music." },
-        { title: "Competitions", text: "Competed throughout my childhood, including OMFA Provincials. Took home various medals.", link: { label: "OMFA", url: "https://omfa.ca" } },
+        { title: "Competitions", text: "Competed throughout my childhood, including OMFA Provincials. Took home various medals and awards.", link: { label: "OMFA", url: "https://omfa.ca" } },
       ] },
       { group: "Violin", items: [
         { title: "RCM Level 9" },
@@ -197,22 +199,25 @@ export const hobbies = [
     video: { playlist: "PLN3eQJaijAk5c_3KhQyYELxzn7W7lFHCP", id: "" },
     // Popup: optional headings, and `bio` (a string, or a list of paragraphs) replaces `text`
     // inside the popup (the card keeps `text`)
-    bioTitle: "osu!",
-    detailsTitle: "Achievements",
     bio: [
       "In 2017, I downloaded **osu!** after a friend introduced it to me, and I was immediately hooked.",
       "I've competed in small tournaments, performed at my school's talent show, and spent a *lot* of hours grinding.",
       "I don't play anymore, but I love going to rhythm game arcades!",
     ],
-    text: "I'm a huge rhythm game enjoyer, most notably **osu!**. Click to see some of my best plays.",
+    text: "I'm a huge rhythm game enjoyer, most notably **osu!**. Click to see some of my best plays!",
     stats: [
       { value: "\#844", label: "global, osu!mania" },
       { value: "\#7349", label: "global, osu!" },
     ],
     details: [
-      { title: "#844 global rank (Top 30 in Canada), osu!mania" },
-      { title: "#7,349 global rank, osu!" },
-      { title: "1st place, Tournamint #4", text: "Part of the winning team, with a profile badge to show for it." },
+      {
+        group: "Achievements",
+        items: [
+          { title: "#844 global rank (Top 30 in Canada), osu!mania" },
+          { title: "#7,349 global rank, osu!" },
+          { title: "1st place, Tournamint #4", text: "Part of the winning team, with a profile badge to show for it." },
+        ],
+      },
     ],
     links: [
       { label: "osu! profile", url: "https://osu.ppy.sh/users/9261099" },
@@ -221,11 +226,16 @@ export const hobbies = [
   },
   {
     title: "Against the clock",
+    // YouTube video embedded in the popup below the bio (thumb: false keeps it off the card)
+    video: { id: "CiIl4Tjc3Z4", thumb: false },
     icon: "cube", // corner clip art: piano | violin | rhythm | cube | question
     // image: "/images/hobby-speed.jpg", // uncomment once you add the photo
     // shown in the popup instead of `text`
-    bio: "In 2014, I was bored and randomly decided to pick up a **Rubik's Cube**. Using a YouTube tutorial, I learned to solve it - and the rest is history! I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.",
-    text: "My favourite hobbies involve beating the clock! I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats.",
+    bio: [
+      "In 2014, I was bored and randomly decided to pick up a **Rubik's Cube**. Using a YouTube tutorial, I learned to solve it - and the rest is history!",
+      "I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.",
+    ],
+    text: "My favourite hobbies involve beating the clock! It started when I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats!",
     stats: [
       { value: "5.750s", label: "3x3 Rubik's cube"},
       { value: "9.966s", label: "Cycle (speed stacking)" },
@@ -296,6 +306,8 @@ export const hobbies = [
   },
   {
     title: "Digital art",
+    icon: "pencil", // corner clip art: piano | violin | rhythm | cube | question | pencil
+    bio: ["Check out my works!"], // popup shows only the drawings (no repeat of the card text)
     text: "Putting my drawing tablet to use sometimes. More to come... if I have the patience for it...",
     gallery: [
       { src: "/images/art/totoro.jpg", full: "/images/art/totoro-full.png", title: "Totoro" },

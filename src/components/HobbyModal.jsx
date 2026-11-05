@@ -48,7 +48,7 @@ export default function HobbyModal({ hobby, onClose, artist, alt = false }) {
                       ? `https://www.youtube-nocookie.com/embed/${hobby.video.id || "videoseries"}?list=${hobby.video.playlist}&rel=0`
                       : `https://www.youtube-nocookie.com/embed/${hobby.video.id}?rel=0`
                   }
-                  title={t("{title} gameplay", { title: t(hobby.title) })}
+                  title={hobby.video.playlist ? t("{title} gameplay", { title: t(hobby.title) }) : t("{title} video", { title: t(hobby.title) })}
                   loading="lazy"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen

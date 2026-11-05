@@ -198,7 +198,7 @@ function Hobbies() {
               onClick={onCardClick(h)}
             >
               {h.image && <Photo src={h.image} label={`${h.title} photo`} />}
-              {!h.image && h.video?.id && (
+              {!h.image && h.video?.id && h.video.thumb !== false && (
                 <div className="hobby-video-thumb">
                   <Photo src={`https://i.ytimg.com/vi/${h.video.id}/hqdefault.jpg`} alt={`${h.title} gameplay thumbnail`} label="" />
                   <span className="play-badge" aria-hidden="true">

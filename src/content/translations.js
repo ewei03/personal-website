@@ -40,8 +40,8 @@ export const translations = {
     "{title} details": "Détails : {title}",
     "{title}, digital drawing by {name}": "{title}, dessin numérique de {name}",
     "{title} gameplay": "Parties de {title}",
-    "{title} gameplay thumbnail": "Aperçu d'une partie de {title}",
     "Records": "Records",
+    "{title} video": "Vidéo : {title}",
     "Tracker": "Stats",
     "Pong?": "Pong?",
     "Totoro": "Totoro",
@@ -104,7 +104,7 @@ export const translations = {
     "Shipped a content migration project for BMO. Now building them an IVR system.":
       "Livré un projet de migration de contenu pour BMO. Je leur construis maintenant un système de réponse vocale interactive (RVI).",
     "Built internal tools and data workflows that improved quality across Federato's insurtech platform.":
-      "Conçu des outils internes et des flux de données qui ont amélioré la qualité de la plateforme insurtech de Federato.",
+      "Développé des outils internes et des flux de données qui ont amélioré la qualité de la plateforme insurtech de Federato.",
     "Shipped Quick Buy, a one-click checkout (think Amazon's \"Buy Now\") worth ~$748K in annual revenue.":
       "Livré Quick Buy, un paiement en un clic (pensez au « Acheter maintenant » d'Amazon) représentant environ 748 k$ de revenus annuels.",
     "Built iOS and Android sample apps that showcased the core product to clients.":
@@ -112,7 +112,7 @@ export const translations = {
     "Led development of our flagship patient portal website.":
       "Dirigé le développement de notre portail patient phare.",
     "Maintained data for 30,000+ North American infrastructure companies.":
-      "Assuré la qualité des données de plus de 30 000 entreprises d'infrastructure nord-américaines.",
+      "Tenu à jour les données de plus de 30 000 entreprises d'infrastructure nord-américaines.",
     "Fintech": "Fintech",
     "Consulting": "Conseil",
     "Full-stack": "Full-stack",
@@ -176,8 +176,8 @@ export const translations = {
     "ARCT Diploma": "Diplôme ARCT",
     "Associate diploma from the Royal Conservatory of Music.": "Diplôme d'associé du Conservatoire royal de musique.",
     "Competitions": "Compétitions",
-    "Competed throughout my childhood, including OMFA Provincials. Took home various medals.":
-      "J'ai participé à des compétitions tout au long de mon enfance, y compris aux finales provinciales de l'OMFA. J'ai remporté plusieurs médailles.",
+    "Competed throughout my childhood, including OMFA Provincials. Took home various medals and awards.":
+      "J'ai participé à des compétitions tout au long de mon enfance, y compris aux finales provinciales de l'OMFA. J'ai remporté plusieurs médailles et prix.",
     "RCM Level 9": "RCM, niveau 9",
     "First violin, OCMS Youth Symphony Orchestra": "Premier violon, orchestre symphonique des jeunes de l'OCMS",
     "Played in orchestra for three years.": "J'ai joué dans l'orchestre pendant trois ans.",
@@ -193,8 +193,8 @@ export const translations = {
       "J'ai participé à de petits tournois, joué au spectacle de talents de mon école et passé *beaucoup* d'heures à m'entraîner.",
     "I don't play anymore, but I love going to rhythm game arcades!":
       "Je ne joue plus, mais j'adore aller dans les arcades de jeux de rythme!",
-    "I'm a huge rhythm game enjoyer, most notably **osu!**. Click to see some of my best plays.":
-      "Je suis un grand amateur de jeux de rythme, surtout **osu!**. Cliquez pour voir certaines de mes meilleures parties.",
+    "I'm a huge rhythm game enjoyer, most notably **osu!**. Click to see some of my best plays!":
+      "Je suis un grand amateur de jeux de rythme, surtout **osu!**. Cliquez pour voir certaines de mes meilleures parties!",
     "global, osu!mania": "mondial, osu!mania",
     "global, osu!": "mondial, osu!",
     "#844 global rank (Top 30 in Canada), osu!mania": "844e au classement mondial (top 30 au Canada), osu!mania",
@@ -206,10 +206,14 @@ export const translations = {
 
     // ---------- Hobbies: Against the clock ----------
     "Against the clock": "Contre la montre",
-    "In 2014, I was bored and randomly decided to pick up a **Rubik's Cube**. Using a YouTube tutorial, I learned to solve it - and the rest is history! I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.":
-      "En 2014, par ennui, j'ai décidé sur un coup de tête d'essayer le **cube Rubik**. Grâce à un tutoriel YouTube, j'ai appris à le résoudre, et la suite appartient à l'histoire! J'adore les passe-temps où la vitesse compte, comme les **jeux de dactylographie** et, plus récemment, le **sport stacking**.",
-    "My favourite hobbies involve beating the clock! I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats.":
-      "Mes passe-temps préférés consistent à battre la montre! J'ai pris un **cube Rubik** pour la première fois en 2014 et j'ai tout de suite accroché. Cliquez pour voir quelques statistiques.",
+    "In 2014, I was bored and randomly decided to pick up a **Rubik's Cube**. Using a YouTube tutorial, I learned to solve it - and the rest is history!":
+      "En 2014, par ennui, j'ai décidé sur un coup de tête d'essayer le **cube Rubik**. Grâce à un tutoriel YouTube, j'ai appris à le résoudre, et la suite appartient à l'histoire!",
+    "I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.":
+      "J'adore les passe-temps où la vitesse compte, comme les **jeux de dactylographie** et, plus récemment, le **sport stacking**.",
+    "My favourite hobbies involve beating the clock! It started when I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats!":
+      "Mes passe-temps préférés consistent à battre la montre! Tout a commencé en 2014, quand j'ai pris un **cube Rubik** pour la première fois et que j'ai tout de suite accroché. Cliquez pour voir quelques statistiques!",
+    "Check out my works!": "Découvrez mes œuvres!",
+    "Cycle": "Cycle",
     "3x3 Rubik's cube": "Cube Rubik 3x3",
     "Cycle (speed stacking)": "Cycle (sport stacking)",
     "Rubik's Cube": "Cube Rubik",
@@ -218,7 +222,7 @@ export const translations = {
     "Personal bests": "Records personnels",
     "Personal bests (Monkeytype)": "Records personnels (Monkeytype)",
     "Event": "Épreuve",
-    "Single": "Unique",
+    "Single": "Simple",
     "Average": "Moyenne",
     "Time": "Temps",
     "Test": "Test",
@@ -296,8 +300,8 @@ export const translations = {
     "{title} details": "{title}：详情",
     "{title}, digital drawing by {name}": "{title}，{name}的数字绘画",
     "{title} gameplay": "{title} 游戏实况",
-    "{title} gameplay thumbnail": "{title} 游戏实况缩略图",
     "Records": "记录",
+    "{title} video": "{title} 视频",
     "Tracker": "战绩",
     "Pong?": "来打乒乓？",
     "Totoro": "龙猫",
@@ -435,8 +439,8 @@ export const translations = {
     "ARCT Diploma": "ARCT 文凭",
     "Associate diploma from the Royal Conservatory of Music.": "皇家音乐学院（RCM）副院士文凭。",
     "Competitions": "比赛",
-    "Competed throughout my childhood, including OMFA Provincials. Took home various medals.":
-      "从小到大参加了许多比赛，包括 OMFA 省级赛，获得过多枚奖牌。",
+    "Competed throughout my childhood, including OMFA Provincials. Took home various medals and awards.":
+      "从小到大参加了许多比赛，包括 OMFA 省级赛，获得过多枚奖牌和奖项。",
     "RCM Level 9": "RCM 9 级",
     "First violin, OCMS Youth Symphony Orchestra": "OCMS 青少年交响乐团第一小提琴",
     "Played in orchestra for three years.": "在乐团演奏了三年。",
@@ -452,8 +456,8 @@ export const translations = {
       "我参加过小型比赛，在学校才艺表演上演出过，还投入了*大量*时间苦练。",
     "I don't play anymore, but I love going to rhythm game arcades!":
       "现在已经不玩了，但我很喜欢去音游街机厅！",
-    "I'm a huge rhythm game enjoyer, most notably **osu!**. Click to see some of my best plays.":
-      "我是资深音游爱好者，最爱 **osu!**。点击观看我的高光操作。",
+    "I'm a huge rhythm game enjoyer, most notably **osu!**. Click to see some of my best plays!":
+      "我是资深音游爱好者，最爱 **osu!**。点击观看我的高光操作！",
     "global, osu!mania": "全球排名，osu!mania",
     "global, osu!": "全球排名，osu!",
     "#844 global rank (Top 30 in Canada), osu!mania": "osu!mania 全球第 844 名（加拿大前 30）",
@@ -465,10 +469,13 @@ export const translations = {
 
     // ---------- Hobbies: Against the clock ----------
     "Against the clock": "与时间赛跑",
-    "In 2014, I was bored and randomly decided to pick up a **Rubik's Cube**. Using a YouTube tutorial, I learned to solve it - and the rest is history! I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.":
-      "2014 年，我因为无聊心血来潮拿起了**魔方**。跟着 YouTube 教程学会了还原，从此一发不可收拾！我喜欢各种比拼速度的爱好，包括**打字游戏**，以及最近迷上的**竞技叠杯**。",
-    "My favourite hobbies involve beating the clock! I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats.":
-      "我最爱的爱好都是和时间赛跑！2014 年第一次拿起**魔方**就迷上了。点击查看一些有趣的数据。",
+    "In 2014, I was bored and randomly decided to pick up a **Rubik's Cube**. Using a YouTube tutorial, I learned to solve it - and the rest is history!":
+      "2014 年，我因为无聊心血来潮拿起了**魔方**。跟着 YouTube 教程学会了还原，从此一发不可收拾！",
+    "I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.":
+      "我喜欢各种比拼速度的爱好，包括**打字游戏**，以及最近迷上的**竞技叠杯**。",
+    "My favourite hobbies involve beating the clock! It started when I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats!":
+      "我最爱的爱好都是和时间赛跑！一切始于 2014 年，我第一次拿起**魔方**就迷上了。点击查看一些有趣的数据！",
+    "Check out my works!": "来看看我的作品吧！",
     "3x3 Rubik's cube": "3x3 魔方",
     "Cycle (speed stacking)": "Cycle（竞技叠杯）",
     "Rubik's Cube": "魔方",
@@ -496,14 +503,14 @@ export const translations = {
     // ---------- Hobbies: Away from the screen ----------
     "Away from the screen": "屏幕之外",
     "Some miscellaneous hobbies of mine that didn't fit in the other categories, from **cooking** to **weightlifting** - click to find out more!":
-      "一些不属于其他类别的爱好，从**烹饪**到**举重**，点击了解更多！",
+      "一些不属于其他类别的爱好，从**烹饪**到**举铁**，点击了解更多！",
     "click": "点",
     "me": "我",
     "to": "看",
     "find": "更",
     "out!": "多！",
     "Cooking": "烹饪",
-    "Sourdough bread and handmade pasta": "酸面包和手工意面",
+    "Sourdough bread and handmade pasta": "酸种面包和手工意面",
     "My latest obsessions. I've made plenty of other stuff but I can't be bothered to list them all.":
       "最近的心头好。其他东西也做过不少，但懒得一一列出。",
     "Racket sports": "球拍类运动",
@@ -514,8 +521,8 @@ export const translations = {
     "On Medium.": "发布于 Medium。",
     "Published in UWCCF on Medium.": "发表于 Medium 上的 UWCCF 专栏。",
     "Read": "阅读",
-    "Weightlifting": "举重",
-    "Lifting since 2024": "2024 年开始举重",
+    "Weightlifting": "举铁",
+    "Lifting since 2024": "2024 年开始举铁",
     "Trying to do a muscle-up next.": "下一个目标：做出一个双力臂。",
 
     // ---------- Hobbies: Digital art ----------
