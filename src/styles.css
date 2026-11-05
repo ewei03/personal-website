@@ -1,6 +1,6 @@
 /* =========================================================
    Enoch Wei — personal site
-   Palette: dark, cool-hued (adjustable via --hue), with cream text
+   Palette: dark, cool-hued (adjustable via --hue), with hue-tinted near-white text
    and analogous accents 30° either side of the hue.
    ========================================================= */
 
@@ -13,8 +13,11 @@
   --bg-alt: hsl(var(--hue) 27% 8%);
   --surface: hsl(var(--hue) 25% 12%);
   --surface-2: hsl(var(--hue) 23% 15%); /* alternate card shade */
-  --ink: #efe7d9;           /* warm cream text */
-  --ink-soft: #cfc6b6;
+  /* Text: near-white with a faint tint of the slider hue */
+  --ink: hsl(var(--hue) 30% 93%);
+  --ink-soft: hsl(var(--hue) 12% 79%);
+  --white: hsl(var(--hue) 45% 97%);
+  --white-soft: hsl(var(--hue) 45% 97% / 0.85);
   --muted: hsl(calc(var(--hue) - 15) 8% 61%);
   --line: hsl(calc(var(--hue) + 7) 21% 19%);
 
@@ -325,7 +328,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
     color-mix(in srgb, var(--amber) 82%, var(--bg)) 100%);
   background-size: 180% 100%;
   background-position: 0% 50%;
-  color: #fff;
+  color: var(--white);
   font-weight: 600;
   box-shadow: 0 8px 20px -10px var(--teal);
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background-position 0.6s var(--ease);
@@ -476,7 +479,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   inset: auto 14px 12px auto;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
-  color: rgba(251, 247, 240, 0.85);
+  color: var(--white-soft);
   background: rgba(15, 25, 24, 0.25);
   padding: 4px 10px;
   border-radius: 999px;
@@ -536,7 +539,7 @@ button.portrait::after { display: none; }
   font-size: 0.75rem;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
-  color: #fbf7f0;
+  color: var(--white);
   background: rgba(15, 25, 24, 0.45);
   padding: 4px 10px;
   border-radius: 999px;
@@ -893,7 +896,7 @@ main { overflow-x: clip; }
   bottom: 8px;
   font-size: 0.72rem;
   font-weight: 500;
-  color: #fbf7f0;
+  color: var(--white);
   background: rgba(15, 25, 24, 0.55);
   padding: 3px 9px;
   border-radius: 999px;
@@ -1010,7 +1013,7 @@ main { overflow-x: clip; }
   bottom: 10px;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #fbf7f0;
+  color: var(--white);
   background: rgba(15, 25, 24, 0.55);
   padding: 4px 10px;
   border-radius: 999px;
@@ -1161,15 +1164,15 @@ main { overflow-x: clip; }
   background:
     radial-gradient(80% 120% at 100% 0%, color-mix(in srgb, var(--amber) 45%, transparent), transparent 60%),
     linear-gradient(135deg, #1f6b66, #2d8a96);
-  color: #fbf7f0;
+  color: var(--white);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
   flex-wrap: wrap;
 }
-.cta-band h2 { margin: 0 0 8px; color: #fbf7f0; }
-.cta-band p { margin: 0; color: rgba(251, 247, 240, 0.85); max-width: 44ch; }
+.cta-band h2 { margin: 0 0 8px; color: var(--white); }
+.cta-band p { margin: 0; color: var(--white-soft); max-width: 44ch; }
 .cta-band .btn { background: #fbf7f0; color: #1b2b2a; }
 .cta-band .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -12px rgba(0, 0, 0, 0.4); }
 
