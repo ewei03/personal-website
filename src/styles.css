@@ -1610,15 +1610,13 @@ main { overflow-x: clip; }
 }
 .verse blockquote {
   margin: 0;
-  font-family: var(--font-display);
-  font-style: italic;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   color: var(--ink-soft);
   white-space: nowrap;
 }
 .verse figcaption {
-  font-family: var(--font-display);
-  font-style: italic;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   color: var(--ink-soft);
   white-space: nowrap;
@@ -1686,5 +1684,4 @@ main { overflow-x: clip; }
 .lang-toggle button:hover { color: var(--ink); }
 .lang-toggle button.active { background: var(--teal); color: var(--bg); }
 /* Chinese: no faux-italic on CJK text */
-:lang(zh-CN) .accent, :lang(zh-CN) .hero h1 .accent, :lang(zh-CN) .split .accent,
-:lang(zh-CN) .verse blockquote, :lang(zh-CN) .verse figcaption { font-style: normal; }
+:lang(zh-CN) .accent, :lang(zh-CN) .hero h1 .accent, :lang(zh-CN) .split .accent { font-style: normal; }
