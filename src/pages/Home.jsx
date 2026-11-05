@@ -197,7 +197,7 @@ function Hobbies() {
               )}
               <div className="hobby-body">
                 <h3>{h.title}</h3>
-                <p>{h.text}</p>
+                <p>{emphasize(h.text)}</p>
                 {h.stats?.length > 0 && (
                   <div className="hobby-stats">
                     {h.stats.map((s) => (

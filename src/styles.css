@@ -830,6 +830,7 @@ main { overflow-x: clip; }
 .hobby-body h3 { display: flex; align-items: center; gap: 10px; }
 .hobby-body h3 .emoji { font-size: 1.1rem; }
 .hobby-body p { margin: 0; font-size: 0.93rem; }
+.hobby-body p strong, .hobby-dialog-intro strong, .hobby-details span strong { color: var(--teal); font-weight: 600; }
 .hobby-body .chips { margin-top: 12px; }
 /* Corner clip art on hobby cards */
 .hobby-icon {

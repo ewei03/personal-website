@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, Close } from "./Icons.jsx";
+import { emphasize } from "./ui.jsx";
 
 /** Popup with a hobby's accomplishments, links and (for art) a larger gallery. */
 export default function HobbyModal({ hobby, onClose, artist }) {
@@ -32,14 +33,14 @@ export default function HobbyModal({ hobby, onClose, artist }) {
           </header>
 
           <div className="hobby-dialog-body">
-            {hobby.text && <p className="hobby-dialog-intro">{hobby.text}</p>}
+            {hobby.text && <p className="hobby-dialog-intro">{emphasize(hobby.text)}</p>}
 
             {hobby.details?.length > 0 && (
               <ul className="hobby-details">
                 {hobby.details.map((d) => (
                   <li key={d.title}>
                     <strong>{d.title}</strong>
-                    {d.text && <span>{d.text}</span>}
+                    {d.text && <span>{emphasize(d.text)}</span>}
                     {d.link && (
                       <a href={d.link.url} target="_blank" rel="noopener noreferrer">
                         {d.link.label} <ArrowUpRight />

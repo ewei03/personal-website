@@ -155,7 +155,7 @@ export const funFacts = [
   { text: "At 12, I played **first violin** in the OCMS Youth Symphony Orchestra.", link: { label: "OCMS", url: "https://ocms-ca.com/program/symphony-orchestra/" } },
   { text: "I love shooter games, especially **VALORANT**. I even flew to Paris to watch Champions 2025 live!", link: { label: "Tracker", url: "https://tracker.gg/valorant/profile/riot/stupud%23man/overview?platform=pc&playlist=competitive&season=d816f426-48ea-f052-117f-9697a155b319" } },
   "I enjoy running! I recently finished the Under Armour 10K in **55 minutes**.",
-  { text: "I once won a **chess medal** at a tournament (I'm not very good though.)", link: { label: "Chess.com", url: "https://www.chess.com/member/eggnonk" } },
+  { text: "I once won a **chess medal** at a tournament. I'm not very good though.", link: { label: "Chess.com", url: "https://www.chess.com/member/eggnonk" } },
   "One of my more expensive hobbies is building **mechanical keyboards**!",
 ];
 
@@ -164,7 +164,7 @@ export const hobbies = [
     title: "Music",
     icon: "violin", // corner clip art: violin | rhythm | cube | question
     // image: "/images/hobby-music.jpg", // uncomment once you add the photo
-    text: "I learned piano when I was five and violin when I was seven. I love music and I'm hoping to make my own one day! Click to read up on my music background.",
+    text: "I learned **piano** when I was five and **violin** when I was seven. I love music and I'm hoping to get into production! Click to read up on my music background.",
     stats: [
       { value: "ARCT", label: "Diploma in Piano" },
       { value: "Level 9", label: "RCM Violin" },
@@ -182,7 +182,7 @@ export const hobbies = [
     title: "Rhythm games",
     icon: "rhythm", // corner clip art: violin | rhythm | cube | question
     // image: "/images/hobby-osu.jpg", // uncomment once you add the photo
-    text: "I'm a huge rhythm game enjoyer, most notably osu!. Click to see some of my best plays.",
+    text: "I'm a huge rhythm game enjoyer, most notably **osu!**. Click to see some of my best plays.",
     stats: [
       { value: "\#844", label: "global, osu!mania" },
       { value: "\#7349", label: "global, osu!" },
@@ -201,7 +201,7 @@ export const hobbies = [
     title: "Against the clock",
     icon: "cube", // corner clip art: violin | rhythm | cube | question
     // image: "/images/hobby-speed.jpg", // uncomment once you add the photo
-    text: "I was bored one day back in 2014, and that's when I decided to pick up a Rubik's Cube. The rest is history! Click to see my stats.",
+    text: "I was bored one day back in 2014, and that's when I decided to pick up a **Rubik's Cube**. The rest is history! Click to see my stats.",
     stats: [
       { value: "200+", label: "WPM on Monkeytype" },
       { value: "Bronze", label: "2x2 cube, WCA 2015" },
@@ -235,7 +235,7 @@ export const hobbies = [
     title: "Away from the screen",
     icon: "question", // corner clip art: violin | rhythm | cube | question
     // image: "/images/hobby-life.jpg", // uncomment once you add the photo
-    text: "Some miscellaneous hobbies of mine that didn't fit in the other categories, from cooking to weightlifting - click to find out more!",
+    text: "Some miscellaneous hobbies of mine that didn't fit in the other categories, from **cooking** to **weightlifting** - click to find out more!",
     tags: ["click", "me", "to", "find", "out!"],
     details: [
       { title: "Under Armour 10K in 55 minutes" },
@@ -246,7 +246,7 @@ export const hobbies = [
   },
   {
     title: "Digital art",
-    text: "Putting my drawing tablet to use sometimes. More to come, hopefully.",
+    text: "Putting my drawing tablet to use sometimes. More to come... if I have the patience for it...",
     gallery: [
       { src: "/images/art/totoro.jpg", full: "/images/art/totoro-full.png", title: "Totoro" },
       { src: "/images/art/furret.png", title: "Furret" },
