@@ -134,7 +134,16 @@ function Projects() {
         <div className="project-grid">
           {projects.map((p, i) => (
             <article className={`card project reveal${p.featured ? " featured" : ""}`} style={{ "--i": i % 2 }} key={p.title}>
-              {p.image !== undefined && <Photo src={p.image} alt={`Screenshot of ${p.title}`} label={`${p.title} image`} />}
+              {p.image !== undefined && (
+                <Photo
+                  src={p.image}
+                  alt={`Screenshot of ${p.title}`}
+                  label={`${p.title} image`}
+                  fit={p.imageFit}
+                  position={p.imagePosition}
+                  bg={p.imageBg}
+                />
+              )}
               <div className="project-body">
                 {p.date && <span className="project-meta">{p.date}</span>}
                 <h3>{p.title}</h3>

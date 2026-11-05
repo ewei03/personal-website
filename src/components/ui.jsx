@@ -1,11 +1,23 @@
 import { useState } from "react";
 
 /** Image with a gradient placeholder that shows until the file exists. */
-export function Photo({ src, alt = "", label, className = "", style }) {
+export function Photo({ src, alt = "", label, className = "", style, fit, position, bg }) {
   const [failed, setFailed] = useState(!src);
   return (
-    <figure className={`photo ${className}`} data-label={label} style={style}>
-      {!failed && <img src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />}
+    <figure
+      className={`photo ${className}`}
+      data-label={label}
+      style={{ ...style, ...(bg && !failed ? { background: bg } : {}) }}
+    >
+      {!failed && (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          style={fit || position ? { objectFit: fit, objectPosition: position } : undefined}
+        />
+      )}
     </figure>
   );
 }

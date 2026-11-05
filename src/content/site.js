@@ -11,13 +11,13 @@ const MONKEYTYPE_URL = "https://monkeytype.com/profile/eggnonk";
 export const profile = {
   name: "Enoch Wei",
   firstName: "Enoch",
-  headline: "Hey! I'm",
+  headline: "Hi there! I'm",
   headlineAccent: "Enoch Wei.",
   bio: [
     "I was always a **competitive** kid. Piano competitions, math contests, badminton tournaments, even Rubik's cube competitions. I always wanted to be the best.",
     "I don't compete as much anymore, but my competitive spirit lives on. Now, I'm a **hobbyist** who loves picking up new things and **grinding** until I'm good at them.",
-    "I'm now a Software Engineer who brings that same grind to my job.",
-    "***Soli Deo Gloria.***"
+    "Today, I'm a **software engineer** who brings that same grind to my job.",
+    "***Soli Deo Gloria. ✝***"
   ],
   portraits: [
     { src: "/images/portrait/child.jpg", label: "Child", caption: "2006 · Age 3" },
@@ -112,7 +112,8 @@ export const projects = [
     title: "PlanAway",
     date: "Featured · Oct 2026",
     featured: true,
-    image: "/images/project-planaway.png",
+    image: "/projects/planaway.png",
+    imagePosition: "center top", // keep the headline in view when cropped
     text: "PlanAway is the future for vacation planning: a **Claude-powered AI agent** that does all your research. Describe your dream trip in your own words, and it builds out a comprehensive, day-by-day itinerary within minutes!",
     tech: ["Next.js", "TypeScript", "Claude API", "Postgres", "MapLibre"],
     code: "https://github.com/ewei03/planaway",
@@ -120,7 +121,7 @@ export const projects = [
   {
     title: "TypeOff (WIP)",
     date: "Oct 2026",
-    image: "/images/project-typing-duel.png",
+    image: "/projects/typeoff-card.png", // cropped from typeoff.png to the game area
     text: "**Tetr.io** meets **TypeRacer**. A real-time 1v1 battle with a catch: the faster you type, the more they type.",
     tech: ["Vite", "Docker", "GitHub Actions"], // TODO: add language / realtime lib
     code: "https://github.com/ewei03/typing-duel-game",
@@ -128,7 +129,9 @@ export const projects = [
   {
     title: "Harold!",
     date: "Apr 2022",
-    image: "/images/project-harold.png",
+    image: "/projects/harold.png",
+    imageFit: "contain", // show the whole drawing
+    imageBg: "#fff",
     text: "Harold is an anti-procrastination **Discord bot** that nags you until your homework is done.",
     tech: ["Node.js", "discord.js", "MongoDB", "node-cron"],
     code: "https://github.com/ewei03/harold-discord-bot",

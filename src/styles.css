@@ -43,8 +43,8 @@
   --radius-sm: 6px;
   --maxw: 960px;
 
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "Satoshi", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: dark;
@@ -93,7 +93,6 @@ h1, h2, h3 {
   line-height: 1.15;
   letter-spacing: -0.015em;
   margin: 0 0 0.5em;
-  font-variation-settings: "SOFT" 50, "opsz" 72;
 }
 
 h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
@@ -473,19 +472,6 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   aspect-ratio: 4 / 3;
   isolation: isolate;
 }
-.photo::after {
-  content: attr(data-label);
-  position: absolute;
-  inset: auto 14px 12px auto;
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  color: var(--white-soft);
-  background: rgba(15, 25, 24, 0.25);
-  padding: 4px 10px;
-  border-radius: 999px;
-  backdrop-filter: blur(4px);
-  z-index: -1;
-}
 .photo img {
   width: 100%;
   height: 100%;
@@ -522,7 +508,6 @@ button.portrait {
   cursor: pointer;
   font: inherit;
 }
-button.portrait::after { display: none; }
 .portrait img {
   position: absolute;
   inset: 0;
@@ -711,12 +696,17 @@ main { overflow-x: clip; }
   width: 16px;
   height: 16px;
   border-radius: 50%;
+  /* fully opaque; older roles are dimmer by mixing toward the background (no see-through) */
+  --dot-strength: calc(100% - var(--age, 0) * 55%);
   background: var(--bg);
-  border: 2px solid var(--teal);
-  opacity: calc(1 - var(--age, 0) * 0.55); /* dots fade toward older roles */
+  border: 2px solid color-mix(in srgb, var(--teal) var(--dot-strength), var(--bg));
   transition: background-color 0.4s var(--ease), transform 0.4s var(--ease);
 }
-.job.in-view::before { background: var(--amber); border-color: var(--amber); transform: scale(1.1); }
+.job.in-view::before {
+  background: color-mix(in srgb, var(--amber) var(--dot-strength), var(--bg));
+  border-color: color-mix(in srgb, var(--amber) var(--dot-strength), var(--bg));
+  transform: scale(1.1);
+}
 
 .card {
   background: var(--surface);
@@ -1391,7 +1381,6 @@ main { overflow-x: clip; }
   cursor: pointer;
   filter: drop-shadow(0 0 4px color-mix(in srgb, var(--amber) 55%, transparent))
           drop-shadow(0 0 12px color-mix(in srgb, var(--amber) 28%, transparent));
-  animation: racket-float 4.5s ease-in-out infinite, racket-glow 3.2s ease-in-out infinite;
 }
 .pong-racket svg { width: 100%; height: 100%; display: block; overflow: visible; }
 @keyframes racket-float {
@@ -1439,10 +1428,10 @@ main { overflow-x: clip; }
   z-index: -1;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.9s var(--ease);
+  transition: opacity 0.5s var(--ease);
 }
 .pong-canvas.on, .egg-canvas.on { opacity: 1; }
-.pong-canvas.stopping, .egg-canvas.stopping { opacity: 0; }
+.pong-canvas.stopping, .egg-canvas.stopping { opacity: 0; transition-duration: 0.9s; }
 
 /* While an easter-egg game is running, cards turn translucent so the ball is visible passing behind them */
 .card { transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.45s, background-color 0.9s var(--ease); }
@@ -1506,7 +1495,6 @@ main { overflow-x: clip; }
   cursor: pointer;
   filter: drop-shadow(0 0 4px color-mix(in srgb, var(--amber) 55%, transparent))
           drop-shadow(0 0 12px color-mix(in srgb, var(--amber) 28%, transparent));
-  animation: racket-float 4.5s ease-in-out -2s infinite, racket-glow 3.2s ease-in-out infinite;
 }
 .dash-icon-square {
   display: block;
@@ -1529,20 +1517,38 @@ main { overflow-x: clip; }
 /* Runner's stop button: bottom-left, a little above where its square sat */
 .egg-controls--bl { top: auto; right: auto; left: 24px; bottom: 140px; }
 
-/* Easter-egg icons brighten on hover (they launch on click) */
+/* Easter-egg icons: the float + glow live on an inner layer, so the launch animation (on the
+   button) starts from wherever the icon visibly is, with no snap */
+.pong-racket .egg-float, .dash-icon .egg-float {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: racket-float 4.5s ease-in-out infinite, racket-glow 3.2s ease-in-out infinite;
+}
+.dash-icon .egg-float { animation-delay: -2s, 0s; }
+.leaving .egg-float { animation-play-state: paused; } /* freeze the bob mid-air during the flight */
+
+/* Brighten on hover/focus, and stay bright through the launch so nothing dims mid-flight */
 .pong-racket, .dash-icon { transition: color 0.3s var(--ease), filter 0.3s var(--ease); }
-.dash-icon-square { transition: opacity 0.5s var(--ease), background-color 0.3s var(--ease); }
-.pong-racket:not(.leaving):hover, .pong-racket:not(.leaving):focus-visible,
-.dash-icon:not(.leaving):hover, .dash-icon:not(.leaving):focus-visible {
+.pong-racket:hover, .pong-racket:focus-visible, .pong-racket.leaving,
+.dash-icon:hover, .dash-icon:focus-visible, .dash-icon.leaving {
   color: var(--amber);
-  animation-play-state: running, paused; /* keep floating, hold the glow pulse at full */
-  opacity: 1;
   filter: brightness(1.2)
           drop-shadow(0 0 6px color-mix(in srgb, var(--amber) 80%, transparent))
           drop-shadow(0 0 18px color-mix(in srgb, var(--amber) 50%, transparent));
 }
-.dash-icon:not(.leaving):hover .dash-icon-square,
-.dash-icon:not(.leaving):focus-visible .dash-icon-square { background: var(--amber); }
+.pong-racket:hover .egg-float, .pong-racket:focus-visible .egg-float,
+.dash-icon:hover .egg-float, .dash-icon:focus-visible .egg-float { animation-play-state: running, paused; }
+.dash-icon:hover .dash-icon-square, .dash-icon:focus-visible .dash-icon-square,
+.dash-icon.leaving .dash-icon-square { background: var(--amber); }
+
+/* Hand-off: the landed icon lingers and fades out while the game fades in (crossfade) */
+.pong-racket.handoff, .dash-icon.handoff {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
 
 /* While the other easter-egg game is running, this one's icon fades out and can't be used */
 .pong-racket.blocked, .dash-icon.blocked { pointer-events: none; }

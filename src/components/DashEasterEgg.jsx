@@ -32,6 +32,7 @@ export default function DashEasterEgg() {
   const [enabled, setEnabled] = useState(false);
   const [phase, setPhase] = useState("idle"); // idle | leaving | playing | stopping | stopped
   const [flight, setFlight] = useState(null);
+  const [handoff, setHandoff] = useState(false); // icon lingers & fades while the game fades in
   const [otherActive, setOtherActive] = useState(false); // the other easter-egg game is running
 
   // Only one game at a time: announce when this one is running, and listen for the other
@@ -69,7 +70,11 @@ export default function DashEasterEgg() {
       });
     }
     setPhase("leaving");
-    setTimeout(() => setPhase("playing"), 800);
+    setTimeout(() => {
+      setHandoff(true);
+      setPhase("playing");
+      setTimeout(() => setHandoff(false), 550); // crossfade: icon fades out as the game fades in
+    }, 800);
   };
 
   const stop = () => {
@@ -248,19 +253,19 @@ export default function DashEasterEgg() {
 
   return (
     <>
-      {(phase === "idle" || phase === "leaving") && (
+      {(phase === "idle" || phase === "leaving" || handoff) && (
         <button
           type="button"
           ref={iconRef}
-          className={`dash-icon${phase === "leaving" ? " leaving" : ""}${otherActive ? " blocked" : ""}`}
+          className={`dash-icon${phase === "leaving" || handoff ? " leaving" : ""}${handoff ? " handoff" : ""}${otherActive ? " blocked" : ""}`}
           tabIndex={otherActive ? -1 : undefined}
           aria-hidden={otherActive || undefined}
-          style={phase === "leaving" ? flight : undefined}
-          onClick={launch}
+          style={phase === "leaving" || handoff ? flight : undefined}
+          onClick={handoff ? undefined : launch}
           aria-label="Play a runner game"
           title="Jump?"
         >
-          <span className="dash-icon-square" />
+          <span className="egg-float"><span className="dash-icon-square" /></span>
         </button>
       )}
 

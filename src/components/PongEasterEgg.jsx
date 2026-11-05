@@ -40,6 +40,7 @@ export default function PongEasterEgg() {
   const [enabled, setEnabled] = useState(false);
   const [phase, setPhase] = useState("idle"); // idle | leaving | playing | stopping | stopped
   const [flight, setFlight] = useState(null);
+  const [handoff, setHandoff] = useState(false); // icon lingers & fades while the game fades in
   const [otherActive, setOtherActive] = useState(false); // the other easter-egg game is running
 
   // Only one game at a time: announce when this one is running, and listen for the other
@@ -77,7 +78,11 @@ export default function PongEasterEgg() {
       });
     }
     setPhase("leaving");
-    setTimeout(() => setPhase("playing"), 950);
+    setTimeout(() => {
+      setHandoff(true);
+      setPhase("playing");
+      setTimeout(() => setHandoff(false), 550); // crossfade: icon fades out as the game fades in
+    }, 950);
   };
 
   const stop = () => {
@@ -269,18 +274,19 @@ export default function PongEasterEgg() {
 
   return (
     <>
-      {(phase === "idle" || phase === "leaving") && (
+      {(phase === "idle" || phase === "leaving" || handoff) && (
         <button
           type="button"
           ref={racketRef}
-          className={`pong-racket${phase === "leaving" ? " leaving" : ""}${otherActive ? " blocked" : ""}`}
+          className={`pong-racket${phase === "leaving" || handoff ? " leaving" : ""}${handoff ? " handoff" : ""}${otherActive ? " blocked" : ""}`}
           tabIndex={otherActive ? -1 : undefined}
           aria-hidden={otherActive || undefined}
-          style={phase === "leaving" ? flight : undefined}
-          onClick={launch}
+          style={phase === "leaving" || handoff ? flight : undefined}
+          onClick={handoff ? undefined : launch}
           aria-label="Play Pong"
           title="Pong?"
         >
+          <span className="egg-float">
           <svg className="pong-racket-art" viewBox="0 0 48 48" aria-hidden="true">
             {/* table-tennis paddle (tilted) + ball */}
             <g transform="rotate(38 24 24)">
@@ -294,6 +300,7 @@ export default function PongEasterEgg() {
           </svg>
           {/* the paddle turns into this ball as it reaches the centre */}
           <span className="pong-morph-ball" aria-hidden="true" />
+          </span>
         </button>
       )}
 

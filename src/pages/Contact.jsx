@@ -20,7 +20,7 @@ export default function Contact() {
         <div className="container">
           <SplitText text="Let's" accent="talk!" />
           <p className="fade-up" style={{ animationDelay: "400ms" }}>
-            Wanna say hi, or explore my profile more? Find me below:
+            Wanna say hi, or explore more of me? Find me below:
           </p>
         </div>
       </section>
