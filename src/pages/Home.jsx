@@ -84,8 +84,13 @@ function Experience() {
         </SectionHead>
         <ol className="timeline" ref={timeline}>
           {experience.map((job, i) => (
-            <li className="job" key={i}>
-              <article className="card reveal">
+            <li
+              className="job"
+              key={i}
+              // 0 = latest (brightest) … 1 = oldest (darkest); used by the card, dot and line
+              style={{ "--age": experience.length > 1 ? i / (experience.length - 1) : 0 }}
+            >
+              <article className="card reveal job-card">
                 <div className="job-top">
                   <h3>{job.role} <span className="company">@ {job.company}</span></h3>
                   <span className="job-when">
@@ -131,9 +136,9 @@ function Projects() {
             <article className={`card project reveal${p.featured ? " featured" : ""}`} style={{ "--i": i % 2 }} key={p.title}>
               {p.image !== undefined && <Photo src={p.image} alt={`Screenshot of ${p.title}`} label={`${p.title} image`} />}
               <div className="project-body">
-                {p.kind && <span className={`project-meta${p.wip ? " wip" : ""}`}>{p.kind}</span>}
+                {p.date && <span className="project-meta">{p.date}</span>}
                 <h3>{p.title}</h3>
-                <p>{p.text}</p>
+                <p>{emphasize(p.text)}</p>
                 <Chips items={p.tech} label="Built with" />
                 {(p.code || p.demo || p.links?.length > 0) && (
                   <div className="project-links">
@@ -162,13 +167,13 @@ function Hobbies() {
   // Open the popup when the card itself is clicked, but let links/buttons inside work normally.
   const onCardClick = (h) => (e) => {
     if (e.target.closest("a, button")) return;
-    if (h.details?.length || h.gallery?.length || h.links?.length) setOpen(h);
+    if (h.details?.length || h.gallery?.length || h.links?.length || h.video) setOpen(h);
   };
 
   return (
     <section className="section" id="hobbies">
       <div className="container">
-        <SectionHead title="Hobbies" intro="Jack of all trades, master of… to be honest, I don't even know." />
+        <SectionHead title="Hobbies" intro="I do a lot of cool things - check them out!" />
         <FunFacts facts={funFacts} />
         <div className="hobby-grid">
           {hobbies.map((h, i) => (
@@ -179,6 +184,14 @@ function Hobbies() {
               onClick={onCardClick(h)}
             >
               {h.image && <Photo src={h.image} label={`${h.title} photo`} />}
+              {!h.image && h.video?.id && (
+                <div className="hobby-video-thumb">
+                  <Photo src={`https://i.ytimg.com/vi/${h.video.id}/hqdefault.jpg`} alt={`${h.title} gameplay thumbnail`} label="" />
+                  <span className="play-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor" /></svg>
+                  </span>
+                </div>
+              )}
               {h.gallery && (
                 <div className="art-gallery">
                   {h.gallery.map((a) => (
@@ -218,7 +231,13 @@ function Hobbies() {
           ))}
         </div>
       </div>
-      <HobbyModal hobby={open} onClose={() => setOpen(null)} artist={profile.name} />
+      <HobbyModal
+        hobby={open}
+        onClose={() => setOpen(null)}
+        artist={profile.name}
+        // match the card's alternating shade (checkerboard: 2nd and 3rd of every four)
+        alt={open ? [1, 2].includes(hobbies.indexOf(open) % 4) : false}
+      />
     </section>
   );
 }

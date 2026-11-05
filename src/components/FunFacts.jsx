@@ -1,23 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { emphasize } from "./ui.jsx";
 
 const INTERVAL = 7000;
+const NEXT_LABELS = ["Next!", "More?", "Wow!", "Cool!", "No way!", "Nice!"];
+// Shuffle-bag: go through every label once in random order, then reshuffle. A new round never
+// starts with the label that ended the previous one, so there are no back-to-back repeats.
+const shuffled = (list) => {
+  const a = [...list];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+const nextFromBag = (bag, prev) => {
+  if (bag.length === 0) {
+    bag.push(...shuffled(NEXT_LABELS));
+    if (bag[0] === prev && bag.length > 1) [bag[0], bag[1]] = [bag[1], bag[0]];
+  }
+  return bag.shift();
+};
 
 /**
- * Rotating "Fun fact" card. Starts on a random fact, auto-advances (paused on hover/focus,
+ * Rotating "Fun fact" card. Starts on a random fact, auto-advances only while on screen (paused on hover/focus,
  * off for reduced-motion users), and "Next fact" steps through manually.
  */
 export default function FunFacts({ facts }) {
   const [index, setIndex] = useState(() => Math.floor(Math.random() * Math.max(facts.length, 1)));
+  // Button label: cycles through all reactions in random order with each new fact
+  const bag = useRef([]);
+  const [label, setLabel] = useState(() => nextFromBag(bag.current));
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return; }
+    setLabel((prev) => nextFromBag(bag.current, prev));
+  }, [index]);
   const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false); // only rotate while the card is actually on screen
+  const card = useRef(null);
+
+  useEffect(() => {
+    const el = card.current;
+    if (!el || !("IntersectionObserver" in window)) { setInView(true); return; }
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.5 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [facts.length]);
   const next = () => setIndex((i) => (i + 1) % facts.length);
 
   useEffect(() => {
-    if (facts.length < 2 || paused) return;
+    if (facts.length < 2 || paused || !inView) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setTimeout(next, INTERVAL);
     return () => clearTimeout(id);
-  }, [index, paused, facts.length]);
+  }, [index, paused, inView, facts.length]);
 
   if (!facts.length) return null;
 
@@ -26,6 +62,7 @@ export default function FunFacts({ facts }) {
 
   return (
     <aside
+      ref={card}
       className="card fun-fact reveal"
       aria-label="Fun facts"
       onMouseEnter={() => setPaused(true)}
@@ -41,7 +78,7 @@ export default function FunFacts({ facts }) {
       </span>
       <div className="fun-fact-body">
         <span className="fun-fact-label">
-          Fun fact {facts.length > 1 && <span className="fun-fact-count">{index + 1} / {facts.length}</span>}
+          Fun fact!
         </span>
         <p key={index} aria-live="polite">
           {emphasize(fact.text)}
@@ -60,7 +97,7 @@ export default function FunFacts({ facts }) {
       </div>
       {facts.length > 1 && (
         <button type="button" className="fun-fact-next" onClick={next}>
-          Next!
+          <span key={label} className="fun-fact-next-label">{label}</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>

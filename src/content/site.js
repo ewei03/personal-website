@@ -41,7 +41,7 @@ export const experience = [
     dates: "Aug 2026 - Present",
     location: "Toronto, ON",
     points: [
-      "Shipped a content migration project for BMO. Now building an IVR system.",
+      "Shipped a content migration project for BMO. Now building them an IVR system.",
     ],
     tags: ["Fintech", "Consulting", "Full-stack"],
   },
@@ -110,35 +110,34 @@ export const education = [
 export const projects = [
   {
     title: "PlanAway",
-    kind: "Featured · AI agent",
+    date: "Featured · Oct 2026",
     featured: true,
     image: "/images/project-planaway.png",
-    text: "Describe a trip in plain English; a Claude-powered agent researches it and builds a day-by-day itinerary with maps that friends can plan on together.",
+    text: "PlanAway is the future for vacation planning: a **Claude-powered AI agent** that does all your research. Describe your dream trip in your own words, and it builds out a comprehensive, day-by-day itinerary within minutes!",
     tech: ["Next.js", "TypeScript", "Claude API", "Postgres", "MapLibre"],
     code: "https://github.com/ewei03/planaway",
   },
   {
-    title: "Typing Duel",
-    kind: "Work in progress",
-    wip: true, // shows a pulsing dot
+    title: "TypeOff (WIP)",
+    date: "Oct 2026",
     image: "/images/project-typing-duel.png",
-    text: "Real-time 1v1 typing battles: clean words charge attacks that bury your opponent. Think tetr.io meets TypeRacer.",
+    text: "**Tetr.io** meets **TypeRacer**. A real-time 1v1 battle with a catch: the faster you type, the more they type.",
     tech: ["Vite", "Docker", "GitHub Actions"], // TODO: add language / realtime lib
     code: "https://github.com/ewei03/typing-duel-game",
   },
   {
-    title: "Harold",
-    kind: "Discord bot",
+    title: "Harold!",
+    date: "Apr 2022",
     image: "/images/project-harold.png",
-    text: "An anti-procrastination bot that nags you, gently or annoyingly, until your assignments are done.",
+    text: "Harold is an anti-procrastination **Discord bot** that nags you until your homework is done.",
     tech: ["Node.js", "discord.js", "MongoDB", "node-cron"],
     code: "https://github.com/ewei03/harold-discord-bot",
   },
   {
     title: "Need 2 Go",
-    kind: "Hackathon",
+    date: "Aug 2022",
     image: "/images/project-need-2-go.png",
-    text: "An iOS app for finding, rating and getting directions to the nearest washroom, with filters for what you need.",
+    text: "An **iOS app** for finding, rating and getting directions to the nearest washroom, with filters for what you need.",
     tech: ["Swift", "Django", "Django REST", "Google Places API"],
     links: [{ label: "Devpost", url: "https://devpost.com/software/need-2-go" }],
   },
@@ -150,6 +149,7 @@ export const projects = [
 // Supports **double asterisks** for emphasis.
 export const funFacts = [
   { text: "I can type **200+ WPM**, putting me in the **top 0.07%** on Monkeytype's 15-second leaderboard!", link: { label: "Monkeytype", url: MONKEYTYPE_URL } },
+  "I have **perfect pitch**! I get tested on it a lot...",
   "I can recite pi to **101 decimal places** from memory!",
   { text: "I can name **every country in the world** on Sporcle, and at one point I knew all of their flags too.", link: { label: "Sporcle", url: "https://www.sporcle.com/user/asdfgasm/" } },
   { text: "At 12, I played **first violin** in the OCMS Youth Symphony Orchestra.", link: { label: "OCMS", url: "https://ocms-ca.com/program/symphony-orchestra/" } },
@@ -162,70 +162,108 @@ export const funFacts = [
 export const hobbies = [
   {
     title: "Music",
-    icon: "violin", // corner clip art: violin | rhythm | cube | question
+    icon: "piano", // corner clip art: piano | violin | rhythm | cube | question
     // image: "/images/hobby-music.jpg", // uncomment once you add the photo
+    // shown in the popup instead of `text`
+    bio: "Music is a very formative part of my life. I've competed in provincial-level competitions, accompanied soloists for recitals, and led church worship. My next goal is to get into **production**!",
     text: "I learned **piano** when I was five and **violin** when I was seven. I love music and I'm hoping to get into production! Click to read up on my music background.",
     stats: [
       { value: "ARCT", label: "Diploma in Piano" },
       { value: "Level 9", label: "RCM Violin" },
     ],
+    // Grouped details: each { group, items } gets its own small heading in the popup
     details: [
-      { title: "ARCT Diploma in Piano", text: "Associate diploma from the Royal Conservatory of Music." },
-      { title: "RCM Level 9, Violin" },
-      { title: "First violin, OCMS Youth Symphony Orchestra", text: "At age 12.", link: { label: "OCMS", url: "https://ocms-ca.com/program/symphony-orchestra/" } },
-      { title: "Piano competitions", text: "Competed throughout my childhood." },
-      { title: "Trumpet, high school band" },
-      { title: "Self-taught guitar" },
+      { group: "Piano", items: [
+        { title: "ARCT Diploma", text: "Associate diploma from the Royal Conservatory of Music." },
+        { title: "Competitions", text: "Competed throughout my childhood, including OMFA Provincials. Took home various medals.", link: { label: "OMFA", url: "https://omfa.ca" } },
+      ] },
+      { group: "Violin", items: [
+        { title: "RCM Level 9" },
+        { title: "First violin, OCMS Youth Symphony Orchestra", text: "Played in orchestra for three years.", link: { label: "OCMS", url: "https://ocms-ca.com/program/symphony-orchestra/" } },
+      ] },
     ],
+    // small closing line at the bottom of the popup
+    note: "I'm also self-taught in **guitar** and played **trumpet** in my school band!",
   },
   {
     title: "Rhythm games",
-    icon: "rhythm", // corner clip art: violin | rhythm | cube | question
+    icon: "rhythm", // corner clip art: piano | violin | rhythm | cube | question
     // image: "/images/hobby-osu.jpg", // uncomment once you add the photo
+    // Gameplay video: `playlist` is embedded in the popup; set `id` (a YouTube video ID, the part
+    // after watch?v=) to also show that video's thumbnail on the card.
+    video: { playlist: "PLN3eQJaijAk5c_3KhQyYELxzn7W7lFHCP", id: "" },
+    // Popup: optional headings, and `bio` (a string, or a list of paragraphs) replaces `text`
+    // inside the popup (the card keeps `text`)
+    bioTitle: "osu!",
+    detailsTitle: "Achievements",
+    bio: [
+      "In 2017, I downloaded **osu!** after a friend introduced it to me, and I was immediately hooked.",
+      "I've competed in small tournaments, performed at my school's talent show, and spent a *lot* of hours grinding.",
+      "I don't play anymore, but I love going to rhythm game arcades!",
+    ],
     text: "I'm a huge rhythm game enjoyer, most notably **osu!**. Click to see some of my best plays.",
     stats: [
       { value: "\#844", label: "global, osu!mania" },
       { value: "\#7349", label: "global, osu!" },
     ],
     details: [
-      { title: "#844 global, osu!mania" },
-      { title: "#7349 global, osu!" },
+      { title: "#844 global rank (Top 30 in Canada), osu!mania" },
+      { title: "#7,349 global rank, osu!" },
       { title: "1st place, Tournamint #4", text: "Part of the winning team, with a profile badge to show for it." },
     ],
     links: [
       { label: "osu! profile", url: "https://osu.ppy.sh/users/9261099" },
-      { label: "Watch my plays", url: "https://www.youtube.com/playlist?list=PLN3eQJaijAk5c_3KhQyYELxzn7W7lFHCP" },
+      { label: "My osu! playlist", url: "https://www.youtube.com/playlist?list=PLN3eQJaijAk5c_3KhQyYELxzn7W7lFHCP" },
     ],
   },
   {
     title: "Against the clock",
-    icon: "cube", // corner clip art: violin | rhythm | cube | question
+    icon: "cube", // corner clip art: piano | violin | rhythm | cube | question
     // image: "/images/hobby-speed.jpg", // uncomment once you add the photo
-    text: "I was bored one day back in 2014, and that's when I decided to pick up a **Rubik's Cube**. The rest is history! Click to see my stats.",
+    // shown in the popup instead of `text`
+    bio: "In 2014, I was bored and randomly decided to pick up a **Rubik's Cube**. Using a YouTube tutorial, I learned to solve it - and the rest is history! I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.",
+    text: "My favourite hobbies involve beating the clock! I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats.",
     stats: [
-      { value: "200+", label: "WPM on Monkeytype" },
-      { value: "Bronze", label: "2x2 cube, WCA 2015" },
-      { value: "9.96s", label: "Cycle, speed stacking" },
+      { value: "5.750s", label: "3x3 Rubik's cube"},
+      { value: "9.966s", label: "Cycle (speed stacking)" },
     ],
+    // Grouped details; each group can have its own collapsible `records` table (leave "" for no time)
     details: [
-      { title: "Bronze medal, 2x2 cube", text: "WCA competition, 2015.", link: { label: "WCA", url: "https://www.worldcubeassociation.org/persons/2014WEIE01" } },
-      { title: "200+ WPM, top 0.07%", text: "Monkeytype's 15-second leaderboard.", link: { label: "Monkeytype", url: MONKEYTYPE_URL } },
-      { title: "9.96s cycle", text: "Personal best in speed stacking." },
-      { title: "Cubing since 2014" },
+      { group: "Rubik's Cube", items: [
+        { title: "Bronze medal, 2x2 cube", text: "Done at Toronto Winter Open 2015." },
+      ], records: {
+        title: "Personal bests",
+        columns: ["Event", "Single", "Average"],
+        rows: [
+          ["3x3", "5.750", "7.893"],
+          ["2x2", "0.419", "1.925"],
+          ["4x4", "31.640", "39.878"],
+          ["5x5", "1:18.747", ""],
+          ["3x3 One-Handed", "16.530", "22.672"],
+        ],
+      } },
+      { group: "Typing", items: [
+        { title: "200+ WPM, top 0.07%", text: "Monkeytype's 15-second leaderboard." },
+      ], records: {
+        title: "Personal bests (Monkeytype)",
+        columns: ["Test", "WPM"],
+        rows: [
+          ["15 seconds", "222"],
+          ["30 seconds", "200"],
+          ["60 seconds", "189"],
+          ["10 words", "274"],
+          ["25 words", "223"],
+        ],
+      } },
+      { group: "Speed stacking", items: [], records: {
+        title: "Personal bests",
+        columns: ["Event", "Time"],
+        rows: [
+          ["Cycle", "9.966"],
+          ["3-6-3", "3.165"],
+        ],
+      } },
     ],
-    // Shown as a table in the popup. Leave "" for no time.
-    records: {
-      title: "Cubing personal bests",
-      columns: ["Event", "Single", "Average"],
-      rows: [
-        ["3x3", "5.750", "7.893"],
-        ["2x2", "0.419", "1.925"],
-        ["4x4", "31.640", "39.878"],
-        ["5x5", "1:18.747", ""],
-        ["3x3 One-Handed", "16.530", "22.672"],
-      ],
-    },
-    tags: ["Speedcubing", "Speed stacking"],
     links: [
       { label: "WCA profile", url: "https://www.worldcubeassociation.org/persons/2014WEIE01" },
       { label: "Monkeytype", url: MONKEYTYPE_URL },
@@ -233,15 +271,24 @@ export const hobbies = [
   },
   {
     title: "Away from the screen",
-    icon: "question", // corner clip art: violin | rhythm | cube | question
+    icon: "question", // corner clip art: piano | violin | rhythm | cube | question
     // image: "/images/hobby-life.jpg", // uncomment once you add the photo
     text: "Some miscellaneous hobbies of mine that didn't fit in the other categories, from **cooking** to **weightlifting** - click to find out more!",
     tags: ["click", "me", "to", "find", "out!"],
     details: [
-      { title: "Under Armour 10K in 55 minutes" },
-      { title: "Badminton tournaments", text: "Competed growing up." },
-      { title: "Chess tournament medal", text: "(Still not very good.)", link: { label: "Chess.com", url: "https://www.chess.com/member/eggnonk" } },
-      { title: "Sourdough and handmade pasta", text: "My favourite things to cook." },
+      { group: "Cooking", items: [
+        { title: "Sourdough bread and handmade pasta", text: "My latest obsessions. I've made plenty of other stuff but I can't be bothered to list them all."}
+      ] },
+      { group: "Racket sports", items: [
+        { title: "Badminton, table tennis, pickleball, tennis", text: "Grew up playing and competing in badminton (I'm ultra washed now)." },
+      ] },
+      { group: "Writing", items: [
+        { title: "Because He Cares", text: "On Medium.", link: { label: "Read", url: "https://medium.com/@enoch.wei03/because-he-cares-7d9228e20fe2" } },
+        { title: "You're Not as Important as You Think You Are", text: "Published in UWCCF on Medium.", link: { label: "Read", url: "https://medium.com/uwccf/you-re-not-as-important-as-you-think-you-are-3357735b48c0" } },
+      ] },
+      { group: "Weightlifting", items: [
+        { title: "Lifting since 2024", text: "Trying to do a muscle-up next." },
+      ] },
     ],
   },
   {

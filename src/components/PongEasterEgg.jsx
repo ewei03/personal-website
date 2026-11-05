@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { CancelIcon } from "./Icons.jsx";
 
 /*
- * Easter egg: a glowing racket in the top-right corner. Hover it (or focus + Enter) and it
+ * Easter egg: a glowing racket in the top-right corner. Click it (or focus + Enter) and it
  * flies to the centre and becomes the ball of a quiet, endless game of Pong in the background:
  * you (left paddle, follows your mouse up and down) vs. the CPU (right). No score; the ball
  * respawns in the middle after a miss. The play area runs between the header and the footer.
@@ -39,6 +40,18 @@ export default function PongEasterEgg() {
   const [enabled, setEnabled] = useState(false);
   const [phase, setPhase] = useState("idle"); // idle | leaving | playing | stopping | stopped
   const [flight, setFlight] = useState(null);
+  const [otherActive, setOtherActive] = useState(false); // the other easter-egg game is running
+
+  // Only one game at a time: announce when this one is running, and listen for the other
+  useEffect(() => {
+    const running = phase === "leaving" || phase === "playing" || phase === "stopping";
+    window.dispatchEvent(new CustomEvent("egg-game", { detail: { id: "pong", running } }));
+  }, [phase]);
+  useEffect(() => {
+    const onGame = (e) => { if (e.detail.id !== "pong") setOtherActive(e.detail.running); };
+    window.addEventListener("egg-game", onGame);
+    return () => window.removeEventListener("egg-game", onGame);
+  }, []);
   const canvasRef = useRef(null);
   const racketRef = useRef(null);
 
@@ -49,14 +62,20 @@ export default function PongEasterEgg() {
   }, []);
 
   const launch = () => {
-    if (phase !== "idle") return;
+    if (phase !== "idle" || otherActive) return;
     // fly from the icon's centre to the centre of the play area, where the ball serves from
-    const r = racketRef.current?.getBoundingClientRect();
+    // Use the icon's resting position (from its CSS), not its live box, which is offset by the float bob
+    const el = racketRef.current;
     const { top, bottom } = playBounds();
-    if (r) setFlight({
-      "--tx": `${window.innerWidth / 2 - (r.left + r.width / 2)}px`,
-      "--ty": `${(top + bottom) / 2 - (r.top + r.height / 2)}px`,
-    });
+    if (el) {
+      const cs = getComputedStyle(el);
+      const cx = window.innerWidth - parseFloat(cs.right) - el.offsetWidth / 2;
+      const cy = parseFloat(cs.top) + el.offsetHeight / 2;
+      setFlight({
+        "--tx": `${window.innerWidth / 2 - cx}px`,
+        "--ty": `${(top + bottom) / 2 - cy}px`,
+      });
+    }
     setPhase("leaving");
     setTimeout(() => setPhase("playing"), 950);
   };
@@ -143,7 +162,7 @@ export default function PongEasterEgg() {
     };
 
     // your paddle follows the mouse's vertical position
-    const onMove = (e) => { you.y = clampY(e.clientY); };
+    const onMove = (e) => { if (!document.querySelector("dialog[open]")) you.y = clampY(e.clientY); };
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("resize", resize);
 
@@ -158,7 +177,9 @@ export default function PongEasterEgg() {
     let last = performance.now();
     let frame = 0;
     const tick = (now) => {
-      const dt = Math.min((now - last) / 1000, 0.05);
+      // freeze while any popup (hobby details, résumé) is open
+      const paused = !!document.querySelector("dialog[open]");
+      const dt = paused ? 0 : Math.min((now - last) / 1000, 0.05);
       last = now;
       if (++tickCount % 30 === 0) {
         readHue();
@@ -252,9 +273,10 @@ export default function PongEasterEgg() {
         <button
           type="button"
           ref={racketRef}
-          className={`pong-racket${phase === "leaving" ? " leaving" : ""}`}
+          className={`pong-racket${phase === "leaving" ? " leaving" : ""}${otherActive ? " blocked" : ""}`}
+          tabIndex={otherActive ? -1 : undefined}
+          aria-hidden={otherActive || undefined}
           style={phase === "leaving" ? flight : undefined}
-          onMouseEnter={launch}
           onClick={launch}
           aria-label="Play Pong"
           title="Pong?"
@@ -283,7 +305,7 @@ export default function PongEasterEgg() {
       {(phase === "playing" || phase === "stopping") && (
         <div className={`pong-controls${phase === "stopping" ? " leaving" : ""}`}>
           <button type="button" className="pong-ctl" onClick={stop} aria-label="Stop Pong" title="Stop">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor" /></svg>
+            <CancelIcon />
           </button>
         </div>
       )}

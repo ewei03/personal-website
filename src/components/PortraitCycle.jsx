@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const INTERVAL = 4000;
 
@@ -11,17 +11,28 @@ export default function PortraitCycle({ photos, name }) {
   const last = photos.length - 1;
   const [index, setIndex] = useState(last);
   const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false); // only rotate while the portrait is on screen
+  const wrap = useRef(null);
+
+  useEffect(() => {
+    const el = wrap.current;
+    if (!el || !("IntersectionObserver" in window)) { setInView(true); return; }
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.5 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const next = () => setIndex((i) => (i + 1) % photos.length);
 
   useEffect(() => {
-    if (photos.length < 2 || paused) return;
+    if (photos.length < 2 || paused || !inView) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setTimeout(next, index === last ? INTERVAL * 1.5 : INTERVAL);
     return () => clearTimeout(id);
-  }, [index, paused, photos.length, last]);
+  }, [index, paused, inView, photos.length, last]);
 
   return (
     <div
+      ref={wrap}
       className="portrait-cycle"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

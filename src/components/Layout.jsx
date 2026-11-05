@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { profile, links } from "../content/site.js";
 import PongEasterEgg from "./PongEasterEgg.jsx";
+import DashEasterEgg from "./DashEasterEgg.jsx";
 
 const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -202,6 +203,7 @@ export default function Layout() {
     <div className={`app${deck ? " deck-mode" : ""}`}>
       <Ambient />
       <PongEasterEgg />
+      <DashEasterEgg />
       <a className="skip-link" href="#main">Skip to content</a>
       <Header />
       <main id="main"><Outlet /></main>

@@ -22,6 +22,19 @@ const Violin = () => (
   </svg>
 );
 
+// Small piano keyboard: seven white keys with the black-key pattern (2 + 3)
+const PianoKeys = () => (
+  <svg {...svg}>
+    <rect x="6" y="18" width="52" height="28" rx="3" />
+    <path d="M13.43 18V46M20.86 18V46M28.29 18V46M35.71 18V46M43.14 18V46M50.57 18V46" strokeWidth="1.5" />
+    <rect x="11.03" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
+    <rect x="18.46" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
+    <rect x="33.31" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
+    <rect x="40.74" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
+    <rect x="48.17" y="18" width="4.8" height="16" rx="1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 // osu!mania mode icon: a ring with three vertical bars, the middle one longer
 const RhythmNote = () => (
   <svg {...svg}>
@@ -66,6 +79,7 @@ const QuestionMark = () => (
 );
 
 export const hobbyIcons = {
+  piano: PianoKeys,
   violin: Violin,
   rhythm: RhythmNote,
   cube: RubiksCube,

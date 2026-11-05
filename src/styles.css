@@ -330,13 +330,13 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   background-position: 0% 50%;
   color: var(--white);
   font-weight: 600;
-  box-shadow: 0 8px 20px -10px var(--teal);
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.3); /* neutral drop shadow, no coloured glow */
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background-position 0.6s var(--ease);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
   background-position: 100% 50%;
-  box-shadow: 0 14px 28px -12px color-mix(in srgb, var(--amber) 60%, var(--teal));
+  box-shadow: 0 10px 22px -8px rgba(0, 0, 0, 0.65), 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 .btn-ghost {
   border-color: var(--line);
@@ -680,7 +680,8 @@ main { overflow-x: clip; }
   top: 8px;
   bottom: 8px;
   width: 2px;
-  background: linear-gradient(var(--teal), var(--sea), var(--amber));
+  /* brightness gradient to match the cards: bright beside the latest role, fading downward */
+  background: linear-gradient(to bottom, var(--sea), var(--teal) 45%, color-mix(in srgb, var(--teal) 30%, var(--bg)));
   border-radius: 2px;
   transform-origin: top;
   transform: scaleY(var(--progress, 0));
@@ -712,6 +713,7 @@ main { overflow-x: clip; }
   border-radius: 50%;
   background: var(--bg);
   border: 2px solid var(--teal);
+  opacity: calc(1 - var(--age, 0) * 0.55); /* dots fade toward older roles */
   transition: background-color 0.4s var(--ease), transform 0.4s var(--ease);
 }
 .job.in-view::before { background: var(--amber); border-color: var(--amber); transform: scale(1.1); }
@@ -763,8 +765,12 @@ main { overflow-x: clip; }
   main:has(.card:hover) .card:not(:hover)::after { opacity: 0.45; }
 }
 
+/* Experience: step gradient down the timeline, latest role brightest (--age set inline, 0 → 1) */
+.timeline .job > .job-card { background: hsl(var(--hue) 23% calc(15% - var(--age, 0) *7%)); }
+.pong-on .timeline .job > .job-card,
+.dash-on .timeline .job > .job-card { background: hsl(var(--hue) 23% calc(19% - var(--age, 0) * 7%) / 0.7); }
+
 /* Very subtly alternate card shades within each section */
-.timeline .job:nth-child(even) > .card,
 .project-grid > .card:nth-child(even),
 .hobby-grid > .card:nth-child(4n + 2),
 .hobby-grid > .card:nth-child(4n + 3),
@@ -879,6 +885,7 @@ main { overflow-x: clip; }
   overflow: hidden;
 }
 .hobby-dialog[open] { animation: dialog-in 0.4s var(--ease); }
+.hobby-dialog.alt { background: var(--surface-2); } /* matches alternate-shaded cards */
 .hobby-dialog::backdrop { background: rgba(15, 25, 24, 0.55); backdrop-filter: blur(4px); animation: page-in 0.3s var(--ease); }
 .hobby-dialog-inner { display: flex; flex-direction: column; max-height: inherit; }
 .hobby-dialog-head {
@@ -892,6 +899,29 @@ main { overflow-x: clip; }
 .hobby-dialog-head h2 { margin: 0; font-size: 1.45rem; }
 .hobby-dialog-body { padding: 18px 24px 24px; overflow-y: auto; }
 .hobby-dialog-intro { margin: 0; font-size: 0.97rem; }
+.hobby-dialog-intro + .hobby-dialog-intro { margin-top: 10px; }
+.hobby-dialog-note {
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.hobby-dialog-note strong { color: var(--teal); font-weight: 600; }
+.hobby-dialog-subhead { font-size: 1.02rem; margin: 22px 0 8px; }
+.hobby-dialog-subhead.first { margin-top: 0; }
+.hobby-details.titled { margin-top: 0; }
+.hobby-detail-group + .hobby-detail-group { margin-top: 14px; }
+.hobby-group-title {
+  margin: 18px 0 8px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.hobby-detail-group + .hobby-detail-group .hobby-group-title { margin-top: 0; }
 .hobby-details { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 12px; }
 .hobby-details li {
   position: relative;
@@ -915,8 +945,60 @@ main { overflow-x: clip; }
 .hobby-details span { flex-basis: 100%; font-size: 0.88rem; color: var(--muted); }
 .hobby-details a { display: inline-flex; align-items: center; gap: 3px; font-size: 0.85rem; font-weight: 500; }
 .hobby-details a svg { width: 13px; height: 13px; }
-.hobby-records { margin-top: 20px; }
-.hobby-records h3 { font-size: 1rem; margin: 0 0 8px; }
+.hobby-video {
+  position: relative;
+  margin-top: 16px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #000;
+  box-shadow: var(--shadow);
+}
+.hobby-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+/* Card thumbnail for a gameplay video */
+.hobby-video-thumb { position: relative; }
+.hobby-video-thumb .photo { border-radius: 0; aspect-ratio: 2.2 / 1; }
+.play-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  background: rgba(10, 16, 16, 0.55);
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s var(--ease), background-color 0.3s;
+}
+.play-badge svg { width: 22px; height: 22px; margin-left: 3px; }
+.hobby:hover .play-badge { transform: scale(1.1); background: color-mix(in srgb, var(--amber) 70%, transparent); }
+.hobby-records { margin-top: 14px; }
+.hobby-detail-group .hobby-records { margin-top: 8px; }
+.hobby-group-title + .hobby-records { margin-top: 0; }
+.hobby-records summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 2px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body); /* same as the item titles */
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s, background-color 0.2s;
+}
+.hobby-records summary::-webkit-details-marker { display: none; }
+.hobby-records summary:hover { color: var(--amber); background: color-mix(in srgb, var(--surface-2) 70%, transparent); }
+.records-chevron { width: 15px; height: 15px; flex: none; transition: transform 0.25s var(--ease); }
+.hobby-records[open] .records-chevron { transform: rotate(90deg); }
+.records-count { font-family: var(--font-body); font-size: 0.78rem; color: var(--muted); }
+.hobby-records[open] table { margin-top: 6px; animation: records-open 0.3s var(--ease); }
+@keyframes records-open { from { opacity: 0; transform: translateY(-4px); } }
 .hobby-records table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 .hobby-records th, .hobby-records td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); }
 .hobby-records thead th { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
@@ -947,7 +1029,15 @@ main { overflow-x: clip; }
   padding: 3px 9px;
   border-radius: 999px;
 }
-.hobby-dialog .project-links { padding-top: 18px; }
+.hobby-dialog .project-links {
+  align-items: center;
+  flex-wrap: wrap;
+  /* same divider as the Music popup's closing note */
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.links-label { font-size: 0.85rem; color: var(--muted); margin-right: -6px; }
 
 /* Fun fact card (top of Hobbies) */
 .fun-fact {
@@ -1023,6 +1113,7 @@ main { overflow-x: clip; }
   cursor: pointer;
   transition: border-color 0.25s, color 0.25s;
 }
+.fun-fact-next-label { display: inline-block; animation: word-up 0.35s var(--ease) both; }
 .fun-fact-next svg { width: 14px; height: 14px; transition: transform 0.3s var(--ease); }
 .fun-fact-next:hover { border-color: var(--amber); color: var(--amber); }
 .fun-fact-next:hover svg { transform: translateX(3px); }
@@ -1111,16 +1202,9 @@ main { overflow-x: clip; }
   color: var(--clay);
   margin-bottom: 6px;
 }
-.project-meta.wip::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--amber);
-  animation: pulse 2.6s ease-out infinite;
-}
 .project h3 { font-size: 1.2rem; margin-bottom: 6px; }
 .project p { margin: 0; font-size: 0.93rem; }
+.project p strong { color: var(--teal); font-weight: 600; }
 .project .chips { margin-top: 12px; }
 .project-links {
   display: flex;
@@ -1303,10 +1387,10 @@ main { overflow-x: clip; }
   padding: 0;
   border: 0;
   background: none;
-  color: var(--amber);
+  color: color-mix(in srgb, var(--amber) 80%, var(--bg));
   cursor: pointer;
-  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--amber) 75%, transparent))
-          drop-shadow(0 0 14px color-mix(in srgb, var(--amber) 40%, transparent));
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--amber) 55%, transparent))
+          drop-shadow(0 0 12px color-mix(in srgb, var(--amber) 28%, transparent));
   animation: racket-float 4.5s ease-in-out infinite, racket-glow 3.2s ease-in-out infinite;
 }
 .pong-racket svg { width: 100%; height: 100%; display: block; overflow: visible; }
@@ -1329,9 +1413,9 @@ main { overflow-x: clip; }
   100% { transform: translate(var(--tx), var(--ty)) rotate(600deg) scale(0.34); }
 }
 .pong-racket-art {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s var(--ease);
   /* fades into view shortly after the page loads */
-  animation: racket-in 1s var(--ease) 0.3s backwards;
+  animation: racket-in 6s ease-in 0.5s backwards;
 }
 @keyframes racket-in { from { opacity: 0; } to { opacity: 1; } }
 .pong-racket.leaving .pong-racket-art { animation: morph-out 0.95s ease forwards; }
@@ -1347,7 +1431,7 @@ main { overflow-x: clip; }
 }
 .pong-racket.leaving .pong-morph-ball { animation: morph-in 0.95s ease forwards; }
 @keyframes morph-in { 0%, 50% { opacity: 0; } 90%, 100% { opacity: 0.65; } } /* matches the in-game ball */
-.pong-canvas {
+.pong-canvas, .egg-canvas {
   position: fixed;
   inset: 0;
   width: 100vw;
@@ -1357,28 +1441,27 @@ main { overflow-x: clip; }
   opacity: 0;
   transition: opacity 0.9s var(--ease);
 }
-.pong-canvas.on { opacity: 1; }
-.pong-canvas.stopping { opacity: 0; }
+.pong-canvas.on, .egg-canvas.on { opacity: 1; }
+.pong-canvas.stopping, .egg-canvas.stopping { opacity: 0; }
 
-/* While Pong is running, cards turn translucent so the ball is visible passing behind them */
+/* While an easter-egg game is running, cards turn translucent so the ball is visible passing behind them */
 .card { transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.45s, background-color 0.9s var(--ease); }
-.pong-on .card { background-color: color-mix(in srgb, var(--surface) 70%, transparent); }
-.pong-on .timeline .job:nth-child(even) > .card,
-.pong-on .project-grid > .card:nth-child(even),
-.pong-on .hobby-grid > .card:nth-child(4n + 2),
-.pong-on .hobby-grid > .card:nth-child(4n + 3),
-.pong-on .link-cards > .card:nth-child(4n + 2),
-.pong-on .link-cards > .card:nth-child(4n + 3) {
+.pong-on .card, .dash-on .card { background-color: color-mix(in srgb, var(--surface) 70%, transparent); }
+.pong-on .project-grid > .card:nth-child(even), .dash-on .project-grid > .card:nth-child(even),
+.pong-on .hobby-grid > .card:nth-child(4n + 2), .dash-on .hobby-grid > .card:nth-child(4n + 2),
+.pong-on .hobby-grid > .card:nth-child(4n + 3), .dash-on .hobby-grid > .card:nth-child(4n + 3),
+.pong-on .link-cards > .card:nth-child(4n + 2), .dash-on .link-cards > .card:nth-child(4n + 2),
+.pong-on .link-cards > .card:nth-child(4n + 3), .dash-on .link-cards > .card:nth-child(4n + 3) {
   background-color: color-mix(in srgb, var(--surface-2) 70%, transparent);
 }
-.pong-on .fun-fact.card {
+.pong-on .fun-fact.card, .dash-on .fun-fact.card {
   background: linear-gradient(90deg,
     color-mix(in srgb, color-mix(in srgb, var(--amber) 12%, var(--surface)) 70%, transparent),
     color-mix(in srgb, var(--surface) 70%, transparent) 70%);
 }
 
 /* In-game control (stop): glowing, stationary */
-.pong-controls {
+.pong-controls, .egg-controls {
   position: fixed;
   top: 76px;
   right: 24px;
@@ -1388,10 +1471,10 @@ main { overflow-x: clip; }
   animation: ctl-in 0.6s var(--ease) both;
   transition: opacity 0.5s var(--ease);
 }
-.pong-controls.leaving { animation: ctl-out 0.9s var(--ease) forwards; pointer-events: none; }
+.pong-controls.leaving, .egg-controls.leaving { animation: ctl-out 0.9s var(--ease) forwards; pointer-events: none; }
 @keyframes ctl-out { from { opacity: 1; } to { opacity: 0; } }
 @keyframes ctl-in { from { opacity: 0; scale: 0.6; } to { opacity: 1; scale: 1; } }
-.pong-ctl {
+.pong-ctl, .egg-stop {
   width: 34px;
   height: 34px;
   padding: 0;
@@ -1404,10 +1487,68 @@ main { overflow-x: clip; }
   animation: racket-glow 3.2s ease-in-out infinite;
   transition: transform 0.25s var(--ease);
 }
-.pong-ctl svg { width: 100%; height: 100%; display: block; }
-.pong-ctl:hover { transform: scale(1.1); }
-.pong-ctl:hover, .pong-ctl:focus-visible { animation-play-state: paused; opacity: 1; }
+.pong-ctl svg, .egg-stop svg { width: 100%; height: 100%; display: block; }
+.pong-ctl:hover, .egg-stop:hover { transform: scale(1.1); }
+.pong-ctl:hover, .pong-ctl:focus-visible, .egg-stop:hover, .egg-stop:focus-visible { animation-play-state: paused; opacity: 1; }
 
+
+/* ---------- Runner easter egg (bottom-left square) ---------- */
+.dash-icon {
+  position: fixed;
+  left: 24px;
+  bottom: 84px;
+  z-index: 40;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--amber) 55%, transparent))
+          drop-shadow(0 0 12px color-mix(in srgb, var(--amber) 28%, transparent));
+  animation: racket-float 4.5s ease-in-out -2s infinite, racket-glow 3.2s ease-in-out infinite;
+}
+.dash-icon-square {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--amber) 80%, var(--bg));
+  animation: racket-in 6s ease-in 0.5s backwards; /* fades in after page load */
+}
+/* Launch: hops, spins and drops onto the floor at the player's spot */
+.dash-icon.leaving {
+  pointer-events: none;
+  animation: dash-drop 0.8s cubic-bezier(0.5, 0, 0.3, 1) forwards;
+}
+@keyframes dash-drop {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  30%  { transform: translate(calc(var(--tx) * 0.35), -36px) rotate(-120deg) scale(1.05); }
+  100% { transform: translate(var(--tx), var(--ty)) rotate(-360deg) scale(var(--s)); }
+}
+/* Runner's stop button: bottom-left, a little above where its square sat */
+.egg-controls--bl { top: auto; right: auto; left: 24px; bottom: 140px; }
+
+/* Easter-egg icons brighten on hover (they launch on click) */
+.pong-racket, .dash-icon { transition: color 0.3s var(--ease), filter 0.3s var(--ease); }
+.dash-icon-square { transition: opacity 0.5s var(--ease), background-color 0.3s var(--ease); }
+.pong-racket:not(.leaving):hover, .pong-racket:not(.leaving):focus-visible,
+.dash-icon:not(.leaving):hover, .dash-icon:not(.leaving):focus-visible {
+  color: var(--amber);
+  animation-play-state: running, paused; /* keep floating, hold the glow pulse at full */
+  opacity: 1;
+  filter: brightness(1.2)
+          drop-shadow(0 0 6px color-mix(in srgb, var(--amber) 80%, transparent))
+          drop-shadow(0 0 18px color-mix(in srgb, var(--amber) 50%, transparent));
+}
+.dash-icon:not(.leaving):hover .dash-icon-square,
+.dash-icon:not(.leaving):focus-visible .dash-icon-square { background: var(--amber); }
+
+/* While the other easter-egg game is running, this one's icon fades out and can't be used */
+.pong-racket.blocked, .dash-icon.blocked { pointer-events: none; }
+.pong-racket.blocked .pong-racket-art,
+.pong-racket.blocked .pong-morph-ball,
+.dash-icon.blocked .dash-icon-square { opacity: 0; }
 
 /* ---------- Footer ---------- */
 .site-footer {
