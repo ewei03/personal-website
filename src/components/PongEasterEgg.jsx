@@ -19,11 +19,12 @@ const START_SPEED = 400;     // px/s
 const MAX_SPEED = 950;
 const SPEEDUP = 1.06;        // per paddle hit
 const MAX_ANGLE = Math.PI * 0.32;
-const CPU_SPEED = 560;       // px/s: good, but can't cover everything at high ball speeds
-const CPU_ERROR = 0.38;      // max final aim error, as a fraction of paddle height
+const CPU_SPEED = 640;       // px/s top speed: fast, but still below the ball's max (950)
+const CPU_ERROR = 0.2;       // max final aim error, as a fraction of paddle height (small = very accurate)
 const CPU_MISJUDGE = 170;    // px: how far off its first guess can be (shrinks as the ball nears)
-const CPU_REACTION = [0.15, 0.4]; // s: random hesitation after you hit the ball
-const CPU_ACCEL = 7;         // how quickly it gets up to speed (lower = more momentum/overshoot)
+const CPU_REACTION = [0.25, 0.5]; // s: random hesitation after you hit the ball
+const CPU_ACCEL = 3.5;       // how quickly it gets up to speed (lower = slower, smoother approach)
+const CPU_HOMING = 4;        // how hard it steers toward its target (lower = eases in instead of snapping)
 const SERVE_PAUSE = 0.8;     // s
 
 /** Vertical play area: from the bottom of the header to the top of the footer (if on screen). */
@@ -217,7 +218,7 @@ export default function PongEasterEgg() {
         // ball heading away: drift loosely back toward the middle with a lazy sway
         cpuTarget = mid() + Math.sin(cpu.t * 1.3) * 30 + cpu.fidget * 2;
       }
-      const desired = Math.max(-CPU_SPEED, Math.min(CPU_SPEED, (cpuTarget - cpu.y) * 7));
+      const desired = Math.max(-CPU_SPEED, Math.min(CPU_SPEED, (cpuTarget - cpu.y) * CPU_HOMING));
       cpu.vy += (desired - cpu.vy) * Math.min(1, CPU_ACCEL * dt);
       cpu.y = clampY(cpu.y + cpu.vy * dt);
       if (cpu.y === top + PADDLE_H / 2 || cpu.y === bottom - PADDLE_H / 2) cpu.vy = 0;

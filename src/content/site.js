@@ -15,9 +15,9 @@ export const profile = {
   headlineAccent: "Enoch Wei.",
   bio: [
     "I was always a **competitive** kid. Piano competitions, math contests, badminton tournaments, even Rubik's cube competitions. I always wanted to be the best.",
-    "I don't compete as much anymore, but my competitive spirit lives on. Now, I'm a **hobbyist** who loves picking up new things and **grinding** until I'm good at them.",
+    "I don't compete as much anymore, but my competitive spirit lives on. I'm a **hobbyist** at heart who loves picking up new things and **grinding** until I'm good at them.",
     "Today, I'm a **software engineer** who brings that same grind to my job.",
-    "***Soli Deo Gloria. ✝***"
+    "***Soli Deo Gloria.***"
   ],
   portraits: [
     { src: "/images/portrait/child.jpg", label: "Child", caption: "2006 · Age 3" },

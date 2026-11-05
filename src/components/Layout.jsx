@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { profile, links } from "../content/site.js";
 import PongEasterEgg from "./PongEasterEgg.jsx";
+import { useI18n, LANGS } from "../i18n.jsx";
 import DashEasterEgg from "./DashEasterEgg.jsx";
 
 const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -34,7 +35,30 @@ function HueSlider() {
   );
 }
 
+/** EN · FR · 中文 switch (remembered per visitor). */
+function LangToggle() {
+  const { lang, setLang, t } = useI18n();
+  return (
+    <div className="lang-toggle" role="group" aria-label={t("Language")}>
+      {LANGS.map((l) => (
+        <button
+          key={l.code}
+          type="button"
+          lang={l.html}
+          className={lang === l.code ? "active" : ""}
+          aria-pressed={lang === l.code}
+          title={l.name}
+          onClick={() => setLang(l.code)}
+        >
+          {l.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function Header() {
+  const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -54,14 +78,15 @@ function Header() {
   return (
     <header className={`site-header${scrolled ? " scrolled" : ""}${open ? " nav-open" : ""}`}>
       <nav className="container nav" aria-label="Main">
-        <Link className="brand" to="/"><span className="brand-sig" aria-hidden="true" />{profile.name}</Link>
+        <Link className="brand" to="/"><span className="brand-sig" aria-hidden="true" />{t(profile.name)}</Link>
         <ul className="nav-links">
-          <li><Link to={section("experience")} aria-current={isSection("experience") ? "page" : undefined}>Experience</Link></li>
-          <li><Link to={section("projects")} aria-current={isSection("projects") ? "page" : undefined}>Projects</Link></li>
-          <li><Link to={section("hobbies")} aria-current={isSection("hobbies") ? "page" : undefined}>Hobbies</Link></li>
-          <li><NavLink to="/contact">Contact</NavLink></li>
+          <li><Link to={section("experience")} aria-current={isSection("experience") ? "page" : undefined}>{t("Experience")}</Link></li>
+          <li><Link to={section("projects")} aria-current={isSection("projects") ? "page" : undefined}>{t("Projects")}</Link></li>
+          <li><Link to={section("hobbies")} aria-current={isSection("hobbies") ? "page" : undefined}>{t("Hobbies")}</Link></li>
+          <li><NavLink to="/contact">{t("Contact")}</NavLink></li>
         </ul>
         <div className="nav-actions">
+          <LangToggle />
           <HueSlider />
           <button
             className="menu-toggle"
@@ -79,18 +104,19 @@ function Header() {
 }
 
 function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="site-footer">
       <div className="container footer-inner">
-        <span className="footer-meta">© {new Date().getFullYear()} {profile.name}</span>
+        <span className="footer-meta">© {new Date().getFullYear()} {t(profile.name)}</span>
         <figure className="verse">
-          <blockquote>“Cast all your anxiety on him because he cares for you.”</blockquote>
-          <figcaption>1 Peter 5:7</figcaption>
+          <blockquote>{t("“Cast all your anxiety on him because he cares for you.”")}</blockquote>
+          <figcaption>{t("1 Peter 5:7")}</figcaption>
         </figure>
         <div className="footer-links">
           <a href={links.github.url} target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href={links.linkedin.url} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <Link to="/contact">Contact</Link>
+          <Link to="/contact">{t("Contact")}</Link>
         </div>
       </div>
     </footer>
@@ -194,6 +220,7 @@ function Ambient() {
 }
 
 export default function Layout() {
+  const { t } = useI18n();
   useScrollManager();
   useReveal();
   const { pathname } = useLocation();
@@ -204,7 +231,7 @@ export default function Layout() {
       <Ambient />
       <PongEasterEgg />
       <DashEasterEgg />
-      <a className="skip-link" href="#main">Skip to content</a>
+      <a className="skip-link" href="#main">{t("Skip to content")}</a>
       <Header />
       <main id="main"><Outlet /></main>
       <Footer />

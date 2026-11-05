@@ -43,8 +43,8 @@
   --radius-sm: 6px;
   --maxw: 960px;
 
-  --font-display: "Lora", Georgia, "Times New Roman", serif;
-  --font-body: "Satoshi", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Lora", Georgia, "Times New Roman", "Songti SC", "Noto Serif SC", "SimSun", serif;
+  --font-body: "Satoshi", system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: dark;
@@ -1644,3 +1644,14 @@ main { overflow-x: clip; }
   }
   .reveal, .split .word, .fade-up { opacity: 1; transform: none; }
 }
+
+/* ---------- Language toggle ---------- */
+.lang-toggle { display: flex; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.lang-toggle button {
+  appearance: none; border: 0; background: transparent; font: inherit; font-size: 0.75rem; font-weight: 600;
+  color: var(--muted); padding: 4px 8px; border-radius: 5px; cursor: pointer; transition: color 0.2s, background-color 0.2s;
+}
+.lang-toggle button:hover { color: var(--ink); }
+.lang-toggle button.active { background: var(--teal); color: var(--bg); }
+/* Chinese: no faux-italic on CJK text */
+:lang(zh-CN) .accent, :lang(zh-CN) .verse blockquote, :lang(zh-CN) .verse figcaption { font-style: normal; }

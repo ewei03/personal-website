@@ -11,6 +11,7 @@ import PortraitCycle from "../components/PortraitCycle.jsx";
 import HobbyModal from "../components/HobbyModal.jsx";
 import { hobbyIcons } from "../components/HobbyIcons.jsx";
 import SlideDeck from "../components/SlideDeck.jsx";
+import { useI18n } from "../i18n.jsx";
 
 function SectionHead({ title, intro, children }) {
   return (
@@ -25,19 +26,20 @@ function SectionHead({ title, intro, children }) {
 }
 
 function Hero() {
+  const { t } = useI18n();
   return (
     <section className="hero">
       <div className="container hero-grid">
         <div>
-          <SplitText text={profile.headline} accent={profile.headlineAccent} />
+          <SplitText text={t(profile.headline)} accent={t(profile.headlineAccent)} />
           {profile.bio?.length > 0 && (
             <div className="bio fade-up" style={{ animationDelay: "800ms" }}>
-              {profile.bio.map((para, i) => <p key={i}>{emphasize(para)}</p>)}
+              {profile.bio.map((para, i) => <p key={i}>{emphasize(t(para))}</p>)}
             </div>
           )}
           <div className="hero-cta fade-up" style={{ animationDelay: "1000ms" }}>
-            <Link className="btn btn-primary" to={{ pathname: "/", hash: "#experience" }}>Explore me! <ArrowRight /></Link>
-            <Link className="btn btn-ghost" to="/contact">Get in touch</Link>
+            <Link className="btn btn-primary" to={{ pathname: "/", hash: "#experience" }}>{t("Explore me!")} <ArrowRight /></Link>
+            <Link className="btn btn-ghost" to="/contact">{t("Get in touch")}</Link>
           </div>
         </div>
         <div className="portrait-wrap fade-up" style={{ animationDelay: "300ms" }}>
@@ -49,6 +51,7 @@ function Hero() {
 }
 
 function Experience() {
+  const { t, td } = useI18n();
   const timeline = useRef(null);
 
   // Grow the timeline's gradient line as you scroll through it
@@ -79,7 +82,7 @@ function Experience() {
   return (
     <section className="section" id="experience">
       <div className="container">
-        <SectionHead title="Experience" intro="Feel free to download my résumé.">
+        <SectionHead title={t("Experience")} intro={t("Feel free to download my résumé.")}>
           <div className="reveal" style={{ "--i": 2 }}><ResumeViewer /></div>
         </SectionHead>
         <ol className="timeline" ref={timeline}>
@@ -92,31 +95,31 @@ function Experience() {
             >
               <article className="card reveal job-card">
                 <div className="job-top">
-                  <h3>{job.role} <span className="company">@ {job.company}</span></h3>
+                  <h3>{t(job.role)} <span className="company">@ {job.company}</span></h3>
                   <span className="job-when">
                     {job.location && <span className="job-loc">{job.location}</span>}
-                    <span className="job-dates">{job.dates}</span>
+                    <span className="job-dates">{td(job.dates)}</span>
                   </span>
                 </div>
-                <ul>{job.points.map((pt, j) => <li key={j}>{pt}</li>)}</ul>
-                <Chips items={job.tags} label="Focus areas" />
+                <ul>{job.points.map((pt, j) => <li key={j}>{t(pt)}</li>)}</ul>
+                <Chips items={job.tags?.map((x) => t(x))} label={t("Focus areas")} />
               </article>
             </li>
           ))}
         </ol>
 
         <div className="subsection">
-          <h3 className="subsection-title reveal">Education</h3>
+          <h3 className="subsection-title reveal">{t("Education")}</h3>
           {education.map((ed) => (
             <article className="card edu reveal" key={ed.school}>
               <div className="job-top">
-                <h3>{ed.degree} <span className="company">@ {ed.school}</span></h3>
+                <h3>{t(ed.degree)} <span className="company">@ {t(ed.school)}</span></h3>
                 <span className="job-when">
                   {ed.location && <span className="job-loc">{ed.location}</span>}
-                  <span className="job-dates">{ed.dates}</span>
+                  <span className="job-dates">{td(ed.dates)}</span>
                 </span>
               </div>
-              {ed.points?.length > 0 && <ul>{ed.points.map((pt, j) => <li key={j}>{pt}</li>)}</ul>}
+              {ed.points?.length > 0 && <ul>{ed.points.map((pt, j) => <li key={j}>{t(pt)}</li>)}</ul>}
             </article>
           ))}
         </div>
@@ -126,18 +129,19 @@ function Experience() {
 }
 
 function Projects() {
+  const { t, td } = useI18n();
   if (!projects.length) return null;
   return (
     <section className="section section-alt" id="projects">
       <div className="container">
-        <SectionHead title="Projects" intro="Check out some of my personal projects!" />
+        <SectionHead title={t("Projects")} intro={t("Check out some of my personal projects!")} />
         <div className="project-grid">
           {projects.map((p, i) => (
             <article className={`card project reveal${p.featured ? " featured" : ""}`} style={{ "--i": i % 2 }} key={p.title}>
               {p.image !== undefined && (
                 <Photo
                   src={p.image}
-                  alt={`Screenshot of ${p.title}`}
+                  alt={t("Screenshot of {title}", { title: p.title })}
                   label={`${p.title} image`}
                   fit={p.imageFit}
                   position={p.imagePosition}
@@ -145,17 +149,17 @@ function Projects() {
                 />
               )}
               <div className="project-body">
-                {p.date && <span className="project-meta">{p.date}</span>}
-                <h3>{p.title}</h3>
-                <p>{emphasize(p.text)}</p>
-                <Chips items={p.tech} label="Built with" />
+                {p.date && <span className="project-meta">{td(p.date)}</span>}
+                <h3>{t(p.title)}</h3>
+                <p>{emphasize(t(p.text))}</p>
+                <Chips items={p.tech} label={t("Built with")} />
                 {(p.code || p.demo || p.links?.length > 0) && (
                   <div className="project-links">
                     {p.code && (
-                      <a href={p.code} target="_blank" rel="noopener noreferrer"><GitHub /> Code</a>
+                      <a href={p.code} target="_blank" rel="noopener noreferrer"><GitHub /> {t("Code")}</a>
                     )}
                     {p.demo && (
-                      <a href={p.demo} target="_blank" rel="noopener noreferrer">Live demo <ArrowUpRight /></a>
+                      <a href={p.demo} target="_blank" rel="noopener noreferrer">{t("Live demo")} <ArrowUpRight /></a>
                     )}
                     {p.links?.map((l) => (
                       <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer">{l.label} <ArrowUpRight /></a>
@@ -172,6 +176,7 @@ function Projects() {
 }
 
 function Hobbies() {
+  const { t } = useI18n();
   const [open, setOpen] = useState(null);
   // Open the popup when the card itself is clicked, but let links/buttons inside work normally.
   const onCardClick = (h) => (e) => {
@@ -182,7 +187,7 @@ function Hobbies() {
   return (
     <section className="section" id="hobbies">
       <div className="container">
-        <SectionHead title="Hobbies" intro="I do a lot of cool things - check them out!" />
+        <SectionHead title={t("Hobbies")} intro={t("I do a lot of cool things - check them out!")} />
         <FunFacts facts={funFacts} />
         <div className="hobby-grid">
           {hobbies.map((h, i) => (
@@ -218,20 +223,20 @@ function Hobbies() {
                 <span className="hobby-icon">{(() => { const Icon = hobbyIcons[h.icon]; return <Icon />; })()}</span>
               )}
               <div className="hobby-body">
-                <h3>{h.title}</h3>
-                <p>{emphasize(h.text)}</p>
+                <h3>{t(h.title)}</h3>
+                <p>{emphasize(t(h.text))}</p>
                 {h.stats?.length > 0 && (
                   <div className="hobby-stats">
                     {h.stats.map((s) => (
-                      <div className="hobby-stat" key={s.label}><strong>{s.value}</strong><span>{s.label}</span></div>
+                      <div className="hobby-stat" key={s.label}><strong>{t(s.value)}</strong><span>{t(s.label)}</span></div>
                     ))}
                   </div>
                 )}
-                <Chips items={h.tags} label={`${h.title} details`} />
+                <Chips items={h.tags?.map((x) => t(x))} label={t("{title} details", { title: t(h.title) })} />
                 {(h.details?.length > 0 || h.gallery?.length > 0 || h.links?.length > 0) && (
                   <div className="project-links">
                     <button type="button" className="hobby-more" onClick={() => setOpen(h)}>
-                      Details <ArrowRight />
+                      {t("Details")} <ArrowRight />
                     </button>
                   </div>
                 )}
@@ -252,16 +257,17 @@ function Hobbies() {
 }
 
 export default function Home() {
-  useEffect(() => { document.title = `${profile.name} — Software Engineer`; }, []);
+  const { t, lang } = useI18n();
+  useEffect(() => { document.title = t("{name} — Software Engineer", { name: t(profile.name) }); }, [lang]);
   return (
     <SlideDeck
       slides={[
-        { id: "intro", label: "Intro", content: <Hero /> },
-        { id: "experience", label: "Experience", content: <Experience /> },
-        { id: "projects", label: "Projects", content: <Projects /> },
-        { id: "hobbies", label: "Hobbies", content: <Hobbies /> },
+        { id: "intro", label: t("Intro"), content: <Hero /> },
+        { id: "experience", label: t("Experience"), content: <Experience /> },
+        { id: "projects", label: t("Projects"), content: <Projects /> },
+        { id: "hobbies", label: t("Hobbies"), content: <Hobbies /> },
       ]}
-      end={{ label: "Contact", to: "/contact" }}
+      end={{ label: t("Contact"), to: "/contact" }}
     />
   );
 }
