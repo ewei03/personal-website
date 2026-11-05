@@ -11,6 +11,7 @@ const HUE_MIN = 150, HUE_MAX = 250, HUE_DEFAULT = 176;
 
 /** Slider that tints the whole palette along a cool spectrum; remembered per visitor. */
 function HueSlider() {
+  const { t } = useI18n();
   const [hue, setHue] = useState(() => {
     try { return Number(localStorage.getItem("hue")) || HUE_DEFAULT; } catch (e) { return HUE_DEFAULT; }
   });
@@ -29,8 +30,8 @@ function HueSlider() {
       value={hue}
       onChange={onChange}
       onDoubleClick={() => onChange({ target: { value: HUE_DEFAULT } })}
-      aria-label="Colour scheme"
-      title="Colour scheme (double-click to reset)"
+      aria-label={t("Colour scheme")}
+      title={t("Colour scheme (double-click to reset)")}
     />
   );
 }
@@ -77,7 +78,7 @@ function Header() {
 
   return (
     <header className={`site-header${scrolled ? " scrolled" : ""}${open ? " nav-open" : ""}`}>
-      <nav className="container nav" aria-label="Main">
+      <nav className="container nav" aria-label={t("Main")}>
         <Link className="brand" to="/"><span className="brand-sig" aria-hidden="true" />{t(profile.name)}</Link>
         <ul className="nav-links">
           <li><Link to={section("experience")} aria-current={isSection("experience") ? "page" : undefined}>{t("Experience")}</Link></li>
@@ -91,7 +92,7 @@ function Header() {
           <button
             className="menu-toggle"
             type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? t("Close menu") : t("Open menu")}
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
           >

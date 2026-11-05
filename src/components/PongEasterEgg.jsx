@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CancelIcon } from "./Icons.jsx";
+import { useI18n } from "../i18n.jsx";
 
 /*
  * Easter egg: a glowing racket in the top-right corner. Click it (or focus + Enter) and it
@@ -38,6 +39,7 @@ function playBounds() {
 }
 
 export default function PongEasterEgg() {
+  const { t } = useI18n();
   const [enabled, setEnabled] = useState(false);
   const [phase, setPhase] = useState("idle"); // idle | leaving | playing | stopping | stopped
   const [flight, setFlight] = useState(null);
@@ -284,8 +286,8 @@ export default function PongEasterEgg() {
           aria-hidden={otherActive || undefined}
           style={phase === "leaving" || handoff ? flight : undefined}
           onClick={handoff ? undefined : launch}
-          aria-label="Play Pong"
-          title="Pong?"
+          aria-label={t("Play Pong")}
+          title={t("Pong?")}
         >
           <span className="egg-float">
           <svg className="pong-racket-art" viewBox="0 0 48 48" aria-hidden="true">
@@ -312,7 +314,7 @@ export default function PongEasterEgg() {
 
       {(phase === "playing" || phase === "stopping") && (
         <div className={`pong-controls${phase === "stopping" ? " leaving" : ""}`}>
-          <button type="button" className="pong-ctl" onClick={stop} aria-label="Stop Pong" title="Stop">
+          <button type="button" className="pong-ctl" onClick={stop} aria-label={t("Stop Pong")} title={t("Stop")}>
             <CancelIcon />
           </button>
         </div>

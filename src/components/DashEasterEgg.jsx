@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CancelIcon } from "./Icons.jsx";
+import { useI18n } from "../i18n.jsx";
 
 /*
  * Easter egg #2: a glowing square in the bottom-left corner. Click it (or focus + Enter) and it
@@ -29,6 +30,7 @@ function floorY() {
 }
 
 export default function DashEasterEgg() {
+  const { t } = useI18n();
   const [enabled, setEnabled] = useState(false);
   const [phase, setPhase] = useState("idle"); // idle | leaving | playing | stopping | stopped
   const [flight, setFlight] = useState(null);
@@ -262,8 +264,8 @@ export default function DashEasterEgg() {
           aria-hidden={otherActive || undefined}
           style={phase === "leaving" || handoff ? flight : undefined}
           onClick={handoff ? undefined : launch}
-          aria-label="Play a runner game"
-          title="Jump?"
+          aria-label={t("Play a runner game")}
+          title={t("Jump?")}
         >
           <span className="egg-float"><span className="dash-icon-square" /></span>
         </button>
@@ -275,7 +277,7 @@ export default function DashEasterEgg() {
 
       {active && (
         <div className={`egg-controls egg-controls--bl${phase === "stopping" ? " leaving" : ""}`}>
-          <button type="button" className="egg-stop" onClick={stop} aria-label="Stop the runner game" title="Stop">
+          <button type="button" className="egg-stop" onClick={stop} aria-label={t("Stop the runner game")} title={t("Stop")}>
             <CancelIcon />
           </button>
         </div>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { emphasize } from "./ui.jsx";
+import { useI18n } from "../i18n.jsx";
 
 const INTERVAL = 7000;
 const NEXT_LABELS = ["Next!", "More?", "Wow!", "Cool!", "No way!", "Nice!"];
@@ -26,6 +27,7 @@ const nextFromBag = (bag, prev) => {
  * off for reduced-motion users), and "Next fact" steps through manually.
  */
 export default function FunFacts({ facts }) {
+  const { t } = useI18n();
   const [index, setIndex] = useState(() => Math.floor(Math.random() * Math.max(facts.length, 1)));
   // Button label: cycles through all reactions in random order with each new fact
   const bag = useRef([]);
@@ -64,7 +66,7 @@ export default function FunFacts({ facts }) {
     <aside
       ref={card}
       className="card fun-fact reveal"
-      aria-label="Fun facts"
+      aria-label={t("Fun facts")}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -78,15 +80,15 @@ export default function FunFacts({ facts }) {
       </span>
       <div className="fun-fact-body">
         <span className="fun-fact-label">
-          Fun fact!
+          {t("Fun fact!")}
         </span>
         <p key={index} aria-live="polite">
-          {emphasize(fact.text)}
+          {emphasize(t(fact.text))}
           {fact.link && (
             <>
               {" "}
               <a className="fun-fact-link" href={fact.link.url} target="_blank" rel="noopener noreferrer">
-                {fact.link.label}
+                {t(fact.link.label)}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M7 17L17 7M8 7h9v9" />
                 </svg>
@@ -97,7 +99,7 @@ export default function FunFacts({ facts }) {
       </div>
       {facts.length > 1 && (
         <button type="button" className="fun-fact-next" onClick={next}>
-          <span key={label} className="fun-fact-next-label">{label}</span>
+          <span key={label} className="fun-fact-next-label">{t(label)}</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>

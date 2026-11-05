@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { profile, links } from "../content/site.js";
 import { SplitText } from "../components/ui.jsx";
+import { PageArrows } from "../components/SlideDeck.jsx";
+import { useI18n } from "../i18n.jsx";
 import { ArrowUpRight, FileText, GitHub, LinkedIn, Mail } from "../components/Icons.jsx";
 
 const cards = [
@@ -11,16 +13,18 @@ const cards = [
 ];
 
 export default function Contact() {
-  useEffect(() => { document.title = `Contact — ${profile.name}`; }, []);
+  const { t, lang } = useI18n();
+  useEffect(() => { document.title = t("Contact — {name}", { name: t(profile.name) }); }, [lang]);
 
 
   return (
     <>
+      <PageArrows prev={{ label: t("Hobbies"), to: "/#hobbies" }} />
       <section className="page-hero">
         <div className="container">
-          <SplitText text="Let's" accent="talk!" />
+          <SplitText text={t("Let's")} accent={t("talk!")} />
           <p className="fade-up" style={{ animationDelay: "400ms" }}>
-            Wanna say hi, or explore more of me? Find me below:
+            {t("Wanna say hi, or explore more of me? Find me below:")}
           </p>
         </div>
       </section>
@@ -38,8 +42,8 @@ export default function Contact() {
               >
                 <span className="icon"><Icon /></span>
                 <div>
-                  <h3>{title}</h3>
-                  <p>{sub}</p>
+                  <h3>{t(title)}</h3>
+                  <p>{t(sub)}</p>
                 </div>
                 <span className="go" aria-hidden="true"><ArrowUpRight /></span>
               </a>

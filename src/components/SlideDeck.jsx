@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useI18n } from "../i18n.jsx";
 
 const Chevron = ({ dir }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -8,11 +9,80 @@ const Chevron = ({ dir }) => (
 );
 
 /**
+ * ← / → keys (ignored while typing or when a popup is open) and horizontal swipes.
+ * Returns touch handlers to spread on the swipe area.
+ */
+function useArrowNav(onPrev, onNext) {
+  const handlers = useRef({ onPrev, onNext });
+  handlers.current = { onPrev, onNext };
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.altKey || e.ctrlKey || e.metaKey) return;
+      if (document.querySelector("dialog[open]")) return;
+      if (e.target.closest?.("input, textarea, select, [contenteditable]")) return;
+      if (e.key === "ArrowRight") { e.preventDefault(); handlers.current.onNext?.(); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); handlers.current.onPrev?.(); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const touch = useRef(null);
+  const onTouchStart = (e) => { const p = e.touches[0]; touch.current = { x: p.clientX, y: p.clientY }; };
+  const onTouchEnd = (e) => {
+    if (!touch.current) return;
+    const p = e.changedTouches[0];
+    const dx = p.clientX - touch.current.x;
+    const dy = p.clientY - touch.current.y;
+    touch.current = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) (dx < 0 ? handlers.current.onNext : handlers.current.onPrev)?.();
+  };
+  return { onTouchStart, onTouchEnd };
+}
+
+/**
+ * Side arrows for a standalone page that continues the home deck (e.g. Contact).
+ * prev / next are { label, to } links; arrow keys and swipes follow them too.
+ */
+export function PageArrows({ prev, next }) {
+  const { t } = useI18n();
+  const navigate = useNavigate();
+  const { onTouchStart, onTouchEnd } = useArrowNav(
+    prev && (() => navigate(prev.to)),
+    next && (() => navigate(next.to))
+  );
+  useEffect(() => {
+    document.addEventListener("touchstart", onTouchStart, { passive: true });
+    document.addEventListener("touchend", onTouchEnd);
+    return () => {
+      document.removeEventListener("touchstart", onTouchStart);
+      document.removeEventListener("touchend", onTouchEnd);
+    };
+  });
+  return (
+    <>
+      {prev && (
+        <Link className="deck-arrow page-arrow prev" to={prev.to} aria-label={t("Previous: {label}", { label: prev.label })}>
+          <Chevron dir="left" />
+        </Link>
+      )}
+      {next && (
+        <Link className="deck-arrow page-arrow next" to={next.to} aria-label={next.label}>
+          <Chevron dir="right" />
+        </Link>
+      )}
+    </>
+  );
+}
+
+/**
  * Horizontal, full-height slides with side arrows, keyboard (← →) and swipe.
  * The active slide is kept in the URL hash (#experience etc.), so the nav links work.
  * `end` (optional) is a { label, to } link shown as the "next" arrow on the last slide.
  */
 export default function SlideDeck({ slides, end }) {
+  const { t } = useI18n();
   const { hash } = useLocation();
   const navigate = useNavigate();
   const found = slides.findIndex((s) => `#${s.id}` === hash);
@@ -22,36 +92,14 @@ export default function SlideDeck({ slides, end }) {
 
   const go = useCallback(
     (i) => {
+      if (i > last && end) { navigate(end.to); return; }
       const next = Math.max(0, Math.min(last, i));
       navigate({ pathname: "/", hash: next === 0 ? "" : `#${slides[next].id}` }, { replace: true });
     },
-    [last, navigate, slides]
+    [last, navigate, slides, end]
   );
 
-  // Keyboard arrows (ignored while typing or when a popup is open)
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.altKey || e.ctrlKey || e.metaKey) return;
-      if (document.querySelector("dialog[open]")) return;
-      if (e.target.closest?.("input, textarea, select, [contenteditable]")) return;
-      if (e.key === "ArrowRight") { e.preventDefault(); go(index + 1); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1); }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [go, index]);
-
-  // Swipe on touch screens
-  const touch = useRef(null);
-  const onTouchStart = (e) => { const t = e.touches[0]; touch.current = { x: t.clientX, y: t.clientY }; };
-  const onTouchEnd = (e) => {
-    if (!touch.current) return;
-    const t = e.changedTouches[0];
-    const dx = t.clientX - touch.current.x;
-    const dy = t.clientY - touch.current.y;
-    touch.current = null;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(index + (dx < 0 ? 1 : -1));
-  };
+  const { onTouchStart, onTouchEnd } = useArrowNav(() => go(index - 1), () => go(index + 1));
 
   // Start each newly shown slide at its top
   useEffect(() => {
@@ -76,17 +124,17 @@ export default function SlideDeck({ slides, end }) {
       </div>
 
       {index > 0 && (
-        <button type="button" className="deck-arrow prev" onClick={() => go(index - 1)} aria-label={`Previous: ${slides[index - 1].label}`}>
+        <button type="button" className="deck-arrow prev" onClick={() => go(index - 1)} aria-label={t("Previous: {label}", { label: slides[index - 1].label })}>
           <Chevron dir="left" />
         </button>
       )}
       {index < last ? (
-        <button type="button" className="deck-arrow next" onClick={() => go(index + 1)} aria-label={`Next: ${slides[index + 1].label}`}>
+        <button type="button" className="deck-arrow next" onClick={() => go(index + 1)} aria-label={t("Next: {label}", { label: slides[index + 1].label })}>
           <Chevron dir="right" />
         </button>
       ) : (
         end && (
-          <Link className="deck-arrow next" to={end.to} aria-label={end.label}>
+          <Link className="deck-arrow next" to={end.to} aria-label={t("Next: {label}", { label: end.label })}>
             <Chevron dir="right" />
           </Link>
         )

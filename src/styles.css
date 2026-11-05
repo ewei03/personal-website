@@ -115,6 +115,9 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   margin: 0 auto;
   padding: 0 24px;
 }
+/* Header and footer span wider than the page content */
+.site-header .container,
+.site-footer .container { max-width: 1240px; }
 
 .skip-link {
   position: absolute;
@@ -1354,6 +1357,8 @@ main { overflow-x: clip; }
 .deck-arrow:hover { border-color: var(--amber); color: var(--amber); box-shadow: var(--shadow-lift); }
 .deck-arrow.prev:hover { transform: translateX(-3px); }
 .deck-arrow.next:hover { transform: translateX(3px); }
+/* Same arrows on standalone pages that continue the deck (Contact) */
+.deck-arrow.page-arrow { position: fixed; }
 
 
 /* Slim footer on the deck page */
@@ -1654,4 +1659,8 @@ main { overflow-x: clip; }
 .lang-toggle button:hover { color: var(--ink); }
 .lang-toggle button.active { background: var(--teal); color: var(--bg); }
 /* Chinese: no faux-italic on CJK text */
-:lang(zh-CN) .accent, :lang(zh-CN) .verse blockquote, :lang(zh-CN) .verse figcaption { font-style: normal; }
+:lang(zh-CN) .accent, :lang(zh-CN) .hero h1 .accent, :lang(zh-CN) .split .accent,
+:lang(zh-CN) .verse blockquote, :lang(zh-CN) .verse figcaption { font-style: normal; }
+/* Longer translated verses wrap instead of running into the footer links */
+.verse { max-width: 560px; }
+.verse blockquote { white-space: normal; text-wrap: balance; }

@@ -5,7 +5,7 @@
 //  show in English (nothing breaks).
 //  Left in English on purpose: place names, company/product/project names, Medium article
 //  titles, tech tags, and abbreviations (WPM, ARCT, RCM, WCA, …).
-//  French follows Quebec typography (no space before ! ?, space before :, « »).
+//  French follows Quebec typography (no space before ! ?, space before :, « »).
 // =============================================================
 
 export const translations = {
@@ -42,6 +42,13 @@ export const translations = {
     "{title} gameplay": "Parties de {title}",
     "{title} gameplay thumbnail": "Aperçu d'une partie de {title}",
     "Records": "Records",
+    "Tracker": "Stats",
+    "Pong?": "Pong?",
+    "Totoro": "Totoro",
+    "Furret": "Fouinar",
+    "Dwebble": "Crabicoque",
+    "Open menu": "Ouvrir le menu",
+    "Close menu": "Fermer le menu",
     "Fun facts": "Anecdotes",
     "Fun fact!": "Le saviez-vous?",
     "Next!": "Suivant!",
@@ -66,7 +73,7 @@ export const translations = {
     "off.": "égarée.",
     "Nothing here.": "Rien à voir ici.",
     "Back home": "Retour à l'accueil",
-    "“Cast all your anxiety on him because he cares for you.”": "« Déchargez-vous sur lui de tous vos soucis, car lui-même prend soin de vous. »",
+    "“Cast all your anxiety on him because he cares for you.”": "« Déchargez-vous sur lui de tous vos soucis, car lui-même prend soin de vous. »",
     "1 Peter 5:7": "1 Pierre 5:7",
     "Play Pong": "Jouer à Pong",
     "Stop Pong": "Arrêter Pong",
@@ -79,8 +86,8 @@ export const translations = {
     "Hi there! I'm": "Salut! Moi, c'est",
     "I was always a **competitive** kid. Piano competitions, math contests, badminton tournaments, even Rubik's cube competitions. I always wanted to be the best.":
       "J'ai toujours été un enfant **compétitif**. Concours de piano, concours de maths, tournois de badminton, et même des compétitions de cube Rubik. Je voulais toujours être le meilleur.",
-    "I don't compete as much anymore, but my competitive spirit lives on. Now, I'm a **hobbyist** who loves picking up new things and **grinding** until I'm good at them.":
-      "Je fais moins de compétitions aujourd'hui, mais l'esprit de compétition est toujours là. Maintenant, je suis un **touche-à-tout** qui adore apprendre de nouvelles choses et **s'acharner** jusqu'à les maîtriser.",
+    "I don't compete as much anymore, but my competitive spirit lives on. I'm a **hobbyist** at heart who loves picking up new things and **grinding** until I'm good at them.":
+      "Je fais moins de compétitions aujourd'hui, mais l'esprit de compétition est toujours là. Au fond, je suis un **touche-à-tout** qui adore apprendre de nouvelles choses et **s'acharner** jusqu'à les maîtriser.",
     "Today, I'm a **software engineer** who brings that same grind to my job.":
       "Aujourd'hui, je suis **ingénieur logiciel** et j'apporte la même persévérance à mon travail.",
     "Child": "Enfant",
@@ -99,7 +106,7 @@ export const translations = {
     "Built internal tools and data workflows that improved quality across Federato's insurtech platform.":
       "Conçu des outils internes et des flux de données qui ont amélioré la qualité de la plateforme insurtech de Federato.",
     "Shipped Quick Buy, a one-click checkout (think Amazon's \"Buy Now\") worth ~$748K in annual revenue.":
-      "Livré Quick Buy, un paiement en un clic (pensez au « Acheter maintenant » d'Amazon) représentant environ 748 k$ de revenus annuels.",
+      "Livré Quick Buy, un paiement en un clic (pensez au « Acheter maintenant » d'Amazon) représentant environ 748 k$ de revenus annuels.",
     "Built iOS and Android sample apps that showcased the core product to clients.":
       "Développé des applications de démonstration iOS et Android pour présenter le produit principal aux clients.",
     "Led development of our flagship patient portal website.":
@@ -291,6 +298,14 @@ export const translations = {
     "{title} gameplay": "{title} 游戏实况",
     "{title} gameplay thumbnail": "{title} 游戏实况缩略图",
     "Records": "记录",
+    "Tracker": "战绩",
+    "Pong?": "来打乒乓？",
+    "Totoro": "龙猫",
+    "Furret": "大尾立",
+    "Dwebble": "石居蟹",
+    "Cycle": "循环",
+    "Open menu": "打开菜单",
+    "Close menu": "关闭菜单",
     "Fun facts": "冷知识",
     "Fun fact!": "冷知识！",
     "Next!": "下一个！",
@@ -330,8 +345,8 @@ export const translations = {
     "Hi there! I'm": "你好！我是",
     "I was always a **competitive** kid. Piano competitions, math contests, badminton tournaments, even Rubik's cube competitions. I always wanted to be the best.":
       "我从小就很**好胜**。钢琴比赛、数学竞赛、羽毛球比赛，甚至魔方比赛，我总想做到最好。",
-    "I don't compete as much anymore, but my competitive spirit lives on. Now, I'm a **hobbyist** who loves picking up new things and **grinding** until I'm good at them.":
-      "现在我不常参加比赛了，但好胜心一直都在。如今的我是个**爱好广泛**的人，喜欢尝试新事物，并且**反复苦练**直到精通。",
+    "I don't compete as much anymore, but my competitive spirit lives on. I'm a **hobbyist** at heart who loves picking up new things and **grinding** until I'm good at them.":
+      "现在我不常参加比赛了，但好胜心一直都在。骨子里我是个**爱好广泛**的人，喜欢尝试新事物，并且**反复苦练**直到精通。",
     "Today, I'm a **software engineer** who brings that same grind to my job.":
       "如今，我是一名**软件工程师**，把同样的钻劲带到工作中。",
     "Child": "儿时",
