@@ -1115,6 +1115,8 @@ main { overflow-x: clip; }
 .fun-fact-link:hover svg { transform: translate(2px, -2px); }
 .fun-fact-next {
   flex: none;
+  align-self: flex-start; /* fixed at the top, level with the icon */
+  margin-top: 4px; /* ~31px pill centered on the 40px icon */
   appearance: none;
   display: inline-flex;
   align-items: center;
