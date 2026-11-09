@@ -13,6 +13,7 @@ export const profile = {
   firstName: "Enoch",
   headline: "Hi there! I'm",
   headlineAccent: "Enoch Wei.",
+  pronunciation: "(\"ee-knock\")", // small note beside the name; hidden in Chinese
   bio: [
     "I was always a **competitive** kid. Piano competitions, math contests, badminton tournaments, even Rubik's cube competitions. I always wanted to be the best.",
     "I don't compete as much anymore, but my competitive spirit lives on. I'm a **hobbyist** at heart who loves picking up new things and **grinding** until I'm good at them.",

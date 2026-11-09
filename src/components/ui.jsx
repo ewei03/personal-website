@@ -23,7 +23,21 @@ export function Photo({ src, alt = "", label, className = "", style, fit, positi
 }
 
 /** Headline whose words rise in one after another. The accent phrase gets the gradient. */
-export function SplitText({ as: Tag = "h1", text, accent, style }) {
+/** Puts a small note (e.g. a pronunciation) centred under the accent's first word. */
+function AccentWithNote({ accent, note }) {
+  const [first, ...rest] = accent.split(" ");
+  return (
+    <>
+      <span className="split-noted">
+        {first}
+        <span className="split-note">{note}</span>
+      </span>
+      {rest.length > 0 && " " + rest.join(" ")}
+    </>
+  );
+}
+
+export function SplitText({ as: Tag = "h1", text, accent, note, style }) {
   let i = 0;
   const delay = () => ({ animationDelay: `${120 + i++ * 70}ms` });
   const words = text.split(/\s+/).filter(Boolean);
@@ -36,7 +50,7 @@ export function SplitText({ as: Tag = "h1", text, accent, style }) {
       ))}
       {accent && (
         <span className="accent word" style={{ animationDelay: `${120 + i++ * 70}ms, 1s` }}>
-          {accent}
+          {note ? <AccentWithNote accent={accent} note={note} /> : accent}
         </span>
       )}
     </Tag>

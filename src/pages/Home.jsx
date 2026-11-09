@@ -26,12 +26,14 @@ function SectionHead({ title, intro, children }) {
 }
 
 function Hero() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <section className="hero">
       <div className="container hero-grid">
         <div>
-          <SplitText text={t(profile.headline)} accent={t(profile.headlineAccent)} />
+          <SplitText text={t(profile.headline)} accent={t(profile.headlineAccent)}
+            note={lang === "zh" ? null : profile.pronunciation}
+          />
           {profile.bio?.length > 0 && (
             <div className="bio fade-up" style={{ animationDelay: "800ms" }}>
               {profile.bio.map((para, i) => <p key={i}>{emphasize(t(para))}</p>)}
