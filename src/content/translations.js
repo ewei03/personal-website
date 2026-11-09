@@ -149,8 +149,8 @@ export const translations = {
       "J'ai l'**oreille absolue**! On me teste souvent là-dessus…",
     "I can recite pi to **101 decimal places** from memory!":
       "Je peux réciter pi jusqu'à la **101e décimale** de mémoire!",
-    "I can name **every country in the world** on Sporcle, and at one point I knew all of their flags too.":
-      "Je peux nommer **tous les pays du monde** sur Sporcle, et à une époque, je connaissais aussi tous leurs drapeaux.",
+    "I can name **every country in the world** on Sporcle, including their flags and their capitals.":
+      "Je peux nommer **tous les pays du monde** sur Sporcle, ainsi que leurs drapeaux et leurs capitales.",
     "At 12, I played **first violin** in the OCMS Youth Symphony Orchestra.":
       "À 12 ans, je jouais **premier violon** dans l'orchestre symphonique des jeunes de l'OCMS.",
     "I love shooter games, especially **VALORANT**. I even flew to Paris to watch a professional tournament live!":
@@ -413,8 +413,8 @@ export const translations = {
       "我有**绝对音感**！经常被人拿来测试……",
     "I can recite pi to **101 decimal places** from memory!":
       "我能凭记忆背出圆周率小数点后 **101 位**！",
-    "I can name **every country in the world** on Sporcle, and at one point I knew all of their flags too.":
-      "我能在 Sporcle 上说出**世界上所有国家**，曾经还认得出它们所有的国旗。",
+    "I can name **every country in the world** on Sporcle, including their flags and their capitals.":
+      "我能在 Sporcle 上说出**世界上所有国家**，包括它们的国旗和首都。",
     "At 12, I played **first violin** in the OCMS Youth Symphony Orchestra.":
       "12 岁时，我在 OCMS 青少年交响乐团担任**第一小提琴**。",
     "I love shooter games, especially **VALORANT**. I even flew to Paris to watch a professional tournament live!":
