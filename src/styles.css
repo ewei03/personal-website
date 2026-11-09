@@ -1074,6 +1074,7 @@ main { overflow-x: clip; }
 }
 .fun-fact-icon {
   flex: none;
+  align-self: flex-start; /* pinned beside the "Fun fact!" label, doesn't drift when the fact wraps */
   width: 40px;
   height: 40px;
   border-radius: 7px;

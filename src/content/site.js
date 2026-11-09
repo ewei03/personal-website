@@ -213,9 +213,9 @@ export const hobbies = [
       {
         group: "Achievements",
         items: [
-          { title: "#844 global rank (Top 30 in Canada), osu!mania" },
-          { title: "#7,349 global rank, osu!" },
-          { title: "1st place, Tournamint #4", text: "Part of the winning team, with a profile badge to show for it." },
+          { title: "#844 peak global rank (Top 30 in Canada), osu!mania" },
+          { title: "#7,349 peak global rank, osu!" },
+          { title: "1st place, Tournamint #4", text: "Part of the winning team, with a profile badge to show for it!" },
         ],
       },
     ],
