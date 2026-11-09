@@ -35,11 +35,6 @@ export default function HobbyModal({ hobby, onClose, artist, alt = false }) {
           </header>
 
           <div className="hobby-dialog-body">
-            {hobby.bioTitle && <h3 className="hobby-dialog-subhead first">{t(hobby.bioTitle)}</h3>}
-            {[].concat(hobby.bio || hobby.text || []).map((para, i) => (
-              <p className="hobby-dialog-intro" key={i}>{emphasize(t(para))}</p>
-            ))}
-
             {hobby.video && (hobby.video.playlist || hobby.video.id) && (
               <div className="hobby-video">
                 <iframe
@@ -55,6 +50,11 @@ export default function HobbyModal({ hobby, onClose, artist, alt = false }) {
                 />
               </div>
             )}
+
+            {hobby.bioTitle && <h3 className="hobby-dialog-subhead first">{t(hobby.bioTitle)}</h3>}
+            {[].concat(hobby.bio || hobby.text || []).map((para, i) => (
+              <p className="hobby-dialog-intro" key={i}>{emphasize(t(para))}</p>
+            ))}
 
             {hobby.details?.length > 0 && hobby.detailsTitle && (
               <h3 className="hobby-dialog-subhead">{t(hobby.detailsTitle)}</h3>

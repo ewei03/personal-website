@@ -171,7 +171,7 @@ export const hobbies = [
     // image: "/images/hobby-music.jpg", // uncomment once you add the photo
     // shown in the popup instead of `text`
     bio: "Music is a very formative part of my life. I've competed in provincial-level competitions, accompanied soloists for recitals, and led church worship. My next goal is to get into **production**!",
-    text: "I learned **piano** when I was five and **violin** when I was seven. I love music and I'm hoping to get into production! Click to read up on my music background.",
+    text: "I learned **piano** when I was five and **violin** when I was seven. I'm a huge music guy! Click to explore my music background.",
     stats: [
       { value: "ARCT", label: "Diploma in Piano" },
       { value: "Level 9", label: "RCM Violin" },
@@ -235,7 +235,7 @@ export const hobbies = [
       "In 2014, I was bored and randomly decided to pick up a **Rubik's Cube**. Using a YouTube tutorial, I learned to solve it - and the rest is history!",
       "I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.",
     ],
-    text: "My favourite hobbies involve beating the clock! It started when I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats!",
+    text: "It all started when I picked up my first **Rubik's Cube** back in 2014. Click to see some cool stats!",
     stats: [
       { value: "5.750s", label: "3x3 Rubik's cube"},
       { value: "9.966s", label: "Cycle (speed stacking)" },
@@ -287,7 +287,7 @@ export const hobbies = [
     icon: "question", // corner clip art: piano | violin | rhythm | cube | question
     // image: "/images/hobby-life.jpg", // uncomment once you add the photo
     bio: ["Here's just a few more of the many things I partake in:"], // shown in the popup instead of `text`
-    text: "Some miscellaneous hobbies of mine that didn't fit in the other categories, from **cooking** to **weightlifting** - click to find out more!",
+    text: "Some miscellaneous hobbies of mine that didn't fit in the other categories. Click to find out more!",
     tags: ["click", "me", "to", "find", "out!"],
     details: [
       { group: "Cooking", items: [

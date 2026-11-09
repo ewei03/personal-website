@@ -926,6 +926,9 @@ main { overflow-x: clip; }
 .hobby-dialog-note strong { color: var(--teal); font-weight: 600; }
 .hobby-dialog-subhead { font-size: 1.02rem; margin: 22px 0 8px; }
 .hobby-dialog-subhead.first { margin-top: 0; }
+/* Video leads the popup; the bio follows it */
+.hobby-dialog-body > .hobby-video:first-child { margin-top: 0; }
+.hobby-video + .hobby-dialog-subhead.first, .hobby-video + .hobby-dialog-intro { margin-top: 18px; }
 .hobby-details.titled { margin-top: 0; }
 .hobby-detail-group + .hobby-detail-group { margin-top: 14px; }
 .hobby-group-title {

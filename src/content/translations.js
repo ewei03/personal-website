@@ -166,8 +166,8 @@ export const translations = {
     "Music": "Musique",
     "Music is a very formative part of my life. I've competed in provincial-level competitions, accompanied soloists for recitals, and led church worship. My next goal is to get into **production**!":
       "La musique a profondément façonné ma vie. J'ai participé à des compétitions de niveau provincial, accompagné des solistes lors de récitals et dirigé la louange à l'église. Mon prochain objectif : me lancer dans la **production**!",
-    "I learned **piano** when I was five and **violin** when I was seven. I love music and I'm hoping to get into production! Click to read up on my music background.":
-      "J'ai appris le **piano** à cinq ans et le **violon** à sept ans. J'adore la musique et j'aimerais me lancer dans la production! Cliquez pour en savoir plus sur mon parcours musical.",
+    "I learned **piano** when I was five and **violin** when I was seven. I'm a huge music guy! Click to explore my music background.":
+      "J'ai appris le **piano** à cinq ans et le **violon** à sept ans. Je suis un grand passionné de musique! Cliquez pour explorer mon parcours musical.",
     "Diploma in Piano": "Diplôme en piano",
     "Level 9": "Niveau 9",
     "RCM Violin": "Violon RCM",
@@ -210,8 +210,8 @@ export const translations = {
       "En 2014, par ennui, j'ai décidé sur un coup de tête d'essayer le **cube Rubik**. Grâce à un tutoriel YouTube, j'ai appris à le résoudre, et la suite appartient à l'histoire!",
     "I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.":
       "J'adore les passe-temps où la vitesse compte, comme les **jeux de dactylographie** et, plus récemment, le **sport stacking**.",
-    "My favourite hobbies involve beating the clock! It started when I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats!":
-      "Mes passe-temps préférés consistent à battre la montre! Tout a commencé en 2014, quand j'ai pris un **cube Rubik** pour la première fois et que j'ai tout de suite accroché. Cliquez pour voir quelques statistiques!",
+    "It all started when I picked up my first **Rubik's Cube** back in 2014. Click to see some cool stats!":
+      "Tout a commencé en 2014, quand j'ai pris mon premier **cube Rubik**. Cliquez pour voir quelques statistiques!",
     "Check out my works!": "Découvrez mes œuvres!",
     "Cycle": "Cycle",
     "3x3 Rubik's cube": "Cube Rubik 3x3",
@@ -241,8 +241,8 @@ export const translations = {
     // ---------- Hobbies: Away from the screen ----------
     "Away from the screen": "Loin de l'écran",
     "Here's just a few more of the many things I partake in:": "Voici quelques-unes des nombreuses autres activités auxquelles je m'adonne :",
-    "Some miscellaneous hobbies of mine that didn't fit in the other categories, from **cooking** to **weightlifting** - click to find out more!":
-      "Quelques passe-temps divers qui ne cadraient pas dans les autres catégories, de la **cuisine** à la **musculation**; cliquez pour en savoir plus!",
+    "Some miscellaneous hobbies of mine that didn't fit in the other categories. Click to find out more!":
+      "Quelques passe-temps divers qui ne cadraient pas dans les autres catégories. Cliquez pour en savoir plus!",
     "click": "clique",
     "me": "ici",
     "to": "pour",
@@ -430,8 +430,8 @@ export const translations = {
     "Music": "音乐",
     "Music is a very formative part of my life. I've competed in provincial-level competitions, accompanied soloists for recitals, and led church worship. My next goal is to get into **production**!":
       "音乐深深塑造了我的人生。我参加过省级比赛，为独奏者的演奏会伴奏，也带领过教会敬拜。我的下一个目标是学习音乐**制作**！",
-    "I learned **piano** when I was five and **violin** when I was seven. I love music and I'm hoping to get into production! Click to read up on my music background.":
-      "我五岁学**钢琴**，七岁学**小提琴**。我热爱音乐，希望将来能做音乐制作！点击了解我的音乐经历。",
+    "I learned **piano** when I was five and **violin** when I was seven. I'm a huge music guy! Click to explore my music background.":
+      "我五岁学**钢琴**，七岁学**小提琴**。我是个超级音乐迷！点击探索我的音乐经历。",
     "Diploma in Piano": "钢琴文凭",
     "Level 9": "9 级",
     "RCM Violin": "RCM 小提琴",
@@ -474,8 +474,8 @@ export const translations = {
       "2014 年，我因为无聊心血来潮拿起了**魔方**。跟着 YouTube 教程学会了还原，从此一发不可收拾！",
     "I love speedy hobbies in general, which also includes **typing games**, and most recently **cup stacking**.":
       "我喜欢各种比拼速度的爱好，包括**打字游戏**，以及最近迷上的**竞技叠杯**。",
-    "My favourite hobbies involve beating the clock! It started when I picked up a **Rubik's Cube** for the first time in 2014 and I was immediately hooked. Click to see some cool stats!":
-      "我最爱的爱好都是和时间赛跑！一切始于 2014 年，我第一次拿起**魔方**就迷上了。点击查看一些有趣的数据！",
+    "It all started when I picked up my first **Rubik's Cube** back in 2014. Click to see some cool stats!":
+      "一切始于 2014 年，我拿起了人生中第一个**魔方**。点击查看一些有趣的数据！",
     "Check out my works!": "来看看我的作品吧！",
     "3x3 Rubik's cube": "3x3 魔方",
     "Cycle (speed stacking)": "Cycle（竞技叠杯）",
@@ -504,8 +504,8 @@ export const translations = {
     // ---------- Hobbies: Away from the screen ----------
     "Away from the screen": "屏幕之外",
     "Here's just a few more of the many things I partake in:": "以下是我参与的众多活动中的一小部分：",
-    "Some miscellaneous hobbies of mine that didn't fit in the other categories, from **cooking** to **weightlifting** - click to find out more!":
-      "一些不属于其他类别的爱好，从**烹饪**到**举铁**，点击了解更多！",
+    "Some miscellaneous hobbies of mine that didn't fit in the other categories. Click to find out more!":
+      "一些不属于其他类别的爱好。点击了解更多！",
     "click": "点",
     "me": "我",
     "to": "看",
