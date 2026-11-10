@@ -262,7 +262,6 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 .hue-slider:hover::-webkit-slider-thumb { transform: scale(1.15); }
-@media (max-width: 720px) { .hue-slider { width: 72px; } }
 
 .nav-actions { display: flex; align-items: center; gap: 8px; }
 .menu-toggle { display: none; }
@@ -284,7 +283,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .nav-open .menu-toggle span::before { transform: translateY(5px) rotate(45deg); }
 .nav-open .menu-toggle span::after { transform: translateY(-5px) rotate(-45deg); }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .menu-toggle { display: grid; }
   .nav-links {
     position: absolute;
@@ -304,7 +303,33 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   .nav-open .nav-links { opacity: 1; transform: none; pointer-events: auto; }
   .nav-links a { padding: 12px; }
   .nav-links a::after { left: 12px; right: auto; width: 24px; bottom: 6px; }
+  /* Colour slider moves from the bar into the menu */
+  .hue-slider--bar { display: none; }
+  .nav-pref {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 6px;
+    padding: 14px 12px 4px;
+    border-top: 1px solid var(--line);
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .nav-pref .hue-slider { width: 140px; height: 8px; }
 }
+.nav-pref { display: none; }
+@media (max-width: 900px) { .nav-pref { display: flex; } }
+
+/* Very narrow phones: tighten the header bar */
+@media (max-width: 380px) {
+  .nav { gap: 10px; }
+  .brand { font-size: 1.2rem; gap: 6px; }
+  .brand-sig { width: 38px; height: 30px; }
+  .lang-toggle button { padding: 4px 6px; }
+}
+@media (max-width: 340px) { .brand-sig { display: none; } }
+.brand, .lang-toggle button { white-space: nowrap; }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -1160,8 +1185,9 @@ main { overflow-x: clip; }
 .fun-fact-next:hover { border-color: var(--amber); color: var(--amber); }
 .fun-fact-next:hover svg { transform: translateX(3px); }
 @media (max-width: 600px) {
-  .fun-fact { flex-wrap: wrap; }
-  .fun-fact-next { margin-left: 56px; }
+  .fun-fact { flex-wrap: wrap; row-gap: 10px; padding: 14px 16px; }
+  .fun-fact-body { flex-basis: calc(100% - 56px); } /* "Next" button wraps below the fact */
+  .fun-fact-next { margin-left: 56px; margin-top: 0; }
 }
 
 /* Full-width hobby card with an art gallery (text left, pieces right) */
@@ -1360,6 +1386,7 @@ main { overflow-x: clip; }
   inset: 0;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr); /* never wider than the window */
   overflow: hidden;
 }
 .deck-mode main { position: relative; min-height: 0; }
@@ -1382,7 +1409,7 @@ main { overflow-x: clip; }
 .slide-inner { margin: auto 0; width: 100%; }
 .slide .section { padding: clamp(24px, 4vw, 40px) 0; }
 .slide .section-alt { background: transparent; }
-.slide .hero { padding: clamp(24px, 5vw, 48px) 0; }
+.slide .hero, .slide .page-hero { padding: clamp(24px, 5vw, 48px) 0; }
 
 .deck-arrow {
   position: absolute;
@@ -1408,8 +1435,6 @@ main { overflow-x: clip; }
 .deck-arrow:hover { border-color: var(--amber); color: var(--amber); box-shadow: var(--shadow-lift); }
 .deck-arrow.prev:hover { transform: translateX(-3px); }
 .deck-arrow.next:hover { transform: translateX(3px); }
-/* Same arrows on standalone pages that continue the deck (Contact) */
-.deck-arrow.page-arrow { position: fixed; }
 
 
 /* Slim footer on the deck page */
@@ -1420,6 +1445,13 @@ main { overflow-x: clip; }
   .deck-arrow svg { width: 18px; height: 18px; }
   .deck-arrow.prev { left: 8px; }
   .deck-arrow.next { right: 8px; }
+}
+/* Phones: arrows drop to the bottom corners instead of covering the content mid-screen */
+@media (max-width: 600px) {
+  .deck-arrow { top: auto; bottom: 12px; margin-top: 0; }
+  .deck-arrow.prev { left: 12px; }
+  .deck-arrow.next { right: 12px; }
+  .slide { padding-bottom: 64px; } /* room to scroll past the arrows */
 }
 
 /* ---------- Pong easter egg ---------- */
@@ -1608,6 +1640,11 @@ main { overflow-x: clip; }
 
 /* While the other easter-egg game is running, this one's icon fades out and can't be used */
 .pong-racket.blocked, .dash-icon.blocked { pointer-events: none; }
+
+/* No easter eggs on mobile / narrow windows (also covers a desktop window resized down) */
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  .pong-racket, .dash-icon { display: none; }
+}
 .pong-racket.blocked .pong-racket-art,
 .pong-racket.blocked .pong-morph-ball,
 .dash-icon.blocked .dash-icon-square { opacity: 0; }
@@ -1655,6 +1692,35 @@ main { overflow-x: clip; }
   .footer-meta,   .verse { order: -1; flex-wrap: wrap; }
   .verse blockquote { white-space: normal; }
 }
+/* Phones: one compact footer on every page. The verse runs as a single centred paragraph with
+   the reference flowing after it (never orphaned on its own line); © and links share a row below. */
+@media (max-width: 600px) {
+  .site-footer, .deck-mode .site-footer { padding: 12px 0 14px; font-size: 0.78rem; }
+  .footer-inner {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    justify-items: stretch;
+    gap: 8px 16px;
+    text-align: left;
+  }
+  .verse {
+    grid-column: 1 / -1;
+    display: block;
+    text-align: center;
+    text-wrap: balance;
+    line-height: 1.45;
+  }
+  .verse blockquote, .verse figcaption { display: inline; font-size: 0.78rem; }
+  .verse figcaption { color: var(--muted); white-space: nowrap; margin-left: 4px; }
+  .verse figcaption::before { content: "— "; }
+  .footer-meta { order: 0; justify-self: start; }
+  .footer-links { justify-self: end; gap: 14px; }
+  .footer-meta, .footer-links a { white-space: nowrap; }
+}
+@media (max-width: 360px) {
+  .footer-inner { column-gap: 10px; }
+  .footer-links { gap: 10px; }
+}
 
 /* ---------- Scroll reveal ---------- */
 .reveal {
@@ -1687,7 +1753,16 @@ main { overflow-x: clip; }
   .project-grid { grid-template-columns: 1fr; }
   .card:not(.project):not(.hobby) { padding: 18px; }
   .job { padding-left: 36px; }
-
+  /* Smaller portrait so the intro shows above the fold */
+  .hero-grid { gap: 28px; }
+  .hero-grid .portrait-wrap { max-width: 210px; }
+  .portrait-dots { margin-top: 18px; }
+  .link-card { gap: 14px; }
+  .link-card .icon { width: 44px; height: 44px; }
+  .link-card > :not(.icon):not(.go) { min-width: 0; overflow-wrap: anywhere; }
+  .art-gallery { gap: 8px; padding: 14px 14px 0; }
+  .hobby-dialog-head { padding: 14px 12px 10px 18px; }
+  .hobby-dialog-body { padding: 16px 18px 20px; }
 }
 
 /* ---------- Reduced motion ---------- */

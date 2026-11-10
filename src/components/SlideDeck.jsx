@@ -41,41 +41,6 @@ function useArrowNav(onPrev, onNext) {
   return { onTouchStart, onTouchEnd };
 }
 
-/**
- * Side arrows for a standalone page that continues the home deck (e.g. Contact).
- * prev / next are { label, to } links; arrow keys and swipes follow them too.
- */
-export function PageArrows({ prev, next }) {
-  const { t } = useI18n();
-  const navigate = useNavigate();
-  const { onTouchStart, onTouchEnd } = useArrowNav(
-    prev && (() => navigate(prev.to)),
-    next && (() => navigate(next.to))
-  );
-  useEffect(() => {
-    document.addEventListener("touchstart", onTouchStart, { passive: true });
-    document.addEventListener("touchend", onTouchEnd);
-    return () => {
-      document.removeEventListener("touchstart", onTouchStart);
-      document.removeEventListener("touchend", onTouchEnd);
-    };
-  });
-  return (
-    <>
-      {prev && (
-        <Link className="deck-arrow page-arrow prev" to={prev.to} aria-label={t("Previous: {label}", { label: prev.label })}>
-          <Chevron dir="left" />
-        </Link>
-      )}
-      {next && (
-        <Link className="deck-arrow page-arrow next" to={next.to} aria-label={next.label}>
-          <Chevron dir="right" />
-        </Link>
-      )}
-    </>
-  );
-}
-
 /** Restart a slide's CSS entrance animations and scroll reveals, as if it had just been loaded. */
 function replayEntrance(el) {
   el.getAnimations?.({ subtree: true }).forEach((a) => {
@@ -99,7 +64,7 @@ function replayEntrance(el) {
 }
 
 /** Slide ids (after the intro) that get their own path, e.g. /experience. */
-export const DECK_SECTIONS = ["experience", "projects", "hobbies"];
+export const DECK_SECTIONS = ["experience", "projects", "hobbies", "contact"];
 export const isDeckPath = (pathname) => pathname === "/" || DECK_SECTIONS.includes(pathname.slice(1));
 
 /**

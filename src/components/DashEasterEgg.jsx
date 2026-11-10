@@ -51,7 +51,7 @@ export default function DashEasterEgg() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
+    const fine = window.matchMedia("(pointer: fine) and (hover: hover) and (min-width: 901px)").matches; // desktop only, never on mobile
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     setEnabled(fine && !calm);
   }, []);

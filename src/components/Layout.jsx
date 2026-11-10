@@ -10,27 +10,31 @@ const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)")
 
 const HUE_MIN = 150, HUE_MAX = 250, HUE_DEFAULT = 176;
 
-/** Slider that tints the whole palette along a cool spectrum; remembered per visitor. */
-function HueSlider() {
-  const { t } = useI18n();
+/** Palette hue, shared by every slider instance; remembered per visitor. */
+function useHue() {
   const [hue, setHue] = useState(() => {
     try { return Number(localStorage.getItem("hue")) || HUE_DEFAULT; } catch (e) { return HUE_DEFAULT; }
   });
-  const onChange = (e) => {
-    const h = Number(e.target.value);
+  const set = (h) => {
     setHue(h);
     document.documentElement.style.setProperty("--hue", h);
     try { localStorage.setItem("hue", String(h)); } catch (err) {}
   };
+  return [hue, set];
+}
+
+/** Slider that tints the whole palette along a cool spectrum. */
+function HueSlider({ hue, onHue, className = "" }) {
+  const { t } = useI18n();
   return (
     <input
       type="range"
-      className="hue-slider"
+      className={`hue-slider ${className}`.trim()}
       min={HUE_MIN}
       max={HUE_MAX}
       value={hue}
-      onChange={onChange}
-      onDoubleClick={() => onChange({ target: { value: HUE_DEFAULT } })}
+      onChange={(e) => onHue(Number(e.target.value))}
+      onDoubleClick={() => onHue(HUE_DEFAULT)}
       aria-label={t("Colour scheme")}
       title={t("Colour scheme (double-click to reset)")}
     />
@@ -63,6 +67,7 @@ function Header() {
   const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [hue, setHue] = useHue();
   const location = useLocation();
 
   useEffect(() => setOpen(false), [location]);
@@ -85,10 +90,15 @@ function Header() {
           <li><Link to={section("projects")} aria-current={isSection("projects") ? "page" : undefined}>{t("Projects")}</Link></li>
           <li><Link to={section("hobbies")} aria-current={isSection("hobbies") ? "page" : undefined}>{t("Hobbies")}</Link></li>
           <li><NavLink to="/contact">{t("Contact")}</NavLink></li>
+          {/* On phones the colour slider lives in the menu, so the header bar fits */}
+          <li className="nav-pref">
+            <span>{t("Colour scheme")}</span>
+            <HueSlider hue={hue} onHue={setHue} />
+          </li>
         </ul>
         <div className="nav-actions">
           <LangToggle />
-          <HueSlider />
+          <HueSlider hue={hue} onHue={setHue} className="hue-slider--bar" />
           <button
             className="menu-toggle"
             type="button"

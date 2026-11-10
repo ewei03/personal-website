@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { profile, links } from "../content/site.js";
+import { links } from "../content/site.js";
 import { SplitText } from "../components/ui.jsx";
-import { PageArrows } from "../components/SlideDeck.jsx";
 import { useI18n } from "../i18n.jsx";
 import { ArrowUpRight, FileText, GitHub, LinkedIn, Mail } from "../components/Icons.jsx";
 
@@ -12,14 +10,11 @@ const cards = [
   { title: "Résumé", sub: "View PDF", href: links.resume, Icon: FileText },
 ];
 
+/** Last slide of the home deck (/contact). */
 export default function Contact() {
-  const { t, lang } = useI18n();
-  useEffect(() => { document.title = t("Contact — {name}", { name: t(profile.name) }); }, [lang]);
-
-
+  const { t } = useI18n();
   return (
     <>
-      <PageArrows prev={{ label: t("Hobbies"), to: "/hobbies" }} />
       <section className="page-hero">
         <div className="container">
           <SplitText text={t("Let's")} accent={t("talk!")} />

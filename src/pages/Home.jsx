@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   profile, experience, education, projects, hobbies, funFacts,
 } from "../content/site.js";
@@ -11,6 +11,7 @@ import PortraitCycle from "../components/PortraitCycle.jsx";
 import HobbyModal from "../components/HobbyModal.jsx";
 import { hobbyIcons } from "../components/HobbyIcons.jsx";
 import SlideDeck from "../components/SlideDeck.jsx";
+import Contact from "./Contact.jsx";
 import { useI18n } from "../i18n.jsx";
 
 function SectionHead({ title, intro, children }) {
@@ -260,7 +261,11 @@ function Hobbies() {
 
 export default function Home() {
   const { t, lang } = useI18n();
-  useEffect(() => { document.title = t("{name} — Software Engineer", { name: t(profile.name) }); }, [lang]);
+  const onContact = useLocation().pathname === "/contact";
+  useEffect(() => {
+    const name = t(profile.name);
+    document.title = onContact ? t("Contact — {name}", { name }) : t("{name} — Software Engineer", { name });
+  }, [lang, onContact]);
   return (
     <SlideDeck
       slides={[
@@ -268,8 +273,8 @@ export default function Home() {
         { id: "experience", label: t("Experience"), content: <Experience /> },
         { id: "projects", label: t("Projects"), content: <Projects /> },
         { id: "hobbies", label: t("Hobbies"), content: <Hobbies /> },
+        { id: "contact", label: t("Contact"), content: <Contact /> },
       ]}
-      end={{ label: t("Contact"), to: "/contact" }}
     />
   );
 }
