@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CancelIcon } from "./Icons.jsx";
 import { useI18n } from "../i18n.jsx";
+import useEggSupport from "./useEggSupport.js";
 
 /*
  * Easter egg: a glowing racket in the top-right corner. Click it (or focus + Enter) and it
@@ -9,7 +10,7 @@ import { useI18n } from "../i18n.jsx";
  * respawns in the middle after a miss. The play area runs between the header and the footer.
  * While playing, a corner control stops the game; once stopped, the racket stays gone until
  * the page is reloaded. The ball speeds up a little on every paddle hit.
- * Mouse/trackpad only, and off for reduced-motion users.
+ * Needs a mouse/trackpad and a wide window; with reduced motion it launches without the flight.
  */
 
 const PADDLE_W = 8;
@@ -40,7 +41,7 @@ function playBounds() {
 
 export default function PongEasterEgg() {
   const { t } = useI18n();
-  const [enabled, setEnabled] = useState(false);
+  const { supported, calm } = useEggSupport();
   const [phase, setPhase] = useState("idle"); // idle | leaving | playing | stopping | stopped
   const [flight, setFlight] = useState(null);
   const [handoff, setHandoff] = useState(false); // icon lingers & fades while the game fades in
@@ -59,14 +60,10 @@ export default function PongEasterEgg() {
   const canvasRef = useRef(null);
   const racketRef = useRef(null);
 
-  useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine) and (hover: hover) and (min-width: 901px)").matches; // desktop only, never on mobile
-    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setEnabled(fine && !calm);
-  }, []);
-
   const launch = () => {
     if (phase !== "idle" || otherActive) return;
+    // reduced motion: skip the flight and just swap the icon for the game
+    if (calm) { setPhase("playing"); return; }
     // fly from the icon's centre to the centre of the play area, where the ball serves from
     // Use the icon's resting position (from its CSS), not its live box, which is offset by the float bob
     const el = racketRef.current;
@@ -273,7 +270,8 @@ export default function PongEasterEgg() {
     };
   }, [active]);
 
-  if (!enabled || phase === "stopped") return null;
+  // hide when unsupported (e.g. window shrunk), but never yank away a game already running
+  if (phase === "stopped" || (!supported && phase === "idle")) return null;
 
   return (
     <>

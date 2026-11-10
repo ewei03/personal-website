@@ -1641,8 +1641,8 @@ main { overflow-x: clip; }
 /* While the other easter-egg game is running, this one's icon fades out and can't be used */
 .pong-racket.blocked, .dash-icon.blocked { pointer-events: none; }
 
-/* No easter eggs on mobile / narrow windows (also covers a desktop window resized down) */
-@media (max-width: 900px), (hover: none), (pointer: coarse) {
+/* No easter eggs on narrow windows or devices with no mouse/trackpad at all (touchscreen laptops still get them) */
+@media (max-width: 900px), not all and (any-pointer: fine), not all and (any-hover: hover) {
   .pong-racket, .dash-icon { display: none; }
 }
 .pong-racket.blocked .pong-racket-art,

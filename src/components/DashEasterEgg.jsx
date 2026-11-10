@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { CancelIcon } from "./Icons.jsx";
 import { useI18n } from "../i18n.jsx";
+import useEggSupport from "./useEggSupport.js";
 
 /*
  * Easter egg #2: a glowing square in the bottom-left corner. Click it (or focus + Enter) and it
  * drops onto the "floor" (the top edge of the footer) and becomes the player in an endless
  * runner: jump over groups of spikes (Space, ↑, or mouse click; hold to keep jumping). It speeds up over time; hitting a spike just respawns you at the start speed.
  * No score. The cancel icon in the bottom-left corner stops it; the square stays gone until reload.
- * Mouse/trackpad only, and off for reduced-motion users.
+ * Needs a mouse/trackpad and a wide window; with reduced motion it launches without the flight.
  */
 
 const SIZE = 26;              // player square (px)
@@ -31,7 +32,7 @@ function floorY() {
 
 export default function DashEasterEgg() {
   const { t } = useI18n();
-  const [enabled, setEnabled] = useState(false);
+  const { supported, calm } = useEggSupport();
   const [phase, setPhase] = useState("idle"); // idle | leaving | playing | stopping | stopped
   const [flight, setFlight] = useState(null);
   const [handoff, setHandoff] = useState(false); // icon lingers & fades while the game fades in
@@ -50,14 +51,10 @@ export default function DashEasterEgg() {
   const iconRef = useRef(null);
   const canvasRef = useRef(null);
 
-  useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine) and (hover: hover) and (min-width: 901px)").matches; // desktop only, never on mobile
-    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setEnabled(fine && !calm);
-  }, []);
-
   const launch = () => {
     if (phase !== "idle" || otherActive) return;
+    // reduced motion: skip the flight and just swap the icon for the game
+    if (calm) { setPhase("playing"); return; }
     // drop from the icon to the player's starting spot on the floor
     // Use the icon's resting position (from its CSS), not its live box, which is offset by the float bob
     const el = iconRef.current;
@@ -251,7 +248,8 @@ export default function DashEasterEgg() {
     };
   }, [active]);
 
-  if (!enabled || phase === "stopped") return null;
+  // hide when unsupported (e.g. window shrunk), but never yank away a game already running
+  if (phase === "stopped" || (!supported && phase === "idle")) return null;
 
   return (
     <>
