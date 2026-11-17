@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   profile, experience, education, projects, hobbies, funFacts,
 } from "../content/site.js";
@@ -260,12 +260,7 @@ function Hobbies() {
 }
 
 export default function Home() {
-  const { t, lang } = useI18n();
-  const onContact = useLocation().pathname === "/contact";
-  useEffect(() => {
-    const name = t(profile.name);
-    document.title = onContact ? t("Contact — {name}", { name }) : t("{name} — Software Engineer", { name });
-  }, [lang, onContact]);
+  const { t } = useI18n();
   return (
     <SlideDeck
       slides={[
