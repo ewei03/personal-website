@@ -321,6 +321,8 @@ export const translations = {
     "{name}, {label} ({caption}). Show next photo.": "{name}，{label}（{caption}）。显示下一张照片。",
     "Previous: {label}": "上一页：{label}",
     "Next: {label}": "下一页：{label}",
+    "{name} — Software Engineer": "{name} — 软件工程师",
+    "Contact — {name}": "联系 — {name}",
     "Let's": "一起",
     "talk!": "聊聊吧！",
     "Wanna say hi, or explore more of me? Find me below:": "想打个招呼，或者更了解我？在下面找到我：",
