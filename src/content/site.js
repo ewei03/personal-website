@@ -120,6 +120,14 @@ export const projects = [
     code: "https://github.com/ewei03/planaway",
   },
   {
+    title: "Scrim",
+    date: "Nov 2026",
+    image: "/projects/scrim.png", // TODO: add screenshot (shows a placeholder until then)
+    text: "Daily puzzle showdowns with your friends! Make a crew, play today's **Wordle**, and a **Chrome extension** submits your result automatically to crown the winner.",
+    tech: ["Next.js", "TypeScript", "Supabase", "Postgres", "Chrome Extension"],
+    code: "https://github.com/ewei03/scrim",
+  },
+  {
     title: "TypeOff (WIP)",
     date: "Oct 2026",
     image: "/projects/typeoff-card.png", // cropped from typeoff.png to the game area
@@ -136,14 +144,6 @@ export const projects = [
     text: "Harold is an anti-procrastination **Discord bot** that nags you until your homework is done.",
     tech: ["Node.js", "discord.js", "MongoDB", "node-cron"],
     code: "https://github.com/ewei03/harold-discord-bot",
-  },
-  {
-    title: "Need 2 Go",
-    date: "Aug 2022",
-    image: "/images/project-need-2-go.png",
-    text: "An **iOS app** for finding, rating and getting directions to the nearest washroom, with filters for what you need.",
-    tech: ["Swift", "Django", "Django REST", "Google Places API"],
-    links: [{ label: "Devpost", url: "https://devpost.com/software/need-2-go" }],
   },
 ];
 
