@@ -114,7 +114,7 @@ export const projects = [
     date: "Featured · Nov 2026",
     featured: true,
     image: "/projects/scrim.png",
-    text: "Daily puzzle showdowns with your friends! Make a crew, play today's **Wordle**, and a **Chrome extension** submits your result automatically to crown the winner.",
+    text: "Daily puzzle showdowns with your friends! Make a crew, play today's **daily puzzles**, and a **Chrome extension** submits your result automatically to crown the winner.",
     tech: ["Next.js", "TypeScript", "Supabase", "Postgres", "Chrome Extension"],
     code: "https://github.com/ewei03/scrim",
   },

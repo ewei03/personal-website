@@ -137,8 +137,8 @@ export const translations = {
       "**Tetr.io** rencontre **TypeRacer**. Un duel 1 contre 1 en temps réel, avec une particularité : plus vous tapez vite, plus votre adversaire doit taper.",
     "Harold is an anti-procrastination **Discord bot** that nags you until your homework is done.":
       "Harold est un **bot Discord** anti-procrastination qui vous talonne jusqu'à ce que vos devoirs soient faits.",
-    "Daily puzzle showdowns with your friends! Make a crew, play today's **Wordle**, and a **Chrome extension** submits your result automatically to crown the winner.":
-      "Des duels de casse-tête quotidiens entre amis! Créez une équipe, jouez au **Wordle** du jour, et une **extension Chrome** soumet votre résultat automatiquement pour couronner le gagnant.",
+    "Daily puzzle showdowns with your friends! Make a crew, play today's **daily puzzles**, and a **Chrome extension** submits your result automatically to crown the winner.":
+      "Des duels de casse-tête quotidiens entre amis! Créez une équipe, jouez aux **casse-tête** du jour, et une **extension Chrome** soumet votre résultat automatiquement pour couronner le gagnant.",
 
     // ---------- Fun facts ----------
     "I can type **200+ WPM**, putting me in the **top 0.07%** on Monkeytype's 15-second leaderboard!":
@@ -401,8 +401,8 @@ export const translations = {
       "**Tetr.io** 遇上 **TypeRacer**。一场实时 1v1 对决，规则很特别：你打得越快，对手要打的字就越多。",
     "Harold is an anti-procrastination **Discord bot** that nags you until your homework is done.":
       "Harold 是一个防拖延的 **Discord 机器人**，会一直催你，直到你写完作业。",
-    "Daily puzzle showdowns with your friends! Make a crew, play today's **Wordle**, and a **Chrome extension** submits your result automatically to crown the winner.":
-      "和朋友一起的每日解谜对决！创建小队，玩当天的 **Wordle**，**Chrome 扩展**会自动提交你的成绩并决出赢家。",
+    "Daily puzzle showdowns with your friends! Make a crew, play today's **daily puzzles**, and a **Chrome extension** submits your result automatically to crown the winner.":
+      "和朋友一起的每日解谜对决！创建小队，玩当天的**每日谜题**，**Chrome 扩展**会自动提交你的成绩并决出赢家。",
 
     // ---------- Fun facts ----------
     "I can type **200+ WPM**, putting me in the **top 0.07%** on Monkeytype's 15-second leaderboard!":
