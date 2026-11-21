@@ -110,22 +110,22 @@ export const education = [
 
 export const projects = [
   {
-    title: "PlanAway",
-    date: "Featured · Oct 2026",
+    title: "Scrim",
+    date: "Featured · Nov 2026",
     featured: true,
+    image: "/projects/scrim.png",
+    text: "Daily puzzle showdowns with your friends! Make a crew, play today's **Wordle**, and a **Chrome extension** submits your result automatically to crown the winner.",
+    tech: ["Next.js", "TypeScript", "Supabase", "Postgres", "Chrome Extension"],
+    code: "https://github.com/ewei03/scrim",
+  },
+  {
+    title: "PlanAway",
+    date: "Oct 2026",
     image: "/projects/planaway.png",
     imagePosition: "center top", // keep the headline in view when cropped
     text: "PlanAway is the future for vacation planning: a **Claude-powered AI agent** that does all your research. Describe your dream trip in your own words, and it builds out a comprehensive, day-by-day itinerary within minutes!",
     tech: ["Next.js", "TypeScript", "Claude API", "Postgres", "MapLibre"],
     code: "https://github.com/ewei03/planaway",
-  },
-  {
-    title: "Scrim",
-    date: "Nov 2026",
-    image: "/projects/scrim.png", // TODO: add screenshot (shows a placeholder until then)
-    text: "Daily puzzle showdowns with your friends! Make a crew, play today's **Wordle**, and a **Chrome extension** submits your result automatically to crown the winner.",
-    tech: ["Next.js", "TypeScript", "Supabase", "Postgres", "Chrome Extension"],
-    code: "https://github.com/ewei03/scrim",
   },
   {
     title: "TypeOff (WIP)",
